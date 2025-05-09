@@ -1,0 +1,30 @@
+{
+    "name": "media-bokja/roster",
+    "description": "회원 명부 플러그인 ",
+    "homepage": "https://github.com/media-bokja/roster",
+    "type": "wordpress-plugin",
+    "license": "GPL-2.0-or-later",
+    "autoload": {
+        "psr-4": {
+            "Bojka\\Roster\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+        }
+    },
+    "authors": [
+        {
+            "name": "changwoo",
+            "email": "ep6tri@hotmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=8.2"
+    },
+    "require-dev": {
+    },
+    "scripts": {
+    },
+    "version": "0.0.0"
+}

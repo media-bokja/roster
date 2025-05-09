@@ -1,0 +1,14 @@
+.DS_Store
+.idea
+.vscode
+
+node_modules
+
+*.bak
+*.log
+*.html
+
+/vendor/*
+!/vendor/bojaghi
+!/vendor/composer
+!/vendor/psr
