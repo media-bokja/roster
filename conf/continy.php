@@ -17,8 +17,10 @@ return [
     ],
     'bindings'  => [
         // Bojaghi side
+        'bojaghi/cleanPages'  => Bojaghi\CleanPages\CleanPages::class,
         'bojaghi/customPosts' => Bojaghi\CustomPosts\CustomPosts::class,
         'bojaghi/template'    => Bojaghi\Template\Template::class,
+        'bojaghi/viteScripts' => Bojaghi\ViteScripts\ViteScript::class,
         // Plugin side
         'bokja/adminEdit'     => Modules\AdminEdit::class,
         'bokja/customFields'  => Modules\CustomFields::class,
@@ -26,14 +28,18 @@ return [
     ],
     'arguments' => [
         // Bojaghi side
+        'bojaghi/cleanPages'  => __DIR__ . '/clean-pages.php',
         'bojaghi/customPosts' => __DIR__ . '/custom-posts.php',
         'bojaghi/template'    => __DIR__ . '/template.php',
+        'bojaghi/viteScripts' => __DIR__ . '/vite-scripts.php',
         // Plugin side
         'bokja/customFields'  => __DIR__ . '/custom-fields.php',
         'bokja/options'       => __DIR__ . '/options.php',
     ],
     'modules'   => [
-        '_'          => [],
+        '_'          => [
+            'bojaghi/cleanPages',
+        ],
         'init'       => [
             Continy::PR_DEFAULT => [
                 // Bojaghi side

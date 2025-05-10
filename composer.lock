@@ -4,8 +4,50 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "c79e5e0a966462b04f03b8927dc2df7f",
+    "content-hash": "af6eb2ac7a8f9e951512039a3d76ddf8",
     "packages": [
+        {
+            "name": "bojaghi/clean-pages",
+            "version": "1.0.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/bojaghi/clean-pages.git",
+                "reference": "1aa3df71f7d1ffeb84a588407eaf2cdbecc01021"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/bojaghi/clean-pages/zipball/1aa3df71f7d1ffeb84a588407eaf2cdbecc01021",
+                "reference": "1aa3df71f7d1ffeb84a588407eaf2cdbecc01021",
+                "shasum": ""
+            },
+            "require": {
+                "bojaghi/contract": "^1.1",
+                "bojaghi/helper": "*",
+                "php": ">=8.0"
+            },
+            "require-dev": {
+                "bojaghi/wp-tests": "^1.1",
+                "phpunit/phpunit": "^9",
+                "yoast/phpunit-polyfills": "^4.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Bojaghi\\CleanPages\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "description": "워드프레스 플러그인에서 테마와 완전히 무관한 빈 페이지를 운영하게 도와줌니다.",
+            "homepage": "https://github.com/bojaghi/clean-pages",
+            "support": {
+                "issues": "https://github.com/bojaghi/clean-pages/issues",
+                "source": "https://github.com/bojaghi/clean-pages/tree/1.0.2"
+            },
+            "time": "2025-05-10T17:27:57+00:00"
+        },
         {
             "name": "bojaghi/continy",
             "version": "1.1.4",
@@ -274,6 +316,46 @@
                 "source": "https://github.com/bojaghi/template/tree/1.0.1"
             },
             "time": "2025-05-10T03:02:45+00:00"
+        },
+        {
+            "name": "bojaghi/vite-scripts",
+            "version": "1.1.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/bojaghi/vite-scripts.git",
+                "reference": "6b41a923f389e2f1df919acbb6b8fc6f78255f9f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/bojaghi/vite-scripts/zipball/6b41a923f389e2f1df919acbb6b8fc6f78255f9f",
+                "reference": "6b41a923f389e2f1df919acbb6b8fc6f78255f9f",
+                "shasum": ""
+            },
+            "require": {
+                "bojaghi/helper": "^1.1",
+                "php": ">=8.0"
+            },
+            "require-dev": {
+                "bojaghi/wp-tests": "^1.0",
+                "phpunit/phpunit": "^9",
+                "yoast/phpunit-polyfills": "^3.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Bojaghi\\ViteScripts\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "homepage": "https://github.com/bojaghi/vite-scripts",
+            "support": {
+                "issues": "https://github.com/bojaghi/vite-scripts/issues",
+                "source": "https://github.com/bojaghi/vite-scripts/tree/1.1.1"
+            },
+            "time": "2025-05-06T21:02:44+00:00"
         },
         {
             "name": "psr/container",

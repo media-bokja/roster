@@ -1,0 +1,11 @@
+{
+  "src/roster.tsx": {
+    "file": "assets/roster-gVIAqcl6.js",
+    "name": "roster",
+    "src": "src/roster.tsx",
+    "isEntry": true,
+    "css": [
+      "assets/roster-CylNvMyH.css"
+    ]
+  }
+}

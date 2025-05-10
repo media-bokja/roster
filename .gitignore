@@ -13,8 +13,6 @@ node_modules
 /tests/wp-test-lib
 
 /vendor/*
-
-# Not yet!
-# !/vendor/bojaghi
-# !/vendor/composer
-# !/vendor/psr
+!/vendor/bojaghi
+!/vendor/composer
+!/vendor/psr

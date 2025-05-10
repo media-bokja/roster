@@ -46,7 +46,9 @@
         "bojaghi/continy": "^1.1",
         "bojaghi/custom-posts": "^1.0",
         "bojaghi/fields": "^1.0",
-        "bojaghi/template": "^1.0"
+        "bojaghi/template": "^1.0",
+        "bojaghi/clean-pages": "^1.0",
+        "bojaghi/vite-scripts": "^1.1"
     },
     "scripts": {
         "imposter": "@php imposter.php",
