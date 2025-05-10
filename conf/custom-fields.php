@@ -1,0 +1,174 @@
+<?php
+
+use function Bokja\Roster\prefixed;
+
+if (!defined('ABSPATH')) {
+    exit;
+}
+
+return [
+    'post' => [
+        prefixed('baptismal_name')            => [
+            'object_subtype'    => ROSTER_CPT_PROFILE,
+            'type'              => 'string',
+            'description'       => '세레명',
+            'single'            => true,
+            'default'           => '',
+            'sanitize_callback' => 'sanitize_text_field',
+            'auth_callback'     => null,
+            'show_in_rest'      => false,
+            'revisions_enabled' => false,
+            'get_filter'        => null,
+        ],
+        prefixed('monastic_name')             => [
+            'object_subtype'    => ROSTER_CPT_PROFILE,
+            'type'              => 'string',
+            'description'       => '수도명',
+            'single'            => true,
+            'default'           => '',
+            'sanitize_callback' => 'sanitize_text_field',
+            'auth_callback'     => null,
+            'show_in_rest'      => false,
+            'revisions_enabled' => false,
+            'get_filter'        => null,
+        ],
+        prefixed('birthday')                  => [
+            'object_subtype'    => ROSTER_CPT_PROFILE,
+            'type'              => 'string',
+            'description'       => '생일',
+            'single'            => true,
+            'default'           => '',
+            'sanitize_callback' => 'sanitize_text_field',
+            'auth_callback'     => null,
+            'show_in_rest'      => false,
+            'revisions_enabled' => false,
+            'get_filter'        => null,
+        ],
+        prefixed('date_of_death')             => [
+            'object_subtype'    => ROSTER_CPT_PROFILE,
+            'type'              => 'string',
+            'description'       => '사망일',
+            'single'            => true,
+            'default'           => '',
+            'sanitize_callback' => 'sanitize_text_field',
+            'auth_callback'     => null,
+            'show_in_rest'      => false,
+            'revisions_enabled' => false,
+            'get_filter'        => null,
+        ],
+        prefixed('entrance_date')             => [
+            'object_subtype'    => ROSTER_CPT_PROFILE,
+            'type'              => 'string',
+            'description'       => '입회일',
+            'single'            => true,
+            'default'           => '',
+            'sanitize_callback' => 'sanitize_text_field',
+            'auth_callback'     => null,
+            'show_in_rest'      => false,
+            'revisions_enabled' => false,
+            'get_filter'        => null,
+        ],
+        prefixed('initial_profession_date')   => [
+            'object_subtype'    => ROSTER_CPT_PROFILE,
+            'type'              => 'string',
+            'description'       => '초(初)서원일, 첫 서원일',
+            'single'            => true,
+            'default'           => '',
+            'sanitize_callback' => 'sanitize_text_field',
+            'auth_callback'     => null,
+            'show_in_rest'      => false,
+            'revisions_enabled' => false,
+            'get_filter'        => null,
+        ],
+        prefixed('perpetual_profession_date') => [
+            'object_subtype'    => ROSTER_CPT_PROFILE,
+            'type'              => 'string',
+            'description'       => '종신서원일',
+            'single'            => true,
+            'default'           => '',
+            'sanitize_callback' => 'sanitize_text_field',
+            'auth_callback'     => null,
+            'show_in_rest'      => false,
+            'revisions_enabled' => false,
+            'get_filter'        => null,
+        ],
+        prefixed('ordination_date')           => [
+            'object_subtype'    => ROSTER_CPT_PROFILE,
+            'type'              => 'string',
+            'description'       => '서품일',
+            'single'            => true,
+            'default'           => '',
+            'sanitize_callback' => 'sanitize_text_field',
+            'auth_callback'     => null,
+            'show_in_rest'      => false,
+            'revisions_enabled' => false,
+            'get_filter'        => null,
+        ],
+        prefixed('departure_date')            => [
+            'object_subtype'    => ROSTER_CPT_PROFILE,
+            'type'              => 'string',
+            'description'       => '퇴회일',
+            'single'            => true,
+            'default'           => '',
+            'sanitize_callback' => 'sanitize_text_field',
+            'auth_callback'     => null,
+            'show_in_rest'      => false,
+            'revisions_enabled' => false,
+            'get_filter'        => null,
+        ],
+        prefixed('profile_image')             => [
+            'object_subtype'    => ROSTER_CPT_PROFILE,
+            'type'              => 'array',
+            'description'       => '사진',
+            'single'            => true,
+            'default'           => [],
+            'sanitize_callback' => function ($value) {
+                $sanitized = [];
+
+                $default = [
+                    'filesize'  => 0,
+                    'height'    => 0,
+                    'mime-type' => '',
+                    'path'      => '',
+                    'width'     => 0,
+                ];
+
+                foreach ((array)$value as $key => $val) {
+                    if (in_array($key, ['full', 'thumbnail'])) {
+                        $sanitized[$key] = wp_parse_args($val, $default);
+                    }
+                }
+
+                return $sanitized;
+            },
+            'auth_callback'     => null,
+            'show_in_rest'      => false,
+            'revisions_enabled' => false,
+            'get_filter'        => null,
+        ],
+        prefixed('current_assignment')        => [
+            'object_subtype'    => ROSTER_CPT_PROFILE,
+            'type'              => 'string',
+            'description'       => '현소임지',
+            'single'            => true,
+            'default'           => '',
+            'sanitize_callback' => 'sanitize_text_field',
+            'auth_callback'     => null,
+            'show_in_rest'      => false,
+            'revisions_enabled' => false,
+            'get_filter'        => null,
+        ],
+        prefixed('former_assignments')        => [
+            'object_subtype'    => ROSTER_CPT_PROFILE,
+            'type'              => 'string',
+            'description'       => '전소임지',
+            'single'            => true,
+            'default'           => '',
+            'sanitize_callback' => 'sanitize_textarea_field',
+            'auth_callback'     => null,
+            'show_in_rest'      => false,
+            'revisions_enabled' => false,
+            'get_filter'        => null,
+        ],
+    ],
+];

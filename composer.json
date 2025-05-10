@@ -6,11 +6,16 @@
     "license": "GPL-2.0-or-later",
     "autoload": {
         "psr-4": {
-            "Bojka\\Roster\\": "src/"
-        }
+            "Bojka\\Roster\\": "inc/"
+        },
+        "files": [
+            "inc/facade.php",
+            "inc/functions.php"
+        ]
     },
     "autoload-dev": {
         "psr-4": {
+            "Bojka\\Roster\\Tests\\": "tests/"
         }
     },
     "authors": [
@@ -19,12 +24,69 @@
             "email": "ep6tri@hotmail.com"
         }
     ],
-    "require": {
-        "php": ">=8.2"
+    "extra": {
+        "imposter": {
+            "namespace": "Bokja\\Roster\\Vendor",
+            "excludes": [
+                "bin",
+                "doctrine",
+                "myclabs",
+                "nikic",
+                "phar-io",
+                "phpunit",
+                "sebastian",
+                "theseer",
+                "typisttech",
+                "yoast"
+            ]
+        }
     },
-    "require-dev": {
+    "require": {
+        "php": ">=8.2",
+        "bojaghi/continy": "^1.1",
+        "bojaghi/custom-posts": "^1.0",
+        "bojaghi/fields": "^1.0",
+        "bojaghi/template": "^1.0"
     },
     "scripts": {
+        "imposter": "@php imposter.php",
+        "wp-tests": [
+            "@wp-tests:setenv",
+            "vendor/bin/phpunit"
+        ],
+        "wp-tests:clean": [
+            "@wp-tests:setenv",
+            "rm -rf $WP_CORE_DIR $WP_TESTS_DIR"
+        ],
+        "wp-tests:env": [
+            "@wp-tests:setenv",
+            "vendor/bin/wp-tests -d"
+        ],
+        "wp-tests:setenv": [
+            "@putenv WP_CORE_DIR=./tests/wp-test-core",
+            "@putenv WP_TESTS_DIR=./tests/wp-test-lib",
+            "@putenv WP_TESTS_PHPUNIT_POLYFILLS_PATH=./vendor/yoast/phpunit-polyfills",
+            "@putenv DB_HOST=localhost",
+            "@putenv DB_USER=wordpress_tests",
+            "@putenv DB_PASS=wordpress_tests",
+            "@putenv DB_NAME=wordpress_tests"
+        ],
+        "wp-tests:setup": [
+            "@wp-tests:setenv",
+            "@wp-tests:clean",
+            "bin/install-wp-tests.sh $DB_NAME $DB_USER $DB_PASS $DB_HOST latest"
+        ]
     },
-    "version": "0.0.0"
+    "require-dev": {
+        "typisttech/imposter": "*",
+        "typisttech/imposter-plugin": "*",
+        "bojaghi/wp-tests": "^1.1",
+        "phpunit/phpunit": "^9",
+        "yoast/phpunit-polyfills": "^4.0"
+    },
+    "config": {
+        "allow-plugins": {
+            "typisttech/imposter-plugin": true
+        }
+    }
 }

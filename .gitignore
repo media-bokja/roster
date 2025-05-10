@@ -5,10 +5,16 @@
 node_modules
 
 *.bak
+*.cache
 *.log
 *.html
 
+/tests/wp-test-core
+/tests/wp-test-lib
+
 /vendor/*
-!/vendor/bojaghi
-!/vendor/composer
-!/vendor/psr
+
+# Not yet!
+# !/vendor/bojaghi
+# !/vendor/composer
+# !/vendor/psr
