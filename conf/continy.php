@@ -12,8 +12,9 @@ return [
     'main_file' => ROSTER_MAIN,
     'version'   => ROSTER_VERSION,
     'hooks'     => [
-        'admin_init' => 0,
-        'init'       => 0,
+        'admin_init'    => 0,
+        'init'          => 0,
+        'rest_api_init' => 0,
     ],
     'bindings'  => [
         // Bojaghi side
@@ -25,6 +26,7 @@ return [
         'bokja/adminEdit'     => Modules\AdminEdit::class,
         'bokja/customFields'  => Modules\CustomFields::class,
         'bokja/options'       => Modules\Options::class,
+        'bokja/rosterApi'      => Modules\RosterApi::class,
     ],
     'arguments' => [
         // Bojaghi side
@@ -55,5 +57,10 @@ return [
                 'bokja/adminEdit',
             ],
         ],
+        'rest_api_init' => [
+            Continy::PR_DEFAULT => [
+                'bokja/rosterApi',
+            ]
+        ]
     ]
 ];

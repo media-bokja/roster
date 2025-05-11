@@ -90,7 +90,7 @@ class ImageSupport
                 continue;
             }
 
-            $path = ltrim($uploads['basedir'] . '/' . $path, '/');
+            $path = path_join($uploads['basedir'], $path);
             if (file_exists($path) && is_file($path)) {
                 @unlink($path);
             }

@@ -16,7 +16,10 @@ readonly class FrontPage implements Support
 
     public function before(): void
     {
-        // TODO: authorization
+        if (!is_user_logged_in()) {
+            wp_redirect(wp_login_url(get_the_permalink()));
+            exit;
+        }
 
         add_filter('language_attributes', [$this, 'addExtraAttrsToHTML'], 10, 2);
     }
@@ -44,7 +47,12 @@ readonly class FrontPage implements Support
         $this->vite
             ->add('roster', 'src/roster.tsx')
             ->vars('rosterVars', [
+                'api'      => [
+                    'baseUrl' => rest_url('bokja/v1'),
+                    'nonce'   => wp_create_nonce('wp_rest'),
+                ],
                 'sitemeta' => [
+                    'avatarUrl'  => get_edit_profile_url($user->ID),
                     'homeUrl'    => home_url(),
                     'pageTitle'  => get_the_title(),
                     'siteIcon'   => get_site_icon_url(128),

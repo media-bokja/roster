@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit8f92219cd9e475bc494eeb64d8d1e06d
+class ComposerStaticInitaf6eb2ac7a8f9e951512039a3d76ddf8
 {
     public static $files = array (
         'a1d0faff99be8b8dfbecd731475c4a58' => __DIR__ . '/../..' . '/inc/facade.php',
@@ -79,6 +79,7 @@ class ComposerStaticInit8f92219cd9e475bc494eeb64d8d1e06d
         'Bojka\\Roster\\Modules\\CustomFields' => __DIR__ . '/../..' . '/inc/Modules/CustomFields.php',
         'Bojka\\Roster\\Modules\\Options' => __DIR__ . '/../..' . '/inc/Modules/Options.php',
         'Bojka\\Roster\\Modules\\ProfileImage' => __DIR__ . '/../..' . '/inc/Modules/ProfileImage.php',
+        'Bojka\\Roster\\Modules\\RosterApi' => __DIR__ . '/../..' . '/inc/Modules/RosterApi.php',
         'Bojka\\Roster\\Objects\\Profile' => __DIR__ . '/../..' . '/inc/Objects/Profile.php',
         'Bojka\\Roster\\Supports\\EditForm' => __DIR__ . '/../..' . '/inc/Supports/EditForm.php',
         'Bojka\\Roster\\Supports\\FrontPage' => __DIR__ . '/../..' . '/inc/Supports/FrontPage.php',
@@ -113,9 +114,9 @@ class ComposerStaticInit8f92219cd9e475bc494eeb64d8d1e06d
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit8f92219cd9e475bc494eeb64d8d1e06d::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit8f92219cd9e475bc494eeb64d8d1e06d::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit8f92219cd9e475bc494eeb64d8d1e06d::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInitaf6eb2ac7a8f9e951512039a3d76ddf8::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInitaf6eb2ac7a8f9e951512039a3d76ddf8::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInitaf6eb2ac7a8f9e951512039a3d76ddf8::$classMap;
 
         }, null, ClassLoader::class);
     }

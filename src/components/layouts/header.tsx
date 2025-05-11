@@ -1,8 +1,9 @@
-import useRosterContext from "@/lib/context"
+import useRosterContext from '@/lib/context'
 
 export default function Header() {
     const {
         sitemeta: {
+            avatarUrl,
             homeUrl,
             siteIcon,
             siteTitle,
@@ -25,11 +26,11 @@ export default function Header() {
                     <ul className="menu menu-horizontal px-1 text-xs items-center">
                         <li>
                             <a href={homeUrl} className="">
-                                홈으로
+                                홈으로 이동
                             </a>
                         </li>
                         <li>
-                            <a className="">
+                            <a className="" href={avatarUrl}>
                                 <img src={userAvatar} className="h-4 w-4" alt="사용자 아바타" />
                                 {userName}
                             </a>

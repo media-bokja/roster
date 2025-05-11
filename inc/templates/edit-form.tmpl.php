@@ -36,7 +36,7 @@ $profile = $this->get('profile');
                 <?php $profileImage = $profile->profileImage; ?>
                 <?php if (!empty($profileImage)) : ?>
                     <?php
-                    $url    = wp_get_upload_dir()['baseurl'] . '/' . $profileImage['thumbnail']['path'];
+                    $url    = wp_get_upload_dir()['baseurl'] . '/' . $profileImage['thumbnail']['path'] . '?ver=' . time();
                     $width  = $profileImage['thumbnail']['width'];
                     $height = $profileImage['thumbnail']['height'];
                     $alt    = sprintf(__('%s %s 명부 사진', 'roster'), $profile->name, $profile->baptismalName);
@@ -57,7 +57,7 @@ $profile = $this->get('profile');
                        type="file"
                        value="" />
                 <p class="description">
-                    <?php esc_html_e('파일을 새로 첨부하면 새 이미지로 갱신됩니다.', 'roster'); ?>
+                    <?php esc_html_e('파일을 새로 첨부하고 업데이트 버튼을 눌러야 새 이미지로 갱신됩니다.', 'roster'); ?>
                 </p>
             </div>
         </td>

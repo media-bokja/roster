@@ -1,0 +1,37 @@
+import ItemProfile from '@/components/parts/item-profile'
+import {Profile} from '@/lib/types.ts'
+import {cn} from '@/lib/utils.ts'
+
+type Props = {
+    items: Profile[]
+    onClickItem?: (item: Profile) => void
+}
+
+export default function ItemsGrid(props: Props) {
+    const {
+        items,
+        onClickItem,
+    } = props
+
+    if (0 === items.length) {
+        return (
+            <section className="mt-12">
+                <p className="text-center px-12 py-20 text-xl text-base-content">
+                    명부를 찾을 수 없습니다.
+                </p>
+            </section>
+        )
+    }
+
+    return (
+        <section className={cn(
+            'mt-12',
+            'grid auto-rows-auto gap-x-4 gap-y-6',
+            'grid-cols-2 sm:grid-cols-3 md:grid-cols-4',
+        )}>
+            {items.map((item) => (
+                <ItemProfile key={item.id} item={item} onClickItem={onClickItem} />
+            ))}
+        </section>
+    )
+}

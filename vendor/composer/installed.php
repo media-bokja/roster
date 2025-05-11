@@ -1,9 +1,9 @@
 <?php return array(
     'root' => array(
         'name' => 'media-bokja/roster',
-        'pretty_version' => 'dev-0.2.0-dev',
-        'version' => 'dev-0.2.0-dev',
-        'reference' => 'ee79617512ca6d3ef3768c92bb86da2a4bd71f55',
+        'pretty_version' => 'dev-0.3.0-dev',
+        'version' => 'dev-0.3.0-dev',
+        'reference' => 'da17a8d13528475d3c390014f5019798749af168',
         'type' => 'wordpress-plugin',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -101,9 +101,9 @@
             'dev_requirement' => true,
         ),
         'media-bokja/roster' => array(
-            'pretty_version' => 'dev-0.2.0-dev',
-            'version' => 'dev-0.2.0-dev',
-            'reference' => 'ee79617512ca6d3ef3768c92bb86da2a4bd71f55',
+            'pretty_version' => 'dev-0.3.0-dev',
+            'version' => 'dev-0.3.0-dev',
+            'reference' => 'da17a8d13528475d3c390014f5019798749af168',
             'type' => 'wordpress-plugin',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),

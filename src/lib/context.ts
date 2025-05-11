@@ -3,10 +3,12 @@ import {createContext, useContext} from 'react'
 
 type RosterContextType = {
     sitemeta: SiteMeta
+    showLoading: boolean
 }
 
-const getDefaultContext = () => ({
+const getDefaultContext = (override: Partial<RosterContextType> = {}): RosterContextType => ({
     sitemeta: {
+        avatarUrl: '',
         homeUrl: '',
         pageTitle: '',
         siteIcon: '',
@@ -14,7 +16,10 @@ const getDefaultContext = () => ({
         siteUrl: '',
         userAvatar: '',
         userName: '',
+        ...override.sitemeta,
     },
+    showLoading: false,
+    ...override,
 })
 
 const RosterContext = createContext(getDefaultContext())
@@ -26,6 +31,7 @@ const useRosterContext = () => {
 export default useRosterContext
 
 export {
+    getDefaultContext,
     RosterContext,
 }
 

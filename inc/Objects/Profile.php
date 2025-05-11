@@ -50,6 +50,8 @@ class Profile
     /** @var string 종신서원일 */
     public string $perpetualProfessionDate = '';
 
+    public ?bool $isNew = null;
+
     public static function fromArray(array $data): Profile
     {
         $output = new self();
@@ -71,6 +73,7 @@ class Profile
         $output->monasticName            = $data['monastic_name'] ?? '';
         $output->ordinationDate          = $data['ordination_date'] ?? '';
         $output->perpetualProfessionDate = $data['perpetual_profession_date'] ?? '';
+        $output->isNew                   = $data['isNew'] ?? null;
 
         if ($output->id > 0) {
             $output->profileImage = rosterGet(CustomFields::class)->profileImage->get($output->id);

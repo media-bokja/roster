@@ -1,0 +1,75 @@
+import {cn} from '@/lib/utils.ts'
+import {useEffect, useState} from 'react'
+
+type Props = {
+    onClickSearch?: (search: string) => void
+    maxPage?: number
+    search?: string
+    total?: number
+}
+
+export default function ToolAreaTop(props: Props) {
+    const {
+        onClickSearch,
+        maxPage,
+        total,
+    } = props
+
+    const [searchText, setSearchText] = useState<string>(props.search ?? '')
+    const [showClear, setShowClear] = useState<boolean>(false)
+
+    useEffect(() => {
+        setShowClear(searchText.length > 0)
+    }, [searchText])
+
+    return (
+        <section className={cn(
+            'mt-4',
+            'block',
+            'sm:flex sm:justify-end sm:items-center',
+        )}>
+            <div className="text-sm mt-6 mb-3 ps-1 sm:my-0">
+                전체 <span>{maxPage ?? 0}</span> 페이지, <span>{total ?? 0}</span> 항목
+            </div>
+            <div className="inline-flex sm:ms-4">
+                <div className="">
+                    <label className={cn(
+                        'input max-w-64',
+                        'focus:outline-0 focus:outline-base-300 focus:outline-offset-0',
+                        'focus-within:outline-0 focus-within:outline-base-300 focus-within:outline-offset-0',
+                    )}>
+                        명부 검색
+                        <input
+                            className="grow"
+                            onChange={(e) => setSearchText(e.target.value)}
+                            onKeyUp={(e) => {
+                                if (e.key === 'Enter') {
+                                    onClickSearch?.(searchText)
+                                }
+                            }}
+                            placeholder="검색어, 이름, ..."
+                            type="search"
+                            value={searchText}
+                        />
+                        {showClear && (
+                            <button
+                                className="btn btn-sm btn-circle btn-ghost"
+                                onClick={() => {
+                                    setSearchText('')
+                                }}
+                            >✕
+                            </button>
+                        )}
+                    </label>
+                </div>
+                <button
+                    className="ms-2 btn btn-neutral"
+                    onClick={() => onClickSearch?.(searchText)}
+                    type="button"
+                >
+                    검색
+                </button>
+            </div>
+        </section>
+    )
+}

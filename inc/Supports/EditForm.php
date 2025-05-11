@@ -94,15 +94,15 @@ readonly class EditForm implements Support
 
         $support      = rosterGet(ImageSupport::class);
         $profileImage = rosterGet(CustomFields::class)->profileImage->get($postId);
-        $fileName     = $profileImage['full']['file'] ?? sprintf(
-            '%s-%s.webp',
+        $support->removeImage($profileImage);
+
+        $fileName = sprintf(
+            '%s/%s-%s.webp',
+            $support->getUploadDir(),
             $postId,
             strtolower(wp_generate_password(8, false)),
         );
 
-        return $support->processImage(
-            $file['tmp_name'],
-            $support->getUploadDir() . '/' . $fileName,
-        );
+        return $support->processImage($file['tmp_name'], $fileName);
     }
 }

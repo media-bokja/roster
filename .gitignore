@@ -13,6 +13,7 @@ node_modules
 /tests/wp-test-lib
 
 /vendor/*
+!/vendor/autoload.php
 !/vendor/bojaghi
 !/vendor/composer
 !/vendor/psr
