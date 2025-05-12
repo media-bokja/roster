@@ -18,6 +18,4 @@ class ProfileImage implements Module
     {
         rosterGet(ImageSupport::class)->removeImage($postId);
     }
-
-
 }

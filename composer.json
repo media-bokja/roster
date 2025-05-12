@@ -29,6 +29,7 @@
             "namespace": "Bokja\\Roster\\Vendor",
             "excludes": [
                 "bin",
+                "bojaghi/version-sync",
                 "doctrine",
                 "myclabs",
                 "nikic",
@@ -39,6 +40,9 @@
                 "typisttech",
                 "yoast"
             ]
+        },
+        "version-sync": {
+            "constant": "ROSTER_VERSION"
         }
     },
     "require": {
@@ -77,18 +81,21 @@
             "@wp-tests:setenv",
             "@wp-tests:clean",
             "bin/install-wp-tests.sh $DB_NAME $DB_USER $DB_PASS $DB_HOST latest"
-        ]
+        ],
+        "vsync": "vendor/bin/version-sync"
     },
     "require-dev": {
         "typisttech/imposter": "*",
         "typisttech/imposter-plugin": "*",
         "bojaghi/wp-tests": "^1.1",
         "phpunit/phpunit": "^9",
-        "yoast/phpunit-polyfills": "^4.0"
+        "yoast/phpunit-polyfills": "^4.0",
+        "bojaghi/version-sync": "^1.0"
     },
     "config": {
         "allow-plugins": {
             "typisttech/imposter-plugin": true
         }
-    }
+    },
+    "version": "0.4.0"
 }

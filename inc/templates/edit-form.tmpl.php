@@ -5,54 +5,46 @@ use Bojka\Roster\Objects\Profile;
 
 /**
  * @var Template $this
- * @var Profile  $profile
+ *
+ * Context
+ * profile: Profile
+ * thumbnail: array
  */
 
-$profile = $this->get('profile');
+/** @var Profile $profile */
+$profile   = $this->get('profile');
+$full_iage = $profile->profileImage['full'] ?? [];
+$thumbnail = $profile->profileImage['thumbnail'] ?? [];
+
+$explodedNameDay = explode('-', $profile->nameDay, 2);
+if (2 === count($explodedNameDay)) {
+    $nd_month = $explodedNameDay[0];
+    $nd_day   = $explodedNameDay[1];
+} else {
+    $nd_month = '';
+    $nd_day   = '';
+}
+
 ?>
-
-<table class="form-table" role="presentation">
+<table id="roster-edit-form" class="form-table" role="presentation">
     <tbody>
-    <tr>
-        <th scope="row"><label for="roster-name">이름</label></th>
-        <td>
-            <input id="roster-name"
-                   name="bokja_roster[name]"
-                   type="text"
-                   class="text regular-text"
-                   required="required"
-                   value="<?php
-                   echo esc_attr($profile->name); ?>" />
-
-            <p class="description"><?php
-                esc_html_e('이름은 필수입니다.', 'roster');
-                ?></p>
-        </td>
-    </tr>
     <tr>
         <th scope="row"><label for="roster-profile_image">사진</label></th>
         <td>
             <div class="roster-current-profile_image">
-                <?php $profileImage = $profile->profileImage; ?>
-                <?php if (!empty($profileImage)) : ?>
-                    <?php
-                    $url    = wp_get_upload_dir()['baseurl'] . '/' . $profileImage['thumbnail']['path'] . '?ver=' . time();
-                    $width  = $profileImage['thumbnail']['width'];
-                    $height = $profileImage['thumbnail']['height'];
-                    $alt    = sprintf(__('%s %s 명부 사진', 'roster'), $profile->name, $profile->baptismalName);
-                    ?>
+                <?php if (!empty($thumbnail['path'])) : ?>
                     <img class="profile-image-thumbnail"
-                         src="<?php echo esc_url($url); ?>"
-                         width="<?php echo esc_attr($width); ?>"
-                         height="<?php echo esc_attr($height); ?>"
-                         title="<?php echo esc_attr($alt); ?>"
-                         alt="<?php echo esc_attr($alt); ?>" />
+                         src="<?php echo esc_url($thumbnail['path']); ?>"
+                         width="<?php echo esc_attr($thumbnail['width'] ?? ''); ?>"
+                         height="<?php echo esc_attr($thumbnail['height'] ?? ''); ?>"
+                         alt="<?php echo esc_attr(sprintf('%s의 프로필 이미지 섬네일', $profile->name)); ?>" />
                 <?php else : ?>
                     <?php esc_html_e('사진이 첨부되지 않았습니다.', 'roster'); ?>
                 <?php endif; ?>
             </div>
             <div class="roster-attach-profile_image">
                 <input id="roster-profile_image"
+                       accept="image/jpeg, image/png, image/webp"
                        name="bokja_roster_profile_image"
                        type="file"
                        value="" />
@@ -63,14 +55,71 @@ $profile = $this->get('profile');
         </td>
     </tr>
     <tr>
-        <th scope="row"><label for="roster-baptismal_name">세례명</label></th>
+        <th scope="row"><label for="roster-name">이름</label></th>
         <td>
-            <input id="roster-baptismal_name"
-                   name="bokja_roster[baptismal_name]"
+            <input id="roster-name"
+                   name="bokja_roster[name]"
                    type="text"
                    class="text regular-text"
-                   value="<?php
-                   echo esc_attr($profile->baptismalName); ?>" />
+                   required="required"
+                   value="<?php echo esc_attr($profile->name); ?>" />
+
+            <p class="description"><?php
+                esc_html_e('이름은 필수입니다.', 'roster');
+                ?></p>
+        </td>
+    </tr>
+    <tr>
+        <th scope="row"><label for="roster-nationality">국적</label></th>
+        <td>
+            <input id="roster-nationality"
+                   name="bokja_roster[nationality]"
+                   type="text"
+                   class="text regular-text"
+                   value="<?php echo esc_attr($profile->nationality); ?>" />
+        </td>
+    </tr>
+    <tr>
+        <th scope="row"><label for="roster-baptismal_name">세례명, 축일</label></th>
+        <td>
+            <div class="baptismal-name_day">
+                <input id="roster-baptismal_name"
+                       name="bokja_roster[baptismal_name]"
+                       type="text"
+                       class="text"
+                       value="<?php echo esc_attr($profile->baptismalName); ?>" />
+
+                <div>
+                    <label>축일</label>
+                    <label for="roster_name_day-month">
+                        <input id="roster_name_day-month"
+                               class="text tiny-text"
+                               type="number"
+                               min="0"
+                               max="12"
+                               value="<?php echo esc_attr($nd_month); ?>" />
+                        월
+                    </label>
+                    <label for="roster_name_day-day">
+                        <input id="roster_name_day-day"
+                               class="text tiny-text"
+                               type="number"
+                               min="0"
+                               max="31"
+                               value="<?php echo esc_attr($nd_day); ?>" />
+                        일
+                    </label>
+                    <input id="roster_name_day"
+                           type="hidden"
+                           name="bokja_roster[name_day]"
+                           value="<?php echo esc_attr($profile->nameDay); ?>" />
+                </div>
+            </div>
+            <p class="description field-error-message">
+                <span class="dashicons dashicons-info"></span>
+                축일을 정확히 입력하세요.
+                생략하려면 월/일을 모두 0 또는 공백으로 채우세요.
+            </p>
         </td>
     </tr>
     <tr>
@@ -85,6 +134,17 @@ $profile = $this->get('profile');
         </td>
     </tr>
     <tr>
+        <th scope="row"><label for="roster-current_assignment">현소임지</label></th>
+        <td>
+            <input id="roster-current_assignment"
+                   name="bokja_roster[current_assignment]"
+                   type="text"
+                   class="text regular-text"
+                   value="<?php
+                   echo esc_attr($profile->currentAssignment); ?>" />
+        </td>
+    </tr>
+    <tr>
         <th scope="row"><label for="roster-birthday">생일</label></th>
         <td>
             <input id="roster-birthday"
@@ -96,7 +156,7 @@ $profile = $this->get('profile');
         </td>
     </tr>
     <tr>
-        <th scope="row"><label for="roster-date_of_death">사망일</label></th>
+        <th scope="row"><label for="roster-date_of_death">선종일</label></th>
         <td>
             <input id="roster-date_of_death"
                    name="bokja_roster[date_of_death]"
@@ -118,7 +178,7 @@ $profile = $this->get('profile');
         </td>
     </tr>
     <tr>
-        <th scope="row"><label for="roster-initial_profession_date">첫 서원일</label></th>
+        <th scope="row"><label for="roster-initial_profession_date">첫서원일</label></th>
         <td>
             <input id="roster-initial_profession_date"
                    name="bokja_roster[initial_profession_date]"
@@ -150,43 +210,24 @@ $profile = $this->get('profile');
                    echo esc_attr($profile->ordinationDate); ?>" />
         </td>
     </tr>
-    <tr>
-        <th scope="row"><label for="roster-departure_date">퇴회일</label></th>
-        <td>
-            <input id="roster-departure_date"
-                   name="bokja_roster[departure_date]"
-                   type="date"
-                   class="text date-picker"
-                   value="<?php
-                   echo esc_attr($profile->departureDate); ?>" />
-        </td>
-    </tr>
-    <tr>
-        <th scope="row"><label for="roster-current_assignment">현소임지</label></th>
-        <td>
-            <input id="roster-current_assignment"
-                   name="bokja_roster[current_assignment]"
-                   type="text"
-                   class="text regular-text"
-                   value="<?php
-                   echo esc_attr($profile->currentAssignment); ?>" />
-        </td>
-    </tr>
-    <tr>
-        <th scope="row"><label for="roster-former_assignments">전소임지</label></th>
-        <td>
-            <textarea id="roster-former_assignments"
-                      name="bokja_roster[former_assignments]"
-                      class=""
-                      rows="5"
-                      cols="38"><?php echo esc_textarea($profile->formerAssignments); ?></textarea>
-            <p class="description">
-                <?php esc_html_e('한 줄에 하나씩 입력하세요.', 'roster'); ?></p>
-        </td>
-    </tr>
     </tbody>
 </table>
+
 <input type="hidden"
        name="bokja_roster[id]"
        value="<?php
        echo esc_attr($profile->id); ?>" />
+
+<div class="image-popup hidden">
+    <div class="image-popup-inner">
+        <img class="profile-image-full"
+             src=""
+             data-src="<?php echo esc_url($full_iage['path']); ?>"
+             width="<?php echo esc_attr($full_iage['width'] ?? ''); ?>"
+             height="<?php echo esc_attr($full_iage['height'] ?? ''); ?>"
+             alt="<?php echo esc_attr(sprintf('%s의 프로필 이미지', $profile->name)); ?>" />
+        <?php /* <div class="image-popup-close">
+            <span class="dashicons dashicons-no-alt"></span>
+        </div> */ ?>
+    </div>
+</div>

@@ -1,0 +1,109 @@
+/** 이미지에 커서 */
+.profile-image-thumbnail {
+    cursor: pointer;
+}
+
+/* 세례명 축일 */
+.baptismal-name_day {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+/* 세례명 택스트 상자 다음에 여백 */
+#roster-baptismal_name {
+    width: 10rem;
+    margin-right: 1rem;
+}
+
+/* '축일' 문구 전에 여백 */
+#roster_name_day-month {
+    margin-left: 0.5rem;
+}
+
+#roster_name_day-day {
+    margin-left: 0.5rem;
+}
+
+form {
+    & .field-error-message {
+        display: none;
+    }
+
+    &.was-invalid {
+        & #roster_name_day-month:invalid, #roster_name_day-day:invalid {
+            border: 2px solid #ff4242;
+        }
+
+        & .baptismal-name_day label {
+            color: #ff4242;
+        }
+
+        & .field-error-message {
+            color: #ff4242;
+            display: block;
+            font-size: 0.8rem;
+            font-style: italic;
+            margin-top: 0.5rem;
+        }
+    }
+}
+
+/* 이미지 팝업 */
+.image-popup {
+    align-items: center;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    height: 100%;
+    justify-content: center;
+    left: 0;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 9999;
+
+    &.hidden {
+        display: none;
+    }
+
+    & .image-popup-inner {
+        position: relative;
+        cursor: pointer;
+    }
+
+    & .image-popup-close {
+        position: absolute;
+        right: 18px;
+        top: 8px;
+    }
+}
+
+/* 팝업 마진 */
+body.admin-bar .image-popup {
+    margin-top: 32px;
+}
+
+/* 팝업 마진 반응형 */
+@media screen and (max-width: 782px) {
+    body.admin-bar .image-popup {
+        margin-top: 46px;
+    }
+}
+
+@media screen and (max-width: 782px) {
+    #roster-baptismal_name {
+        width: inherit;
+        margin-right: 1rem;
+    }
+}
+
+@media screen and (max-width: 431px) {
+    #roster-baptismal_name {
+        width: 100%;
+        margin-bottom: 8px;
+        margin-right: 0;
+    }
+
+    #roster_name_day-month, #roster_name_day-day {
+        width: 6rem;
+    }
+}

@@ -5,11 +5,11 @@ type Profile = {
     birthday: string
     currentAssignment: string
     dateOfDeath: string
-    departureDate: string
     entranceDate: string
-    formerAssignments: string
     initialProfessionDate: string
     monasticName: string
+    nameDay: string
+    nationality: string
     ordinationDate: string
     perpetualProfessionDate: string
     profileImage: {

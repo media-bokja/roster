@@ -80,6 +80,7 @@ class ComposerStaticInitaf6eb2ac7a8f9e951512039a3d76ddf8
         'Bojka\\Roster\\Modules\\Options' => __DIR__ . '/../..' . '/inc/Modules/Options.php',
         'Bojka\\Roster\\Modules\\ProfileImage' => __DIR__ . '/../..' . '/inc/Modules/ProfileImage.php',
         'Bojka\\Roster\\Modules\\RosterApi' => __DIR__ . '/../..' . '/inc/Modules/RosterApi.php',
+        'Bojka\\Roster\\Modules\\Scripts' => __DIR__ . '/../..' . '/inc/Modules/Scripts.php',
         'Bojka\\Roster\\Objects\\Profile' => __DIR__ . '/../..' . '/inc/Objects/Profile.php',
         'Bojka\\Roster\\Supports\\EditForm' => __DIR__ . '/../..' . '/inc/Supports/EditForm.php',
         'Bojka\\Roster\\Supports\\FrontPage' => __DIR__ . '/../..' . '/inc/Supports/FrontPage.php',

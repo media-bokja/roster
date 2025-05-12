@@ -9,6 +9,7 @@ use Bokja\Roster\Vendor\Bojaghi\Template\Template;
 use WP_Post;
 
 use function Bojka\Roster\Facades\rosterGet;
+use function Bokja\Roster\Kses\ksesEditForm;
 
 readonly class EditForm implements Support
 {
@@ -18,53 +19,17 @@ readonly class EditForm implements Support
 
     public function render(WP_Post $post): void
     {
+        $profile   = Profile::get($post->ID, "treat_image=url");
+        $thumbnail = $profile->profileImage['thumbnail'] ?? [];
+
         $result = $this->template->template(
             'edit-form',
             [
-                'profile' => Profile::get($post->ID),
+                'profile' => Profile::get($post->ID, "treat_image=url"),
             ],
         );
 
-        echo wp_kses(
-            $result,
-            [
-                'div'      => ['class' => true],
-                'table'    => [
-                    'class' => true,
-                    'role'  => true,
-                ],
-                'tbody'    => [],
-                'tr'       => [],
-                'th'       => ['scope' => true],
-                'td'       => [],
-                'img'      => [
-                    'alt'    => true,
-                    'class'  => true,
-                    'height' => true,
-                    'id'     => true,
-                    'src'    => true,
-                    'title'  => true,
-                    'width'  => true,
-                ],
-                'input'    => [
-                    'id'       => true,
-                    'class'    => true,
-                    'name'     => true,
-                    'required' => true,
-                    'type'     => true,
-                    'value'    => true,
-                ],
-                'label'    => ['for' => true],
-                'p'        => ['class' => true],
-                'textarea' => [
-                    'id'    => true,
-                    'class' => true,
-                    'name'  => true,
-                    'rows'  => true,
-                    'cols'  => true,
-                ]
-            ],
-        );
+        echo wp_kses($result, ksesEditForm());
     }
 
     public function save(WP_Post $post): void
@@ -73,36 +38,10 @@ readonly class EditForm implements Support
             return;
         }
 
-        $profile = Profile::fromArray($_POST['bokja_roster']);
+        $data       = $_POST['bokja_roster'];
+        $data['ID'] = $post->ID;
+        $file       = $_FILES['bokja_roster_profile_image'] ?? null;
 
-        if (isset($_FILES['bokja_roster_profile_image']) && !empty($_FILES['bokja_roster_profile_image']['name'])) {
-            $profile->profileImage = $this->manageProfileImage($_FILES['bokja_roster_profile_image'], $post->ID);
-        }
-
-        $profile->save();
-    }
-
-    private function manageProfileImage(array $file, int $postId): array
-    {
-        if (!isset($file['error'], $file['tmp_name'], $file['type']) || UPLOAD_ERR_OK !== $file['error']) {
-            return [];
-        }
-
-        if (!in_array($file['type'], ['image/jpeg', 'image/png', 'image/webp'])) {
-            return [];
-        }
-
-        $support      = rosterGet(ImageSupport::class);
-        $profileImage = rosterGet(CustomFields::class)->profileImage->get($postId);
-        $support->removeImage($profileImage);
-
-        $fileName = sprintf(
-            '%s/%s-%s.webp',
-            $support->getUploadDir(),
-            $postId,
-            strtolower(wp_generate_password(8, false)),
-        );
-
-        return $support->processImage($file['tmp_name'], $fileName);
+        Profile::fromArray($data, $file)->save();
     }
 }

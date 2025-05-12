@@ -26,7 +26,8 @@ return [
         'bokja/adminEdit'     => Modules\AdminEdit::class,
         'bokja/customFields'  => Modules\CustomFields::class,
         'bokja/options'       => Modules\Options::class,
-        'bokja/rosterApi'      => Modules\RosterApi::class,
+        'bokja/rosterApi'     => Modules\RosterApi::class,
+        'bokja/scripts'       => Modules\Scripts::class,
     ],
     'arguments' => [
         // Bojaghi side
@@ -37,21 +38,23 @@ return [
         // Plugin side
         'bokja/customFields'  => __DIR__ . '/custom-fields.php',
         'bokja/options'       => __DIR__ . '/options.php',
+        'bokja/scripts'       => __DIR__ . '/scripts.php',
     ],
     'modules'   => [
-        '_'          => [
+        '_'             => [
             'bojaghi/cleanPages',
         ],
-        'init'       => [
+        'init'          => [
             Continy::PR_DEFAULT => [
                 // Bojaghi side
                 'bojaghi/customPosts',
                 // Plugin side
                 'bokja/customFields',
                 'bokja/options',
+                'bokja/scripts',
             ],
         ],
-        'admin_init' => [
+        'admin_init'    => [
             Continy::PR_DEFAULT => [
                 // Plugin side
                 'bokja/adminEdit',

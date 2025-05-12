@@ -1,9 +1,9 @@
 <?php return array(
     'root' => array(
         'name' => 'media-bokja/roster',
-        'pretty_version' => 'dev-0.3.0-dev',
-        'version' => 'dev-0.3.0-dev',
-        'reference' => 'da17a8d13528475d3c390014f5019798749af168',
+        'pretty_version' => '0.4.0',
+        'version' => '0.4.0.0',
+        'reference' => null,
         'type' => 'wordpress-plugin',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -73,6 +73,15 @@
             'aliases' => array(),
             'dev_requirement' => false,
         ),
+        'bojaghi/version-sync' => array(
+            'pretty_version' => '1.0.2',
+            'version' => '1.0.2.0',
+            'reference' => '0e114df20ed842b262d6eefde42079eb636c0400',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../bojaghi/version-sync',
+            'aliases' => array(),
+            'dev_requirement' => true,
+        ),
         'bojaghi/vite-scripts' => array(
             'pretty_version' => '1.1.1',
             'version' => '1.1.1.0',
@@ -101,9 +110,9 @@
             'dev_requirement' => true,
         ),
         'media-bokja/roster' => array(
-            'pretty_version' => 'dev-0.3.0-dev',
-            'version' => 'dev-0.3.0-dev',
-            'reference' => 'da17a8d13528475d3c390014f5019798749af168',
+            'pretty_version' => '0.4.0',
+            'version' => '0.4.0.0',
+            'reference' => null,
             'type' => 'wordpress-plugin',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),

@@ -15,5 +15,6 @@ node_modules
 /vendor/*
 !/vendor/autoload.php
 !/vendor/bojaghi
+/vendor/bojaghi/version-sync
 !/vendor/composer
 !/vendor/psr

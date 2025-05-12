@@ -9,16 +9,17 @@ use function Bokja\Roster\prefixed;
 
 /**
  * @property-read Meta $baptismalName
- * @property-read Meta $monasticName
  * @property-read Meta $birthday
- * @property-read Meta $dateOfDeath
- * @property-read Meta $entranceDate
- * @property-read Meta $initialProfessionDate
- * @property-read Meta $ordinationDate
- * @property-read Meta $departureDate
- * @property-read Meta $profileImage
  * @property-read Meta $currentAssignment
+ * @property-read Meta $dateOfDeath
+ * @property-read Meta $departureDate
+ * @property-read Meta $entranceDate
  * @property-read Meta $formerAssignments
+ * @property-read Meta $initialProfessionDate
+ * @property-read Meta $monasticName
+ * @property-read Meta $nationality
+ * @property-read Meta $ordinationDate
+ * @property-read Meta $profileImage
  */
 class CustomFields extends CustomFieldsBase
 {
@@ -29,11 +30,11 @@ class CustomFields extends CustomFieldsBase
             'birthday'                => prefixed('birthday'),
             'currentAssignment'       => prefixed('current_assignment'),
             'dateOfDeath'             => prefixed('date_of_death'),
-            'departureDate'           => prefixed('departure_date'),
             'entranceDate'            => prefixed('entrance_date'),
-            'formerAssignments'       => prefixed('former_assignments'),
             'initialProfessionDate'   => prefixed('initial_profession_date'),
             'monasticName'            => prefixed('monastic_name'),
+            'nameDay'                 => prefixed('name_day'),
+            'nationality'             => prefixed('nationality'),
             'ordinationDate'          => prefixed('ordination_date'),
             'perpetualProfessionDate' => prefixed('perpetual_profession_date'),
             'profileImage'            => prefixed('profile_image'),

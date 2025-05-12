@@ -2,6 +2,7 @@ import type {Profile} from '@/lib/types'
 
 type Props = {
     open: boolean
+    onClickThumbnail?: () => void
     onClose?: () => void
     profile?: Profile
 }
@@ -9,6 +10,7 @@ type Props = {
 export default function Dialog(props: Props) {
     const {
         open,
+        onClickThumbnail,
         onClose,
         profile,
     } = props
@@ -32,10 +34,13 @@ export default function Dialog(props: Props) {
                     <section className="roster-single mt-6">
                         <div className="flex flex-wrap gap-x-2 lx:gap-x-8 gap-y-6">
                             {'thumbnail' in profile.profileImage && (
-                                <figure className="w-full sm:w-48 md:w-56 xl:w-64">
+                                <figure
+                                    className="w-full sm:w-48 md:w-56 xl:w-64"
+                                    onClick={() => onClickThumbnail && onClickThumbnail()}
+                                >
                                     <img
-                                        alt={`${profile.name} ${profile.baptismalName} 포로필 섬네일 이미지`}
-                                        title={`${profile.name} ${profile.baptismalName} 포로필 섬네일 이미지`}
+                                        alt={`${profile.name} ${profile.baptismalName} 프로필 섬네일 이미지`}
+                                        title={`${profile.name} ${profile.baptismalName} 프로필 섬네일 이미지`}
                                         className="w-fullborder border-neutral-200 shadow-lg rounded-lg"
                                         src={profile.profileImage.full.path}
                                     />
@@ -49,8 +54,15 @@ export default function Dialog(props: Props) {
                                         <td className="py-1">{profile.name}</td>
                                     </tr>
                                     <tr>
-                                        <th className="py-1" scope="row">세례명</th>
-                                        <td className="py-1">{profile.baptismalName}</td>
+                                        <th className="py-1" scope="row">국적</th>
+                                        <td className="py-1">{profile.nationality}</td>
+                                    </tr>
+                                    <tr>
+                                        <th className="py-1" scope="row">세례명(축일)</th>
+                                        <td className="py-1">
+                                            {profile.baptismalName}
+                                            ({profile.nameDay})
+                                        </td>
                                     </tr>
                                     <tr>
                                         <th className="py-1" scope="row">수도명</th>
@@ -59,26 +71,6 @@ export default function Dialog(props: Props) {
                                     <tr>
                                         <th className="py-1" scope="row">현소임지</th>
                                         <td className="py-1">{profile.currentAssignment}</td>
-                                    </tr>
-                                    <tr>
-                                        <th className="py-1 align-top" scope="row">전 소임지</th>
-                                        <td className="py-1">
-                                            <ul className="leading-6">
-                                                {profile.formerAssignments.length > 0 && (
-                                                    profile.formerAssignments
-                                                        .split('\r\n')
-                                                        .map((assignment) => assignment.trim())
-                                                        .filter((assignment) => assignment.length > 0)
-                                                        .map((assignment, i) => (
-                                                            <li key={i} className="flex items-center">
-                                                                <div aria-label="status"
-                                                                     className="status me-1 status-info" />
-                                                                {assignment}
-                                                            </li>
-                                                        ))
-                                                )}
-                                            </ul>
-                                        </td>
                                     </tr>
                                     </tbody>
                                 </table>
@@ -107,11 +99,7 @@ export default function Dialog(props: Props) {
                                         <td className="py-1">{profile.ordinationDate}</td>
                                     </tr>
                                     <tr>
-                                        <th className="py-1" scope="row">퇴회일</th>
-                                        <td className="py-1">{profile.departureDate}</td>
-                                    </tr>
-                                    <tr>
-                                        <th className="py-1" scope="row">사망일</th>
+                                        <th className="py-1" scope="row">선종일</th>
                                         <td className="py-1">{profile.dateOfDeath}</td>
                                     </tr>
                                     </tbody>

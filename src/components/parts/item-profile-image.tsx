@@ -18,10 +18,10 @@ export default function ItemProfileImage(props: Props) {
         <figure className="relative">
             {'thumbnail' in profileImage && (
                 <img
-                    alt={`${name} ${baptismalName}} 포로필 섬네일 이미지`}
+                    alt={`${name} ${baptismalName}} 프로필 섬네일 이미지`}
                     className="w-full h-full object-cover"
                     src={profileImage.thumbnail.path}
-                    title={`${name} ${baptismalName}} 포로필 섬네일 이미지`}
+                    title={`${name} ${baptismalName}} 프로필 섬네일 이미지`}
                     width={profileImage.thumbnail.width}
                     height={profileImage.thumbnail.height}
                 />

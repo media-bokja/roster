@@ -3,8 +3,14 @@
 namespace Bojka\Roster\Objects;
 
 use Bojka\Roster\Modules\CustomFields;
+use Bojka\Roster\Supports\ImageSupport;
+use DateTime;
+use DateTimeZone;
+use Exception;
+use WP_Post;
 
 use function Bojka\Roster\Facades\rosterGet;
+use function Bokja\Roster\prefixed;
 
 class Profile
 {
@@ -23,36 +29,40 @@ class Profile
     /** @var string 현소임지 */
     public string $currentAssignment = '';
 
-    /** @var string 사망일 */
+    /** @var string 선종일 */
     public string $dateOfDeath = '';
-
-    /** @var string 퇴회일 */
-    public string $departureDate = '';
 
     /** @var string 입회일 */
     public string $entranceDate = '';
 
-    /** @var string 전소임지 */
-    public string $formerAssignments = '';
-
-    /** @var string 초(初)서원일, 첫 서원일 */
+    /** @var string 첫서원일 */
     public string $initialProfessionDate = '';
 
     /** @var string 수도명 */
     public string $monasticName = '';
 
+    /** @var string 축일 */
+    public string $nameDay;
+
+    /** @var string 국적 */
+    public string $nationality = '';
+
     /** @var string 서품일 */
     public string $ordinationDate = '';
-
-    /** @var array 사진 */
-    public array $profileImage = ['full' => [], 'thumbnail' => []];
 
     /** @var string 종신서원일 */
     public string $perpetualProfessionDate = '';
 
+    /** @var array 사진 */
+    public array $profileImage = [
+        'full'      => [],
+        'medium'    => [],
+        'thumbnail' => []
+    ];
+
     public ?bool $isNew = null;
 
-    public static function fromArray(array $data): Profile
+    public static function fromArray(array $data, ?array $profileFile): Profile
     {
         $output = new self();
 
@@ -66,29 +76,52 @@ class Profile
         $output->birthday                = $data['birthday'] ?? '';
         $output->currentAssignment       = $data['current_assignment'] ?? '';
         $output->dateOfDeath             = $data['date_of_death'] ?? '';
-        $output->departureDate           = $data['departure_date'] ?? '';
         $output->entranceDate            = $data['entrance_date'] ?? '';
-        $output->formerAssignments       = $data['former_assignments'] ?? '';
         $output->initialProfessionDate   = $data['initial_profession_date'] ?? '';
         $output->monasticName            = $data['monastic_name'] ?? '';
+        $output->nameDay                 = $data['name_day'] ?? '';
+        $output->nationality             = $data['nationality'] ?? '';
         $output->ordinationDate          = $data['ordination_date'] ?? '';
         $output->perpetualProfessionDate = $data['perpetual_profession_date'] ?? '';
         $output->isNew                   = $data['isNew'] ?? null;
 
         if ($output->id > 0) {
-            $output->profileImage = rosterGet(CustomFields::class)->profileImage->get($output->id);
-        } else {
-            $output->profileImage = [];
+            if ($profileFile) {
+                $output->profileImage = self::manageProfileImage($profileFile, $output->id);
+            } else {
+                // Keep original image.
+                $output->profileImage = rosterGet(CustomFields::class)->profileImage->get($output->id);
+            }
         }
 
         return $output;
     }
 
-    public static function get(string|int|null $id): Profile
+    public static function get(WP_Post|string|int|null $id, array|string $args = ''): Profile
     {
+        $args = wp_parse_args(
+            $args,
+            [
+                'treat_date'  => '',
+                'treat_image' => '',
+            ],
+        );
+
         $meta   = rosterGet(CustomFields::class);
         $post   = get_post($id);
         $output = new self();
+
+        // treate_date
+        $treatDate = $args['treat_date'] ?? '';
+        if (!in_array($treatDate, ['', 'date', 'string'])) {
+            $treatDate = '';
+        }
+
+        // treat_image
+        $treatImage = $args['treat_image'] ?? '';
+        if (!in_array($treatImage, ['', 'url', 'path'])) {
+            $treatImage = '';
+        }
 
         if ($post && ROSTER_CPT_PROFILE === $post->post_type) {
             $output->id = $post->ID;
@@ -101,14 +134,36 @@ class Profile
             $output->birthday                = $meta->birthday->get($post->ID);
             $output->currentAssignment       = $meta->currentAssignment->get($post->ID);
             $output->dateOfDeath             = $meta->dateOfDeath->get($post->ID);
-            $output->departureDate           = $meta->departureDate->get($post->ID);
             $output->entranceDate            = $meta->entranceDate->get($post->ID);
-            $output->formerAssignments       = $meta->formerAssignments->get($post->ID);
             $output->initialProfessionDate   = $meta->initialProfessionDate->get($post->ID);
             $output->monasticName            = $meta->monasticName->get($post->ID);
+            $output->nameDay                 = $meta->nameDay->get($post->ID);
+            $output->nationality             = $meta->nationality->get($post->ID);
             $output->ordinationDate          = $meta->ordinationDate->get($post->ID);
             $output->perpetualProfessionDate = $meta->perpetualProfessionDate->get($post->ID);
             $output->profileImage            = $meta->profileImage->get($post->ID);
+            $output->isNew                   = self::setIsNew($post);
+
+            if ('string' === $treatDate) {
+                $output->birthday                = self::convertDate($output->birthday);
+                $output->dateOfDeath             = self::convertDate($output->dateOfDeath);
+                $output->entranceDate            = self::convertDate($output->entranceDate);
+                $output->initialProfessionDate   = self::convertDate($output->initialProfessionDate);
+                $output->ordinationDate          = self::convertDate($output->ordinationDate);
+                $output->perpetualProfessionDate = self::convertDate($output->perpetualProfessionDate);
+            }
+
+            if (count($output->profileImage) && $treatImage) {
+                $base = match ($treatImage) {
+                    'url'  => wp_get_upload_dir()['baseurl'],
+                    'path' => wp_get_upload_dir()['basedir'],
+                };
+                foreach ($output->profileImage as &$item) {
+                    if (isset($item['path'])) {
+                        $item['path'] = path_join($base, $item['path']);
+                    }
+                }
+            }
         }
 
         return $output;
@@ -133,18 +188,18 @@ class Profile
             'post_title'   => $this->name,
             'post_type'    => ROSTER_CPT_PROFILE,
             'meta_input'   => [
-                'roster_baptismal_name'            => $this->baptismalName,
-                'roster_birthday'                  => $this->birthday,
-                'roster_current_assignment'        => $this->currentAssignment,
-                'roster_date_of_death'             => $this->dateOfDeath,
-                'roster_departure_date'            => $this->departureDate,
-                'roster_entrance_date'             => $this->entranceDate,
-                'roster_former_assignments'        => $this->formerAssignments,
-                'roster_initial_profession_date'   => $this->initialProfessionDate,
-                'roster_monastic_name'             => $this->monasticName,
-                'roster_ordination_date'           => $this->ordinationDate,
-                'roster_perpetual_profession_date' => $this->perpetualProfessionDate,
-                'roster_profile_image'             => $this->profileImage,
+                prefixed('baptismal_name')            => $this->baptismalName,
+                prefixed('birthday')                  => $this->birthday,
+                prefixed('current_assignment')        => $this->currentAssignment,
+                prefixed('date_of_death')             => $this->dateOfDeath,
+                prefixed('entrance_date')             => $this->entranceDate,
+                prefixed('initial_profession_date')   => $this->initialProfessionDate,
+                prefixed('monastic_name')             => $this->monasticName,
+                prefixed('name_day')                  => $this->nameDay,
+                prefixed('nationality')               => $this->nationality,
+                prefixed('ordination_date')           => $this->ordinationDate,
+                prefixed('perpetual_profession_date') => $this->perpetualProfessionDate,
+                prefixed('profile_image')             => $this->profileImage,
             ],
         ];
 
@@ -164,5 +219,54 @@ class Profile
         $this->id = (int)$id;
 
         return $id;
+    }
+
+    private static function manageProfileImage(array $file, int $postId): array
+    {
+        if (!isset($file['error'], $file['tmp_name'], $file['type']) || UPLOAD_ERR_OK !== $file['error']) {
+            return [];
+        }
+
+        if (!in_array($file['type'], ['image/jpeg', 'image/png', 'image/webp'])) {
+            return [];
+        }
+
+        $support = rosterGet(ImageSupport::class);
+        $support->removeImage($postId);
+
+        $fileName = sprintf(
+            '%s/%s-%s.webp',
+            $support->getUploadDir(),
+            $postId,
+            strtolower(wp_generate_password(8, false)),
+        );
+
+        return $support->processImage($file['tmp_name'], $fileName);
+    }
+
+    private static function convertDate(string $string): string
+    {
+        $output = '';
+
+        if ($string && ($timestamp = strtotime($string))) {
+            $format = get_option('date_format');
+            $output = wp_date($format, $timestamp);
+        }
+
+        return $output;
+    }
+
+    private static function setIsNew(WP_Post $post): bool
+    {
+        try {
+            $now     = new DateTime('now', wp_timezone());
+            $created = new DateTime($post->post_date_gmt, new DateTimeZone('UTC'));
+            $diff    = $now->diff($created);
+            $isNew   = $diff->days < 7;
+        } catch (Exception $e) {
+            return false;
+        }
+
+        return $isNew;
     }
 }

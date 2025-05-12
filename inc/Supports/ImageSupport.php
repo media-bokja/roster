@@ -2,8 +2,16 @@
 
 namespace Bojka\Roster\Supports;
 
+use Bojka\Roster\Modules\CustomFields;
+
+use function Bojka\Roster\Facades\rosterGet;
+
 class ImageSupport
 {
+    public const SIZE_FULL      = 720;
+    public const SIZE_MIDIUM    = 480;
+    public const SIZE_THUMBNAIL = 240;
+
     public static function getUploadDir(): string
     {
         $d   = wp_get_upload_dir();
@@ -26,6 +34,14 @@ class ImageSupport
      *         path: string,
      *         width: int,
      *     },
+     *     medium: array{
+     *          file: string,
+     *          filesize: int,
+     *          height: int,
+     *          mime-type: string,
+     *          path: string,
+     *          width: int,
+     *      },
      *     thumbnail: array{
      *         file: string,
      *         filesize: int,
@@ -47,8 +63,8 @@ class ImageSupport
 
         // Resize if it is too larget.
         $size = $editor->get_size();
-        if ($size['width'] > 700 || $size['height'] > 700) {
-            $result = $editor->resize(700, 700);
+        if ($size['width'] > self::SIZE_FULL || $size['height'] > self::SIZE_FULL) {
+            $result = $editor->resize(self::SIZE_FULL, self::SIZE_FULL);
             if (is_wp_error($result)) {
                 wp_die($result);
             }
@@ -59,25 +75,31 @@ class ImageSupport
         // Save as webp format.
         $output['full'] = $editor->save($outputPath, 'image/webp');
 
-        // Create thumbnail image.
-        $editor = wp_get_image_editor($outputPath);
-        $editor->resize(200, 200);
+        $dir      = dirname($outputPath);
+        $filename = pathinfo($outputPath, PATHINFO_FILENAME);
+        $editor   = wp_get_image_editor($outputPath);
 
-        // Save
-        $dir                 = dirname($outputPath);
-        $filename            = pathinfo($outputPath, PATHINFO_FILENAME);
-        $resizedPath         = $dir . '/' . $filename . '-thumbnail.webp';
-        $output['thumbnail'] = $editor->save($resizedPath);
+        // Create meduum image
+        $editor->resize(self::SIZE_MIDIUM, self::SIZE_MIDIUM);
+        $output['medium'] = $editor->save("$dir/$filename-medium.webp");
+
+        // Create thumbnail image.
+        $editor->resize(self::SIZE_THUMBNAIL, self::SIZE_THUMBNAIL);
+        $output['thumbnail'] = $editor->save("$dir/$filename-thumbnail.webp");
 
         // Change pathes, relative to the upload directory.
         $output['full']['path']      = _wp_relative_upload_path($output['full']['path']);
+        $output['medium']['path']    = _wp_relative_upload_path($output['medium']['path']);
         $output['thumbnail']['path'] = _wp_relative_upload_path($output['thumbnail']['path']);
 
         return $output;
     }
 
-    public function removeImage(array $images): void
+    public function removeImage(int $postId): void
     {
+        $meta   = rosterGet(CustomFields::class);
+        $images = $meta->profileImage->get($postId);
+
         if (!$images) {
             return;
         }

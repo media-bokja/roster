@@ -12,6 +12,7 @@ return array(
     'Bojka\\Roster\\Modules\\Options' => $baseDir . '/inc/Modules/Options.php',
     'Bojka\\Roster\\Modules\\ProfileImage' => $baseDir . '/inc/Modules/ProfileImage.php',
     'Bojka\\Roster\\Modules\\RosterApi' => $baseDir . '/inc/Modules/RosterApi.php',
+    'Bojka\\Roster\\Modules\\Scripts' => $baseDir . '/inc/Modules/Scripts.php',
     'Bojka\\Roster\\Objects\\Profile' => $baseDir . '/inc/Objects/Profile.php',
     'Bojka\\Roster\\Supports\\EditForm' => $baseDir . '/inc/Supports/EditForm.php',
     'Bojka\\Roster\\Supports\\FrontPage' => $baseDir . '/inc/Supports/FrontPage.php',

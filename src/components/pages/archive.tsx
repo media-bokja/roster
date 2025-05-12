@@ -1,4 +1,5 @@
 import Dialog from '@/components/pages/dialog'
+import {ImageFull} from '@/components/parts/image-full'
 import ItemsGrid from '@/components/parts/items-grid.tsx'
 import PageTitle from '@/components/parts/page-title.tsx'
 import ToolAreaBottom from '@/components/parts/tool-area-bottom.tsx'
@@ -9,6 +10,7 @@ import {useState} from 'react'
 
 export default function Archive() {
     const [currentId, setCurrentId] = useState<number>(0)
+    const [showPopup, setShowPopup] = useState<boolean>(false)
     const [query, setQuery] = useState<URLSearchParams>(new URLSearchParams())
 
     const {data} = useQuery({
@@ -51,7 +53,13 @@ export default function Archive() {
             />
             <Dialog
                 open={currentId > 0}
+                onClickThumbnail={() => setShowPopup(true)}
                 onClose={() => setCurrentId(0)}
+                profile={data?.result.find((profile) => profile.id === currentId)}
+            />
+            <ImageFull
+                open={currentId > 0 && showPopup}
+                onClose={() => setShowPopup(false)}
                 profile={data?.result.find((profile) => profile.id === currentId)}
             />
         </>
