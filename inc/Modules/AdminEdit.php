@@ -3,10 +3,12 @@
 namespace Bojka\Roster\Modules;
 
 use Bojka\Roster\Supports\EditForm;
+use Bojka\Roster\Supports\RosterList;
 use Bokja\Roster\Vendor\Bojaghi\Contract\Module;
 use WP_Post;
 use WP_Screen;
 
+use function Bojka\Roster\Facades\rosterCall;
 use function Bojka\Roster\Facades\rosterGet;
 
 class AdminEdit implements Module
@@ -26,7 +28,8 @@ class AdminEdit implements Module
         }
 
         if ('edit' === $screen->base) {
-            // TODO: 목록 필드 구현
+            add_action("manage_{$screen->post_type}_posts_custom_column", [$this, 'outputColumnValues'], 10, 2);
+            add_filter("manage_{$screen->post_type}_posts_columns", [$this, 'addColumns']);
         }
 
         if ('post' === $screen->base) {
@@ -44,9 +47,34 @@ class AdminEdit implements Module
         echo 'enctype="multipart/form-data"';
     }
 
+    /**
+     * @param array $columns
+     *
+     * @return array
+     *
+     * @uses RosterList::addColumns()
+     */
+    public function addColumns(array $columns): array
+    {
+        return rosterCall(RosterList::class, 'addColumns', [$columns]);
+    }
+
     public function editForm(WP_Post $post): void
     {
         rosterGet(EditForm::class)->render($post);
+    }
+
+    /**
+     * @param string $column
+     * @param int    $postId
+     *
+     * @return void
+     *
+     * @uses RosterList::outputColumnValues()
+     */
+    public function outputColumnValues(string $column, int $postId): void
+    {
+        rosterCall(RosterList::class, 'outputColumnValues', [$column, $postId]);
     }
 
     public function savePost(int $postId, WP_Post $post, bool $update): void

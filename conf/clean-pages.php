@@ -8,10 +8,15 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
+/**
+ * @uses FrontPage::checkCondition
+ * @uses FrontPage::before
+ * @uses FrontPage::render
+ */
 return [
     [
         'name'      => 'roster',
-        'condition' => function (): bool { return is_page('roster'); },
+        'condition' => fn() => rosterCall(FrontPage::class, 'checkCondition'),
         'before'    => function () { rosterCall(FrontPage::class, 'before'); },
         'body'      => function () { rosterCall(FrontPage::class, 'render'); },
     ],

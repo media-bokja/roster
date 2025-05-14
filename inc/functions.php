@@ -30,83 +30,109 @@ namespace Bokja\Roster\Kses {
 
     function ksesEditForm(): array
     {
-        return [
-            'div'      => [
+        static $setup = null;
+
+        if (is_null($setup)) {
+            $defaultProp = [
                 'id'    => true,
                 'class' => true,
                 'style' => true,
-            ],
-            'img'      => [
-                'id'       => true,
-                'class'    => true,
-                'data-src' => true,
-                'alt'      => true,
-                'height'   => true,
-                'src'      => true,
-                'title'    => true,
-                'width'    => true,
-            ],
-            'input'    => [
-                'id'       => true,
-                'class'    => true,
-                'min'      => true,
-                'max'      => true,
-                'name'     => true,
-                'required' => true,
-                'type'     => true,
-                'value'    => true,
-            ],
-            'label'    => [
-                'class' => true,
-                'for'   => true
-            ],
-            'option'   => [
-                'id'      => true,
-                'checked' => true,
-                'value'   => true,
-            ],
-            'select'   => [
-                'id'    => true,
-                'class' => true,
-                'name'  => true
-            ],
-            'span'     => [
-                'id'    => true,
-                'class' => true
-            ],
-            'table'    => [
-                'id'    => true,
-                'class' => true,
-                'role'  => true,
-            ],
-            'tbody'    => [
-                'id'    => true,
-                'class' => true,
-            ],
-            'textarea' => [
-                'id'    => true,
-                'class' => true,
-                'name'  => true,
-                'rows'  => true,
-                'cols'  => true,
-            ],
-            'tr'       => [
-                'id'    => true,
-                'class' => true,
-            ],
-            'th'       => [
-                'id'    => true,
-                'class' => true,
-                'scope' => true,
-            ],
-            'td'       => [
-                'id'    => true,
-                'class' => true,
-            ],
-            'p'        => [
-                'id'    => true,
-                'class' => true,
-            ],
-        ];
+            ];
+
+            return [
+                'button'   => [
+                    ...$defaultProp,
+                    'disabled' => true,
+                    'onClick'  => true,
+                ],
+                'div'      => [
+                    ...$defaultProp,
+                ],
+                'form'     => [
+                    ...$defaultProp,
+                    'action'  => true,
+                    'method'  => true,
+                    'name'    => true,
+                    'enctype' => true,
+                ],
+                'img'      => [
+                    ...$defaultProp,
+                    'data-src' => true,
+                    'alt'      => true,
+                    'height'   => true,
+                    'src'      => true,
+                    'title'    => true,
+                    'width'    => true,
+                ],
+                'input'    => [
+                    ...$defaultProp,
+                    'checked'  => true,
+                    'disabled' => true,
+                    'min'      => true,
+                    'max'      => true,
+                    'name'     => true,
+                    'readonly' => true,
+                    'required' => true,
+                    'type'     => true,
+                    'value'    => true,
+                ],
+                'label'    => [
+                    ...$defaultProp,
+                    'for' => true
+                ],
+                'option'   => [
+                    ...$defaultProp,
+                    'checked'  => true,
+                    'disabled' => true,
+                    'selected' => true,
+                    'value'    => true,
+                ],
+                'select'   => [
+                    ...$defaultProp,
+                    'disabled' => true,
+                    'name'     => true,
+                ],
+                'span'     => [
+                    ...$defaultProp,
+                ],
+                'table'    => [
+                    ...$defaultProp,
+                    'role' => true,
+                ],
+                'tbody'    => [
+                    ...$defaultProp,
+                ],
+                'textarea' => [
+                    ...$defaultProp,
+                    'disabled' => true,
+                    'name'     => true,
+                    'cols'     => true,
+                    'readonly' => true,
+                    'required' => true,
+                    'rows'     => true,
+                ],
+                'tr'       => [
+                    ...$defaultProp,
+                ],
+                'th'       => [
+                    ...$defaultProp,
+                    'scope' => true,
+                ],
+                'td'       => [
+                    ...$defaultProp,
+                ],
+                'ul'       => [
+                    ...$defaultProp,
+                ],
+                'li'       => [
+                    ...$defaultProp,
+                ],
+                'p'        => [
+                    ...$defaultProp,
+                ],
+            ];
+        }
+
+        return $setup;
     }
 }

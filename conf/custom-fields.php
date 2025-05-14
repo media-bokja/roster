@@ -1,5 +1,7 @@
 <?php
 
+use Bojka\Roster\Supports\ImageSupport;
+
 use function Bokja\Roster\prefixed;
 
 if (!defined('ABSPATH')) {
@@ -146,25 +148,7 @@ return [
             'description'       => '사진',
             'single'            => true,
             'default'           => [],
-            'sanitize_callback' => function ($value) {
-                $sanitized = [];
-
-                $default = [
-                    'filesize'  => 0,
-                    'height'    => 0,
-                    'mime-type' => '',
-                    'path'      => '',
-                    'width'     => 0,
-                ];
-
-                foreach ((array)$value as $key => $val) {
-                    if (in_array($key, ['full', 'thumbnail'])) {
-                        $sanitized[$key] = wp_parse_args($val, $default);
-                    }
-                }
-
-                return $sanitized;
-            },
+            'sanitize_callback' => [ImageSupport::class, 'sanitize'],
             'auth_callback'     => null,
             'show_in_rest'      => false,
             'revisions_enabled' => false,

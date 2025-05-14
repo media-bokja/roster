@@ -24,6 +24,7 @@ return [
         'bojaghi/viteScripts' => Bojaghi\ViteScripts\ViteScript::class,
         // Plugin side
         'bokja/adminEdit'     => Modules\AdminEdit::class,
+        'bokja/adminMenu'     => Modules\AdminMenu::class,
         'bokja/customFields'  => Modules\CustomFields::class,
         'bokja/options'       => Modules\Options::class,
         'bokja/rosterApi'     => Modules\RosterApi::class,
@@ -49,6 +50,7 @@ return [
                 // Bojaghi side
                 'bojaghi/customPosts',
                 // Plugin side
+                'bokja/adminMenu',
                 'bokja/customFields',
                 'bokja/options',
                 'bokja/scripts',

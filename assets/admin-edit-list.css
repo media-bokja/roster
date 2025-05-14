@@ -1,0 +1,12 @@
+.manage-column.column-profile, .profile.column-profile {
+    width: 96px;
+}
+
+.profile.column-profile {
+    text-align: center;
+}
+
+.profile.column-profile > .profile-thumbnail {
+    max-height: 64px;
+    width: auto;
+}

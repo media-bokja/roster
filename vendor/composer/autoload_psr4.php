@@ -12,6 +12,7 @@ return array(
     'Bojaghi\\Template\\' => array($vendorDir . '/bojaghi/template/src'),
     'Bojaghi\\Helper\\' => array($vendorDir . '/bojaghi/helper/src'),
     'Bojaghi\\Fields\\' => array($vendorDir . '/bojaghi/fields/src'),
+    'Bojaghi\\FieldsRender\\' => array($vendorDir . '/bojaghi/fields-render/src'),
     'Bojaghi\\CustomPosts\\' => array($vendorDir . '/bojaghi/custom-posts/src'),
     'Bojaghi\\Contract\\' => array($vendorDir . '/bojaghi/contract/src'),
     'Bojaghi\\Continy\\' => array($vendorDir . '/bojaghi/continy/src'),

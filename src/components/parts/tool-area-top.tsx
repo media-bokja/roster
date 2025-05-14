@@ -1,5 +1,5 @@
 import {cn} from '@/lib/utils.ts'
-import {useEffect, useState} from 'react'
+import {useState} from 'react'
 
 type Props = {
     onClickSearch?: (search: string) => void
@@ -16,11 +16,6 @@ export default function ToolAreaTop(props: Props) {
     } = props
 
     const [searchText, setSearchText] = useState<string>(props.search ?? '')
-    const [showClear, setShowClear] = useState<boolean>(false)
-
-    useEffect(() => {
-        setShowClear(searchText.length > 0)
-    }, [searchText])
 
     return (
         <section className={cn(
@@ -51,15 +46,6 @@ export default function ToolAreaTop(props: Props) {
                             type="search"
                             value={searchText}
                         />
-                        {showClear && (
-                            <button
-                                className="btn btn-sm btn-circle btn-ghost"
-                                onClick={() => {
-                                    setSearchText('')
-                                }}
-                            >✕
-                            </button>
-                        )}
                     </label>
                 </div>
                 <button

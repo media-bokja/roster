@@ -2,6 +2,7 @@
 
 namespace Bojka\Roster\Supports;
 
+use Bojka\Roster\Modules\Options;
 use Bokja\Roster\Vendor\Bojaghi\Contract\Support;
 use Bokja\Roster\Vendor\Bojaghi\Template\Template;
 use Bokja\Roster\Vendor\Bojaghi\ViteScripts\ViteScript;
@@ -9,9 +10,15 @@ use Bokja\Roster\Vendor\Bojaghi\ViteScripts\ViteScript;
 readonly class FrontPage implements Support
 {
     public function __construct(
+        private Options $options,
         private Template $template,
         private ViteScript $vite,
     ) {
+    }
+
+    public function addExtraAttrsToHTML(string $output): string
+    {
+        return $output . ' data-theme="light"';
     }
 
     public function before(): void
@@ -21,12 +28,24 @@ readonly class FrontPage implements Support
             exit;
         }
 
+        // Access check
+        $accessible = array_reduce(
+            $this->options->roles->get(),
+            fn($carry, $role) => $carry || current_user_can($role),
+            false,
+        );
+        if (!$accessible) {
+            wp_die(__('접근 권한이 없습니다.', 'roster'));
+        }
+
         add_filter('language_attributes', [$this, 'addExtraAttrsToHTML'], 10, 2);
     }
 
-    public function addExtraAttrsToHTML(string $output): string
+    public function checkCondition(): bool
     {
-        return $output . ' data-theme="light"';
+        $pageId = $this->options->page->get();
+
+        return $pageId && is_page($pageId);
     }
 
     public function render(): void
@@ -55,7 +74,7 @@ readonly class FrontPage implements Support
                     'avatarUrl'  => get_edit_profile_url($user->ID),
                     'homeUrl'    => home_url(),
                     'pageTitle'  => get_the_title(),
-                    'siteIcon'   => get_site_icon_url(128),
+                    'siteIcon'   => get_site_icon_url(32),
                     'siteUrl'    => get_the_permalink(),
                     'siteTitle'  => get_bloginfo('name'),
                     'userAvatar' => get_avatar_url($user->ID),

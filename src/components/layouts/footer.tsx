@@ -1,6 +1,14 @@
+import {cn} from '@/lib/utils'
+
 export default function Footer() {
     return (
-        <footer className="footer mt-2 sm:footer-horizontal footer-center bg-base-300 text-base-content p-4">
+        <footer
+            className={cn(
+                'footer footer-center sm:footer-horizontal',
+                'mt-2 p-4',
+                'bg-base-300 text-base-content',
+            )}
+        >
             <aside>
                 <p>© 2025 한국순교복자성직수도회</p>
             </aside>

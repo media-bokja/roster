@@ -118,4 +118,40 @@ class ImageSupport
             }
         }
     }
+
+    public static function sanitizeImage(mixed $input): array
+    {
+        $sanitized = [];
+
+        $default = [
+            'filesize'  => 0,
+            'height'    => 0,
+            'mime-type' => '',
+            'path'      => '',
+            'width'     => 0,
+        ];
+
+        $sizes = self::getImageSizes();
+
+        foreach ((array)$input as $key => $val) {
+            if (in_array($key, $sizes, true)) {
+                $value = wp_parse_args($val, $default);
+
+                $value['filesize']  = absint($value['filesize']);
+                $value['height']    = absint($value['height']);
+                $value['mime-type'] = sanitize_mime_type($value['mime-type']);
+                $value['path']      = sanitize_text_field($value['path']);
+                $value['width']     = absint($value['width']);
+
+                $sanitized[$key] = array_intersect_key($value, $default);
+            }
+        }
+
+        return $sanitized;
+    }
+
+    public static function getImageSizes(): array
+    {
+        return ['full', 'medium', 'thumbnail'];
+    }
 }

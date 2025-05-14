@@ -15,8 +15,8 @@ export default function ItemsGrid(props: Props) {
 
     if (0 === items.length) {
         return (
-            <section className="mt-12">
-                <p className="text-center px-12 py-20 text-xl text-base-content">
+            <section className="mt-12 flex justify-center items-center h-[360px]">
+                <p className="text-xl text-base-content">
                     명부를 찾을 수 없습니다.
                 </p>
             </section>
@@ -25,7 +25,7 @@ export default function ItemsGrid(props: Props) {
 
     return (
         <section className={cn(
-            'mt-12',
+            'mt-12 min-h-[360px]',
             'grid auto-rows-auto gap-x-4 gap-y-6',
             'grid-cols-2 sm:grid-cols-3 md:grid-cols-4',
         )}>

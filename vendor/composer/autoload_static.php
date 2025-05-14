@@ -23,6 +23,7 @@ class ComposerStaticInitaf6eb2ac7a8f9e951512039a3d76ddf8
             'Bojaghi\\Template\\' => 17,
             'Bojaghi\\Helper\\' => 15,
             'Bojaghi\\Fields\\' => 15,
+            'Bojaghi\\FieldsRender\\' => 21,
             'Bojaghi\\CustomPosts\\' => 20,
             'Bojaghi\\Contract\\' => 17,
             'Bojaghi\\Continy\\' => 16,
@@ -55,6 +56,10 @@ class ComposerStaticInitaf6eb2ac7a8f9e951512039a3d76ddf8
         array (
             0 => __DIR__ . '/..' . '/bojaghi/fields/src',
         ),
+        'Bojaghi\\FieldsRender\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/bojaghi/fields-render/src',
+        ),
         'Bojaghi\\CustomPosts\\' => 
         array (
             0 => __DIR__ . '/..' . '/bojaghi/custom-posts/src',
@@ -85,6 +90,8 @@ class ComposerStaticInitaf6eb2ac7a8f9e951512039a3d76ddf8
         'Bojka\\Roster\\Supports\\EditForm' => __DIR__ . '/../..' . '/inc/Supports/EditForm.php',
         'Bojka\\Roster\\Supports\\FrontPage' => __DIR__ . '/../..' . '/inc/Supports/FrontPage.php',
         'Bojka\\Roster\\Supports\\ImageSupport' => __DIR__ . '/../..' . '/inc/Supports/ImageSupport.php',
+        'Bojka\\Roster\\Supports\\RosterList' => __DIR__ . '/../..' . '/inc/Supports/RosterList.php',
+        'Bojka\\Roster\\Supports\\SettingsPage' => __DIR__ . '/../..' . '/inc/Supports/SettingsPage.php',
         'Bokja\\Roster\\Vendor\\Bojaghi\\CleanPages\\CleanPages' => __DIR__ . '/..' . '/bojaghi/clean-pages/src/CleanPages.php',
         'Bokja\\Roster\\Vendor\\Bojaghi\\Continy\\Continy' => __DIR__ . '/..' . '/bojaghi/continy/src/Continy.php',
         'Bokja\\Roster\\Vendor\\Bojaghi\\Continy\\ContinyException' => __DIR__ . '/..' . '/bojaghi/continy/src/ContinyException.php',
@@ -94,6 +101,10 @@ class ComposerStaticInitaf6eb2ac7a8f9e951512039a3d76ddf8
         'Bokja\\Roster\\Vendor\\Bojaghi\\Contract\\Module' => __DIR__ . '/..' . '/bojaghi/contract/src/Module.php',
         'Bokja\\Roster\\Vendor\\Bojaghi\\Contract\\Support' => __DIR__ . '/..' . '/bojaghi/contract/src/Support.php',
         'Bokja\\Roster\\Vendor\\Bojaghi\\CustomPosts\\CustomPosts' => __DIR__ . '/..' . '/bojaghi/custom-posts/src/CustomPosts.php',
+        'Bokja\\Roster\\Vendor\\Bojaghi\\FieldsRender\\AdminCompound' => __DIR__ . '/..' . '/bojaghi/fields-render/src/AdminCompound.php',
+        'Bokja\\Roster\\Vendor\\Bojaghi\\FieldsRender\\AdminFormTable' => __DIR__ . '/..' . '/bojaghi/fields-render/src/AdminFormTable.php',
+        'Bokja\\Roster\\Vendor\\Bojaghi\\FieldsRender\\Filter' => __DIR__ . '/..' . '/bojaghi/fields-render/src/Filter.php',
+        'Bokja\\Roster\\Vendor\\Bojaghi\\FieldsRender\\Render' => __DIR__ . '/..' . '/bojaghi/fields-render/src/Render.php',
         'Bokja\\Roster\\Vendor\\Bojaghi\\Fields\\Meta\\Meta' => __DIR__ . '/..' . '/bojaghi/fields/src/Meta/Meta.php',
         'Bokja\\Roster\\Vendor\\Bojaghi\\Fields\\Meta\\MetaFactory' => __DIR__ . '/..' . '/bojaghi/fields/src/Meta/MetaFactory.php',
         'Bokja\\Roster\\Vendor\\Bojaghi\\Fields\\Modules\\CustomFields' => __DIR__ . '/..' . '/bojaghi/fields/src/Modules/CustomFields.php',
