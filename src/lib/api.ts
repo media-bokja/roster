@@ -16,8 +16,20 @@ type QueryResult<T> = {
 }
 
 namespace Roster {
-    export const query = async (query: string = ''): Promise<QueryResult<Profile>> => {
-        const endpoint = `${baseUrl}/roster${query.length > 0 ? `?${query}` : ''}`
+    type Query = {
+        page?: number
+        search?: string
+    }
+
+    export const query = async (query: Query = {}): Promise<QueryResult<Profile>> => {
+        const q = new URLSearchParams()
+
+        query.page && q.set('page', query.page.toString())
+        query.search && q.set('search', query.search)
+
+        const qs = q.toString()
+
+        const endpoint = `${baseUrl}/roster${qs.length > 0 ? `?${qs}` : ''}`
 
         const r = await fetch(endpoint, {
             method: 'GET',

@@ -2,14 +2,17 @@ import useRosterContext from '@/lib/context'
 
 export default function Header() {
     const {
-        sitemeta: {
-            avatarUrl,
-            homeUrl,
-            siteIcon,
-            siteTitle,
-            siteUrl,
-            userAvatar,
-            userName,
+        state: {
+            sitemeta: {
+                homeUrl,
+                profileAdminUrl,
+                rosterAdminUrl,
+                siteIcon,
+                siteTitle,
+                siteUrl,
+                userAvatar,
+                userName,
+            },
         },
     } = useRosterContext()
 
@@ -25,15 +28,31 @@ export default function Header() {
                 <div className="flex-none">
                     <ul className="menu menu-horizontal px-1 text-xs items-center">
                         <li>
-                            <a href={homeUrl} className="">
-                                홈으로 이동
-                            </a>
-                        </li>
-                        <li>
-                            <a className="" href={avatarUrl}>
-                                <img src={userAvatar} className="h-4 w-4" alt="사용자 아바타" />
-                                {userName}
-                            </a>
+                            <details>
+                                <summary className="min-w-32">
+                                    <img src={userAvatar} className="h-4 w-4" alt="사용자 아바타" />
+                                    {userName}
+                                </summary>
+                                <ul className="bg-base-100 rounded-t-none p-2">
+                                    <li>
+                                        <a href={profileAdminUrl}>
+                                            관리자 프로필
+                                        </a>
+                                    </li>
+                                    {rosterAdminUrl.length > 0 && (
+                                        <li>
+                                            <a href={rosterAdminUrl}>
+                                                관리자 회원명부
+                                            </a>
+                                        </li>
+                                    )}
+                                    <li>
+                                        <a href={homeUrl} className="">
+                                            홈으로 나가기
+                                        </a>
+                                    </li>
+                                </ul>
+                            </details>
                         </li>
                     </ul>
                 </div>

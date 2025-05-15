@@ -8,7 +8,7 @@ use Bokja\Roster\Vendor\Bojaghi\Fields\Option\Option;
 use function Bokja\Roster\prefixed;
 
 /**
- * @property-read Option $page
+ * @property-read Option $pages
  * @property-read Option $roles
  */
 class Options extends OptionsBase
@@ -16,7 +16,7 @@ class Options extends OptionsBase
     public function __get(string $name)
     {
         $mapped = match ($name) {
-            'page'  => prefixed('page'),
+            'pages' => prefixed('pages'),
             'roles' => prefixed('roles'),
             default => '',
         };

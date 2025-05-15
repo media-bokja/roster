@@ -5,62 +5,86 @@ import PageTitle from '@/components/parts/page-title.tsx'
 import ToolAreaBottom from '@/components/parts/tool-area-bottom.tsx'
 import ToolAreaTop from '@/components/parts/tool-area-top.tsx'
 import {Roster} from '@/lib/api.ts'
+import useRosterContext from '@/lib/context'
+import {ActionType} from '@/lib/reducer'
 import {useQuery} from '@tanstack/react-query'
 import {useState} from 'react'
 
 export default function Archive() {
-    const [currentId, setCurrentId] = useState<number>(0)
+    const {
+        dispatch,
+        state: {
+            sitemeta: {
+                pageTitle,
+            },
+            siteParams,
+        },
+    } = useRosterContext()
+
     const [showPopup, setShowPopup] = useState<boolean>(false)
-    const [query, setQuery] = useState<URLSearchParams>(new URLSearchParams())
 
     const {data} = useQuery({
-        queryKey: ['roster', 'get', query.toString()],
+        queryKey: ['roster', 'get', [siteParams.page, siteParams.search]],
         queryFn: () => {
-            return Roster.query(query.toString())
+            return Roster.query({
+                page: siteParams.page,
+                search: siteParams.search,
+            })
         },
     })
 
     return (
         <>
-            <PageTitle title={'명단 목록'} />
+            <PageTitle title={pageTitle} />
             <ToolAreaTop
                 maxPage={data?.maxPage}
                 total={data?.total}
                 onClickSearch={(search) => {
-                    setQuery((prevState) => {
-                        const nextState = new URLSearchParams(prevState)
-                        nextState.set('search', search.trim())
-                        return nextState
+                    siteParams.page = 0
+                    siteParams.search = search
+                    dispatch({
+                        type: ActionType.SET_SITE_PARAMS,
+                        payload: siteParams,
                     })
                 }}
             />
             <ItemsGrid
                 items={data?.result || []}
                 onClickItem={(item) => {
-                    setCurrentId(item.id)
+                    siteParams.p = item.id
+                    dispatch({
+                        type: ActionType.SET_SITE_PARAMS,
+                        payload: siteParams,
+                    })
                 }}
             />
             <ToolAreaBottom
                 page={data?.page}
                 maxPage={data?.maxPage}
-                onClickPage={(p: number) => {
-                    setQuery((prevState) => {
-                        const nextState = new URLSearchParams(prevState)
-                        nextState.set('page', p.toString())
-                        return nextState
+                onClickPage={(page: number) => {
+                    siteParams.page = page
+                    dispatch({
+                        type: ActionType.SET_SITE_PARAMS,
+                        payload: siteParams,
                     })
                 }}
             />
             <Dialog
-                open={currentId > 0}
+                open={siteParams.p > 0}
                 onClickThumbnail={() => setShowPopup(true)}
-                onClose={() => setCurrentId(0)}
-                profile={data?.result.find((profile) => profile.id === currentId)}
+                onClose={() => {
+                    siteParams.p = 0
+                    dispatch({
+                        type: ActionType.SET_SITE_PARAMS,
+                        payload: siteParams,
+                    })
+                }}
+                profile={data?.result.find((profile) => profile.id === siteParams.p)}
             />
             <ImageFull
-                open={currentId > 0 && showPopup}
+                open={siteParams.p > 0 && showPopup}
                 onClose={() => setShowPopup(false)}
-                profile={data?.result.find((profile) => profile.id === currentId)}
+                profile={data?.result.find((profile) => profile.id === siteParams.p)}
             />
         </>
     )

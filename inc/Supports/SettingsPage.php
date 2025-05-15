@@ -42,22 +42,43 @@ readonly class SettingsPage implements Module
      */
     private function prepareSettings(): void
     {
-        $option  = rosterGet(Options::class);
-        $section = 'roster-settings-general';
+        $option = rosterGet(Options::class);
 
-        add_settings_section($section, '', '__return_empty_string', self::PAGE_SLUG);
+        $section = 'roster-settings-pages';
+
+        add_settings_section($section, __('페이지', 'roster'), '__return_empty_string', self::PAGE_SLUG);
 
         add_settings_field(
-            "$section-page",
-            __('사용할 페이지', 'roster'),
+            "$section-front",
+            __('프론트 페이지', 'roster'),
             [$this, 'outputPageField'],
             self::PAGE_SLUG,
             $section,
             [
-                'label_for' => "$section-page",
-                'option'    => $option->page,
+                'desc'      => __('사용할 페이지를 선택하세요. 선택한 페이지의 내용은 무시되고 회원명부가 출력됩니다.', 'roster'),
+                'label_for' => "$section-front",
+                'name'      => $option->pages->getKey() . '[front]',
+                'value'     => $option->pages->get()['front'],
             ],
         );
+
+        add_settings_field(
+            "$section-login",
+            __('로그인 페이지', 'roster'),
+            [$this, 'outputPageField'],
+            self::PAGE_SLUG,
+            $section,
+            [
+                'desc'      => __('로그인 페이지를 선택하세요. 선택하지 않으면 기본 워드프레스 로그인이 사용됩니다.', 'roster'),
+                'label_for' => "$section-login",
+                'name'      => $option->pages->getKey() . '[login]',
+                'value'     => $option->pages->get()['login'],
+            ],
+        );
+
+        $section = 'roster-settings-auth';
+
+        add_settings_section($section, __('권한', 'roster'), '__return_empty_string', self::PAGE_SLUG);
 
         add_settings_field(
             "$section-roles",
@@ -81,29 +102,21 @@ readonly class SettingsPage implements Module
      */
     public function outputPageField(array $args): void
     {
-        /** @var Option $option */
-        $option = $args['option'] ?? null;
-        if (!$option) {
-            return;
-        }
-
+        $desc     = $args['desc'] ?? '';
         $labelFor = $args['label_for'] ?? '';
+        $name     = $args['name'] ?? '';
+        $value    = $args['value'] ?? '';
 
         wp_dropdown_pages(
             [
                 'id'               => $labelFor,
                 'show_option_none' => __('사용할 페이지 선택', 'roster'),
-                'name'             => $option->getKey(),
-                'selected'         => $option->get(),
+                'name'             => $name,
+                'selected'         => $value,
             ],
         );
 
-        echo wp_kses(
-            AdminCompound::description(
-                __('사용할 페이지를 선택하세요. 선택한 페이지의 내용은 무시되고 인원명부 UI가 출력됩니다.', 'roster'),
-            ),
-            ksesEditForm(),
-        );
+        echo wp_kses(AdminCompound::description($desc), ksesEditForm());
     }
 
     /**

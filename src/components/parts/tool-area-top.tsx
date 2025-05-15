@@ -1,10 +1,10 @@
+import useRosterContext from '@/lib/context'
 import {cn} from '@/lib/utils.ts'
 import {useState} from 'react'
 
 type Props = {
     onClickSearch?: (search: string) => void
     maxPage?: number
-    search?: string
     total?: number
 }
 
@@ -15,7 +15,15 @@ export default function ToolAreaTop(props: Props) {
         total,
     } = props
 
-    const [searchText, setSearchText] = useState<string>(props.search ?? '')
+    const {
+        state: {
+            siteParams: {
+                search,
+            },
+        },
+    } = useRosterContext()
+
+    const [searchText, setSearchText] = useState<string>(search)
 
     return (
         <section className={cn(

@@ -1,28 +1,17 @@
-import {SiteMeta} from '@/lib/types.ts'
-import {createContext, useContext} from 'react'
+import type {Action} from '@/lib/reducer'
+import type {RosterState} from '@/lib/types'
+import {getDefaultState} from '@/lib/utils'
+import {type ActionDispatch, createContext, useContext} from 'react'
 
 type RosterContextType = {
-    sitemeta: SiteMeta
-    showLoading: boolean
+    state: RosterState
+    dispatch: ActionDispatch<[action: Action]>
 }
 
-const getDefaultContext = (override: Partial<RosterContextType> = {}): RosterContextType => ({
-    sitemeta: {
-        avatarUrl: '',
-        homeUrl: '',
-        pageTitle: '',
-        siteIcon: '',
-        siteTitle: '',
-        siteUrl: '',
-        userAvatar: '',
-        userName: '',
-        ...override.sitemeta,
-    },
-    showLoading: false,
-    ...override,
+const RosterContext = createContext<RosterContextType>({
+    dispatch: () => {},
+    state: getDefaultState(),
 })
-
-const RosterContext = createContext(getDefaultContext())
 
 const useRosterContext = () => {
     return useContext(RosterContext)
@@ -31,10 +20,5 @@ const useRosterContext = () => {
 export default useRosterContext
 
 export {
-    getDefaultContext,
     RosterContext,
-}
-
-export type {
-    RosterContextType,
 }

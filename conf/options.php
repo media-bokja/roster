@@ -8,17 +8,30 @@ if (!defined('ABSPATH')) {
 
 const ROSTER_OPTIONS_GROUP = 'roster_options_group';
 
+// Delete old option.
+if (false !== get_option(prefixed('page'))) {
+    delete_option(prefixed('page'));
+}
+
 return [
-    prefixed('page')  => [
+    prefixed('pages') => [
         'group'             => ROSTER_OPTIONS_GROUP,
-        'type'              => 'integer',
+        'type'              => 'array',
         'label'             => '페이지',
-        'description'       => '명부 페이지에 프론트 페이지를 설정합니다. 템플릿으로도 가능하나, 이렇게 하는 것이 더 알기 쉽습니다.',
-        'sanitize_callback' => 'absint',
+        'description'       => '회원 명부 페이지에 필요한 페이지를 설정합니다.',
+        'sanitize_callback' => function (mixed $input): array {
+            return [
+                'front' => absint($input['front'] ?? '0'),
+                'login' => absint($input['login'] ?? '0'),
+            ];
+        },
         'show_in_rest'      => false,
         'autoload'          => false,
-        'default'           => 0,
-        'get_filter'        => fn($x) => absint($x),
+        'default'           => [
+            'front' => 0,
+            'login' => 0,
+        ],
+        'get_filter'        => null,
     ],
     prefixed('roles') => [
         'group'             => ROSTER_OPTIONS_GROUP,

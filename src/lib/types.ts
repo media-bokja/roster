@@ -20,14 +20,27 @@ type Profile = {
 }
 
 type SiteMeta = {
-    avatarUrl: string
     homeUrl: string
     pageTitle: string
+    profileAdminUrl: string
+    rosterAdminUrl: string
     siteIcon: string
     siteTitle: string
     siteUrl: string
     userAvatar: string
     userName: string
+}
+
+type SiteParams = {
+    p: number      // Profile ID.
+    page: number   // Page number
+    search: string // Search keyword
+}
+
+type RosterState = {
+    sitemeta: SiteMeta
+    siteParams: SiteParams
+    showLoading: boolean
 }
 
 type ProfileImage = {
@@ -42,5 +55,7 @@ type ProfileImage = {
 export type {
     Profile,
     ProfileImage,
+    RosterState,
     SiteMeta,
+    SiteParams,
 }

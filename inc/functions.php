@@ -55,6 +55,21 @@ namespace Bokja\Roster\Kses {
                     'name'    => true,
                     'enctype' => true,
                 ],
+                'h1'       => [
+                    ...$defaultProp,
+                ],
+                'h2'       => [
+                    ...$defaultProp,
+                ],
+                'h3'       => [
+                    ...$defaultProp,
+                ],
+                'h4'       => [
+                    ...$defaultProp,
+                ],
+                'h5'       => [
+                    ...$defaultProp,
+                ],
                 'img'      => [
                     ...$defaultProp,
                     'data-src' => true,
