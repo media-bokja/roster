@@ -3,6 +3,25 @@ jQuery(function ($) {
         form = table.closest('form')
     ;
 
+    /* image cancel link */
+    (function () {
+        const file = $('#roster-profile_image'),
+            cancel = $('#roster-remove-profile-image')
+
+        file.on('change', function () {
+            if (file.val().length > 0) {
+                cancel.show();
+            } else {
+                cancel.hide();
+            }
+        })
+
+        cancel.on('click', function (e) {
+            e.preventDefault();
+            file.val('').trigger('change')
+        })
+    })();
+
     /* name day validation */
     (function () {
         const month = $('#roster_name_day-month'),

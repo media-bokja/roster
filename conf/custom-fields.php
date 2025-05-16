@@ -1,7 +1,7 @@
 <?php
 
+use Bojka\Roster\Objects\Profile;
 use Bojka\Roster\Supports\ImageSupport;
-
 use function Bokja\Roster\prefixed;
 
 if (!defined('ABSPATH')) {
@@ -100,7 +100,7 @@ return [
             'description'       => '축일',
             'single'            => true,
             'default'           => '',
-            'sanitize_callback' => 'sanitize_text_field',
+            'sanitize_callback' => [Profile::class, 'sanitizeNameDay'],
             'auth_callback'     => null,
             'show_in_rest'      => false,
             'revisions_enabled' => false,

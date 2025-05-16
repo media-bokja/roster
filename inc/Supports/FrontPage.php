@@ -64,11 +64,11 @@ readonly class FrontPage implements Support
                 'icon180' => get_site_icon_url(180),
                 'icon192' => get_site_icon_url(192),
                 'icon270' => get_site_icon_url(270),
-                'title'   => '한국순교복자성직수도회 회원명부',
             ];
-
             echo $this->template->template('front-header', $context);;
         }
+
+        echo "<title>한국순교복자성직수도회 회원명부</title>\n";
     }
 
     public function render(): void

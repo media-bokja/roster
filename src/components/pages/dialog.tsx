@@ -42,7 +42,7 @@ export default function Dialog(props: Props) {
                                         alt={`${profile.name} ${profile.baptismalName} 프로필 섬네일 이미지`}
                                         title={`${profile.name} ${profile.baptismalName} 프로필 섬네일 이미지`}
                                         className="w-fullborder border-neutral-200 shadow-lg rounded-lg"
-                                        src={profile.profileImage.full.path}
+                                        src={profile.profileImage.medium.path}
                                     />
                                 </figure>
                             )}
@@ -61,7 +61,7 @@ export default function Dialog(props: Props) {
                                         <th className="py-1" scope="row">세례명(축일)</th>
                                         <td className="py-1">
                                             {profile.baptismalName}
-                                            ({profile.nameDay})
+                                            {profile.nameDay.length > 0 && `(${profile.nameDay})`}
                                         </td>
                                     </tr>
                                     <tr>

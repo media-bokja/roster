@@ -112,10 +112,10 @@ class Scripts implements Module
             if ($item['handle'] && $item['src']) {
                 if (!wp_register_script(
                     handle: $item['handle'],
-                    src: $item['src'],
-                    deps: $item['deps'],
-                    ver: $item['ver'],
-                    args: $item['args'],
+                    src:    $item['src'],
+                    deps:   $item['deps'],
+                    ver:    $item['ver'],
+                    args:   $item['args'],
                 )) {
                     wp_die(sprintf('Failed to register script: %s', $item['handle']));
                 }
@@ -144,10 +144,10 @@ class Scripts implements Module
             if ($item['handle'] && $item['src']) {
                 if (!wp_register_style(
                     handle: $item['handle'],
-                    src: $item['src'],
-                    deps: $item['deps'],
-                    ver: $item['ver'],
-                    media: $item['media'],
+                    src:    $item['src'],
+                    deps:   $item['deps'],
+                    ver:    $item['ver'],
+                    media:  $item['media'],
                 )) {
                     wp_die(sprintf('Failed to register style: %s', $item['handle']));
                 }
@@ -174,6 +174,7 @@ class Scripts implements Module
             $rules = $this->args['script']['enqueue'];
 
             if (is_callable($rules)) {
+                // One single rule callback.
                 // The array is changed into a list of strings.
                 foreach ($this->args['script']['items'] as $item) {
                     if ($rules($item)) {
@@ -181,10 +182,10 @@ class Scripts implements Module
                     }
                 }
             } elseif (is_array($rules)) {
-                foreach ($rules as $handle => $rule) {
-                    if (is_callable($rule) && $rule($handle)) {
-                        wp_enqueue_script($handle);
-                    }
+                // Per-handle callabck.
+                foreach ($rules as $handle => $condition) {
+                    is_callable($condition) && $condition($handle) &&
+                    wp_enqueue_script($handle);
                 }
             }
         }
@@ -193,6 +194,7 @@ class Scripts implements Module
             $rules = $this->args['style']['enqueue'];
 
             if (is_callable($rules)) {
+                // One single rule callback.
                 // The array is changed into a list of strings.
                 foreach ($this->args['style']['items'] as $item) {
                     if ($rules($item)) {
@@ -200,8 +202,10 @@ class Scripts implements Module
                     }
                 }
             } elseif (is_array($rules)) {
-                foreach ($rules as $handle => $rule) {
-                    if (is_callable($rule) && $rule($handle)) {
+                // Per-handle callabck.
+                foreach ($rules as $handle => $condition) {
+                    if (is_callable($condition) && $condition($handle)) {
+                        is_callable($condition) && $condition($handle) &&
                         wp_enqueue_style($handle);
                     }
                 }
@@ -218,18 +222,16 @@ class Scripts implements Module
                 // One single callback.
                 // The array is changed into a list of strings.
                 foreach ($this->args['script']['items'] as $item) {
-                    if ($rules($item, $hook)) {
+                    if ($rules($hook, $item)) {
                         wp_enqueue_script($item);
                     }
                 }
             } elseif (is_array($rules)) {
                 // Detailed per-hook rules.
-                foreach ((array)($rules[$hook] ?? []) as $handle => $item) {
-                    if (is_callable($item) && $item($handle, $hook)) {
-                        wp_enqueue_script($handle);
-                    } elseif (is_string($item) && $item) {
-                        wp_enqueue_script($item);
-                    }
+                foreach ($rules as $handle => $conditions) {
+                    is_array($conditions) && isset($conditions[$hook]) &&
+                    is_callable($conditions[$hook]) && $conditions[$hook]($hook, $handle) &&
+                    wp_enqueue_script($handle);
                 }
             }
         }
@@ -247,12 +249,10 @@ class Scripts implements Module
                 }
             } elseif (is_array($rules)) {
                 // Detailed per-hook rules.
-                foreach ((array)($rules[$hook] ?? []) as $handle => $item) {
-                    if (is_callable($item) && $item($handle, $hook)) {
-                        wp_enqueue_style($handle);
-                    } elseif (is_string($item) && $item) {
-                        wp_enqueue_style($item);
-                    }
+                foreach ($rules as $handle => $conditions) {
+                    is_array($conditions) && isset($conditions[$hook]) &&
+                    is_callable($conditions[$hook]) && $conditions[$hook]($hook, $handle) &&
+                    wp_enqueue_style($handle);
                 }
             }
         }

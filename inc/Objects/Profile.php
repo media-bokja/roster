@@ -97,6 +97,29 @@ class Profile
         return $output;
     }
 
+    private static function manageProfileImage(array $file, int $postId): array
+    {
+        if (!isset($file['error'], $file['tmp_name'], $file['type']) || UPLOAD_ERR_OK !== $file['error']) {
+            return [];
+        }
+
+        if (!in_array($file['type'], ['image/jpeg', 'image/png', 'image/webp'])) {
+            return [];
+        }
+
+        $support = rosterGet(ImageSupport::class);
+        $support->removeImage($postId);
+
+        $fileName = sprintf(
+            '%s/%s-%s.webp',
+            $support->getUploadDir(),
+            $postId,
+            strtolower(wp_generate_password(8, false)),
+        );
+
+        return $support->processImage($file['tmp_name'], $fileName);
+    }
+
     public static function get(WP_Post|string|int|null $id, array|string $args = ''): Profile
     {
         $args = wp_parse_args(
@@ -151,6 +174,21 @@ class Profile
                 $output->initialProfessionDate   = self::convertDate($output->initialProfessionDate);
                 $output->ordinationDate          = self::convertDate($output->ordinationDate);
                 $output->perpetualProfessionDate = self::convertDate($output->perpetualProfessionDate);
+
+                // Make sure the name day is correct.
+                $output->nameDay = self::sanitizeNameDay($output->nameDay);
+            }
+
+            // Make sure nameDay format
+            if ($output->nameDay && str_contains($output->nameDay, '-')) {
+                [$month, $day] = explode('-', $output->nameDay, 2);;
+                $month = absint($month);
+                $day   = absint($day);
+                if ($month && $day) {
+                    $output->nameDay = sprintf('%02d-%02d', $month, $day);
+                } else {
+                    $output->nameDay = '';
+                }
             }
 
             if (count($output->profileImage) && $treatImage) {
@@ -163,6 +201,49 @@ class Profile
                         $item['path'] = path_join($base, $item['path']);
                     }
                 }
+            }
+        }
+
+        return $output;
+    }
+
+    private static function setIsNew(WP_Post $post): bool
+    {
+        try {
+            $now     = new DateTime('now', wp_timezone());
+            $created = new DateTime($post->post_date_gmt, new DateTimeZone('UTC'));
+            $diff    = $now->diff($created);
+            $isNew   = $diff->days < 7;
+        } catch (Exception $e) {
+            return false;
+        }
+
+        return $isNew;
+    }
+
+    private static function convertDate(string $string): string
+    {
+        $output = '';
+
+        if ($string && ($timestamp = strtotime($string))) {
+            $format = get_option('date_format');
+            $output = wp_date($format, $timestamp);
+        }
+
+        return $output;
+    }
+
+    public static function sanitizeNameDay(mixed $value): string
+    {
+        $output = '';
+
+        if (is_string($value) && str_contains($value, '-')) {
+            $exp   = explode('-', $value, 2);
+            $month = absint($exp[0]);
+            $day   = absint($exp[1]);
+
+            if ($month && $day) {
+                $output = sprintf('%02d-%02d', $month, $day);
             }
         }
 
@@ -219,54 +300,5 @@ class Profile
         $this->id = (int)$id;
 
         return $id;
-    }
-
-    private static function manageProfileImage(array $file, int $postId): array
-    {
-        if (!isset($file['error'], $file['tmp_name'], $file['type']) || UPLOAD_ERR_OK !== $file['error']) {
-            return [];
-        }
-
-        if (!in_array($file['type'], ['image/jpeg', 'image/png', 'image/webp'])) {
-            return [];
-        }
-
-        $support = rosterGet(ImageSupport::class);
-        $support->removeImage($postId);
-
-        $fileName = sprintf(
-            '%s/%s-%s.webp',
-            $support->getUploadDir(),
-            $postId,
-            strtolower(wp_generate_password(8, false)),
-        );
-
-        return $support->processImage($file['tmp_name'], $fileName);
-    }
-
-    private static function convertDate(string $string): string
-    {
-        $output = '';
-
-        if ($string && ($timestamp = strtotime($string))) {
-            $format = get_option('date_format');
-            $output = wp_date($format, $timestamp);
-        }
-
-        return $output;
-    }
-
-    private static function setIsNew(WP_Post $post): bool
-    {
-        try {
-            $now     = new DateTime('now', wp_timezone());
-            $created = new DateTime($post->post_date_gmt, new DateTimeZone('UTC'));
-            $diff    = $now->diff($created);
-            $isNew   = $diff->days < 7;
-        } catch (Exception $e) {
-            return false;
-        }
-
-        return $isNew;
     }
 }

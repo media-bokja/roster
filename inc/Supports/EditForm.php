@@ -2,13 +2,10 @@
 
 namespace Bojka\Roster\Supports;
 
-use Bojka\Roster\Modules\CustomFields;
 use Bojka\Roster\Objects\Profile;
 use Bokja\Roster\Vendor\Bojaghi\Contract\Support;
 use Bokja\Roster\Vendor\Bojaghi\Template\Template;
 use WP_Post;
-
-use function Bojka\Roster\Facades\rosterGet;
 use function Bokja\Roster\Kses\ksesEditForm;
 
 readonly class EditForm implements Support
@@ -19,15 +16,14 @@ readonly class EditForm implements Support
 
     public function render(WP_Post $post): void
     {
-        $profile   = Profile::get($post->ID, "treat_image=url");
-        $thumbnail = $profile->profileImage['thumbnail'] ?? [];
-
         $result = $this->template->template(
             'edit-form',
             [
                 'profile' => Profile::get($post->ID, "treat_image=url"),
             ],
         );
+
+        add_filter('safe_style_css', fn(array $styles) => [...$styles, 'display']);
 
         echo wp_kses($result, ksesEditForm());
     }
@@ -40,8 +36,11 @@ readonly class EditForm implements Support
 
         $data       = $_POST['bokja_roster'];
         $data['ID'] = $post->ID;
-        $file       = $_FILES['bokja_roster_profile_image'] ?? null;
 
-        Profile::fromArray($data, $file)->save();
+        Profile::fromArray(
+            $data,
+            isset($_FILES['bokja_roster_profile_image']['tmp_name']) && $_FILES['bokja_roster_profile_image']['tmp_name'] ?
+                $_FILES['bokja_roster_profile_image'] : null
+        )->save();
     }
 }

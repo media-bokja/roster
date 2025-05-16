@@ -37,7 +37,7 @@ if (2 === count($explodedNameDay)) {
                          src="<?php echo esc_url($thumbnail['path']); ?>"
                          width="<?php echo esc_attr($thumbnail['width'] ?? ''); ?>"
                          height="<?php echo esc_attr($thumbnail['height'] ?? ''); ?>"
-                         alt="<?php echo esc_attr(sprintf('%s의 프로필 이미지 섬네일', $profile->name)); ?>" />
+                         alt="<?php echo esc_attr(sprintf('%s의 프로필 이미지 섬네일', $profile->name)); ?>"/>
                 <?php else : ?>
                     <?php esc_html_e('사진이 첨부되지 않았습니다.', 'roster'); ?>
                 <?php endif; ?>
@@ -47,7 +47,10 @@ if (2 === count($explodedNameDay)) {
                        accept="image/jpeg, image/png, image/webp"
                        name="bokja_roster_profile_image"
                        type="file"
-                       value="" />
+                       value=""/>
+                <a id="roster-remove-profile-image"
+                   href="#"
+                   style="display:none;">취소</a>
                 <p class="description">
                     <?php esc_html_e('파일을 새로 첨부하고 업데이트 버튼을 눌러야 새 이미지로 갱신됩니다.', 'roster'); ?>
                 </p>
@@ -62,7 +65,7 @@ if (2 === count($explodedNameDay)) {
                    type="text"
                    class="text regular-text"
                    required="required"
-                   value="<?php echo esc_attr($profile->name); ?>" />
+                   value="<?php echo esc_attr($profile->name); ?>"/>
 
             <p class="description"><?php
                 esc_html_e('이름은 필수입니다.', 'roster');
@@ -76,7 +79,7 @@ if (2 === count($explodedNameDay)) {
                    name="bokja_roster[nationality]"
                    type="text"
                    class="text regular-text"
-                   value="<?php echo esc_attr($profile->nationality); ?>" />
+                   value="<?php echo esc_attr($profile->nationality); ?>"/>
         </td>
     </tr>
     <tr>
@@ -87,7 +90,7 @@ if (2 === count($explodedNameDay)) {
                        name="bokja_roster[baptismal_name]"
                        type="text"
                        class="text"
-                       value="<?php echo esc_attr($profile->baptismalName); ?>" />
+                       value="<?php echo esc_attr($profile->baptismalName); ?>"/>
 
                 <div>
                     <label>축일</label>
@@ -97,7 +100,7 @@ if (2 === count($explodedNameDay)) {
                                type="number"
                                min="0"
                                max="12"
-                               value="<?php echo esc_attr($nd_month); ?>" />
+                               value="<?php echo esc_attr($nd_month); ?>"/>
                         월
                     </label>
                     <label for="roster_name_day-day">
@@ -106,13 +109,13 @@ if (2 === count($explodedNameDay)) {
                                type="number"
                                min="0"
                                max="31"
-                               value="<?php echo esc_attr($nd_day); ?>" />
+                               value="<?php echo esc_attr($nd_day); ?>"/>
                         일
                     </label>
                     <input id="roster_name_day"
                            type="hidden"
                            name="bokja_roster[name_day]"
-                           value="<?php echo esc_attr($profile->nameDay); ?>" />
+                           value="<?php echo esc_attr($profile->nameDay); ?>"/>
                 </div>
             </div>
             <p class="description field-error-message">
@@ -130,7 +133,7 @@ if (2 === count($explodedNameDay)) {
                    type="text"
                    class="text regular-text"
                    value="<?php
-                   echo esc_attr($profile->monasticName); ?>" />
+                   echo esc_attr($profile->monasticName); ?>"/>
         </td>
     </tr>
     <tr>
@@ -141,7 +144,7 @@ if (2 === count($explodedNameDay)) {
                    type="text"
                    class="text regular-text"
                    value="<?php
-                   echo esc_attr($profile->currentAssignment); ?>" />
+                   echo esc_attr($profile->currentAssignment); ?>"/>
         </td>
     </tr>
     <tr>
@@ -152,7 +155,7 @@ if (2 === count($explodedNameDay)) {
                    type="date"
                    class="text date-picker"
                    value="<?php
-                   echo esc_attr($profile->birthday); ?>" />
+                   echo esc_attr($profile->birthday); ?>"/>
         </td>
     </tr>
     <tr>
@@ -163,7 +166,7 @@ if (2 === count($explodedNameDay)) {
                    type="date"
                    class="text date-picker"
                    value="<?php
-                   echo esc_attr($profile->dateOfDeath); ?>" />
+                   echo esc_attr($profile->dateOfDeath); ?>"/>
         </td>
     </tr>
     <tr>
@@ -174,7 +177,7 @@ if (2 === count($explodedNameDay)) {
                    type="date"
                    class="text date-picker"
                    value="<?php
-                   echo esc_attr($profile->entranceDate); ?>" />
+                   echo esc_attr($profile->entranceDate); ?>"/>
         </td>
     </tr>
     <tr>
@@ -185,7 +188,7 @@ if (2 === count($explodedNameDay)) {
                    type="date"
                    class="text date-picker"
                    value="<?php
-                   echo esc_attr($profile->initialProfessionDate); ?>" />
+                   echo esc_attr($profile->initialProfessionDate); ?>"/>
         </td>
     </tr>
     <tr>
@@ -196,7 +199,7 @@ if (2 === count($explodedNameDay)) {
                    type="date"
                    class="text date-picker"
                    value="<?php
-                   echo esc_attr($profile->perpetualProfessionDate); ?>" />
+                   echo esc_attr($profile->perpetualProfessionDate); ?>"/>
         </td>
     </tr>
     <tr>
@@ -207,7 +210,7 @@ if (2 === count($explodedNameDay)) {
                    type="date"
                    class="text date-picker"
                    value="<?php
-                   echo esc_attr($profile->ordinationDate); ?>" />
+                   echo esc_attr($profile->ordinationDate); ?>"/>
         </td>
     </tr>
     </tbody>
@@ -216,7 +219,7 @@ if (2 === count($explodedNameDay)) {
 <input type="hidden"
        name="bokja_roster[id]"
        value="<?php
-       echo esc_attr($profile->id); ?>" />
+       echo esc_attr($profile->id); ?>"/>
 
 <div class="image-popup hidden">
     <div class="image-popup-inner">
@@ -225,7 +228,7 @@ if (2 === count($explodedNameDay)) {
              data-src="<?php echo esc_url($full_iage['path']); ?>"
              width="<?php echo esc_attr($full_iage['width'] ?? ''); ?>"
              height="<?php echo esc_attr($full_iage['height'] ?? ''); ?>"
-             alt="<?php echo esc_attr(sprintf('%s의 프로필 이미지', $profile->name)); ?>" />
+             alt="<?php echo esc_attr(sprintf('%s의 프로필 이미지', $profile->name)); ?>"/>
         <?php /* <div class="image-popup-close">
             <span class="dashicons dashicons-no-alt"></span>
         </div> */ ?>

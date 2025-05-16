@@ -2,6 +2,10 @@
     width: 96px;
 }
 
+.manage-column.column-profile_responsive, .profile_responsive.column-profile_responsive {
+    display: none;
+}
+
 .profile.column-profile {
     text-align: center;
 }
@@ -9,4 +13,19 @@
 .profile.column-profile > .profile-thumbnail {
     max-height: 64px;
     width: auto;
+}
+
+@media (max-width: 782px) {
+    /* 사진 칼럼이 모바일에서 잘 보이도록 */
+    .wp-list-table .is-expanded td:not(.hidden).profile.column-profile {
+        display: table-cell !important;
+    }
+
+    .profile.column-profile {
+        text-align: unset;
+    }
+
+    .profile.column-profile::before {
+        content: "" !important;
+    }
 }

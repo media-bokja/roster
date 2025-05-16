@@ -26,7 +26,3 @@ use Bojka\Roster\Objects\Profile;
 <?php if ($this->get('icon270')) : ?>
     <meta name="msapplication-TileImage" content="<?php echo esc_url($this->get('icon270')); ?>" />
 <?php endif; ?>
-
-<title>
-    <?php echo esc_html($this->get('title')); ?>
-</title>

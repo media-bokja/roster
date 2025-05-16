@@ -40,6 +40,13 @@ namespace Bokja\Roster\Kses {
             ];
 
             return [
+                'a'        => [
+                    ...$defaultProp,
+                    'href'    => true,
+                    'onclick' => true,
+                    'target'  => true,
+                    'title'   => true,
+                ],
                 'button'   => [
                     ...$defaultProp,
                     'disabled' => true,

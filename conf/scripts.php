@@ -18,8 +18,8 @@ return [
             ],
         ],
         'admin_enqueue' => [
-            'post.php' => [
-                'roster-admin-edit' => function (): bool {
+            'roster-admin-edit' => [
+                'post.php' => function (): bool {
                     global $post_type;
                     return ROSTER_CPT_PROFILE === $post_type;
                 }
@@ -40,21 +40,27 @@ return [
             ],
         ],
         'admin_enqueue' => [
-            'edit.php' => [
-                'roster-admin-edit-list' => function (): bool {
+            'roster-admin-edit'      => [
+                'post.php'     => function (): bool {
+                    global $post_type;
+                    return (
+                        ROSTER_CPT_PROFILE === $post_type &&
+                        'edit' === ($_GET['action'] ?? '') &&
+                        isset($_GET['post'])
+                    );
+                },
+                'post-new.php' => function (): bool {
                     global $post_type;
                     return (
                         ROSTER_CPT_PROFILE === $post_type
                     );
                 },
             ],
-            'post.php' => [
-                'roster-admin-edit' => function (): bool {
+            'roster-admin-edit-list' => [
+                'edit.php' => function (): bool {
                     global $post_type;
                     return (
-                        ROSTER_CPT_PROFILE === $post_type &&
-                        'edit' === ($_GET['action'] ?? '') &&
-                        isset($_GET['post'])
+                        ROSTER_CPT_PROFILE === $post_type
                     );
                 },
             ],
