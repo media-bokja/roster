@@ -1,5 +1,6 @@
 import type {Profile} from '@/lib/types'
 import {cn} from '@/lib/utils'
+import {useEffect} from 'react'
 
 type Props = {
     open?: boolean
@@ -20,6 +21,20 @@ export function ImageFull(props: Props) {
 
     const full = profile.profileImage.full
 
+    useEffect(() => {
+        const callback = (e: Event) => {
+            e.preventDefault()
+            e.stopPropagation()
+            onClose && onClose()
+        }
+
+        document.body.addEventListener('roster:escape', callback)
+
+        return () => {
+            document.body.removeEventListener('roster:escape', callback)
+        }
+    }, [])
+
     return (
         <div
             className={cn(
@@ -37,6 +52,7 @@ export function ImageFull(props: Props) {
                     className="w-full h-full object-cover"
                     height={full.height}
                     src={full.path}
+                    title={'이미지를 클릭하거나 ESC 키를 누르면 닫힙니다.'}
                     width={full.width}
                 />
             </div>

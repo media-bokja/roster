@@ -29,6 +29,7 @@ class AdminEdit implements Module
 
         if ('edit' === $screen->base) {
             add_action("manage_{$screen->post_type}_posts_custom_column", [$this, 'outputColumnValues'], 10, 2);
+            add_action('manage_posts_extra_tablenav', [$this, 'addExport'], 10);
             add_filter("manage_{$screen->post_type}_posts_columns", [$this, 'addColumns']);
         }
 
@@ -47,6 +48,16 @@ class AdminEdit implements Module
         echo 'enctype="multipart/form-data"';
     }
 
+    public function addExport(string $which): void
+    {
+        global $post_type;
+
+        if (ROSTER_CPT_PROFILE !== $post_type) {
+            return;
+        }
+
+        rosterGet(RosterList::class)->addExport();
+    }
     /**
      * @param array $columns
      *

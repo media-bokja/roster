@@ -1,23 +1,41 @@
 jQuery(function ($) {
     const table = $('#roster-edit-form'),
-        form = table.closest('form')
+        form = table.closest('form'),
+        file = $('#roster-profile_image'),
+        image = $('img.profile-image-thumbnail')
     ;
+
+    /* image preview */
+    (function () {
+        const preview = $('img.profile-image-preview'),
+            wrap = preview.closest('div')
+
+        file.on('change', function (e) {
+            const file = e.target.files[0]
+            if (file) {
+                preview.attr('src', URL.createObjectURL(file))
+                wrap.removeClass('hidden')
+            } else {
+                preview.attr('src', '')
+                wrap.addClass('hidden')
+            }
+        })
+    })();
 
     /* image cancel link */
     (function () {
-        const file = $('#roster-profile_image'),
-            cancel = $('#roster-remove-profile-image')
+        const cancel = $('#roster-remove-profile-image')
 
         file.on('change', function () {
             if (file.val().length > 0) {
-                cancel.show();
+                cancel.show()
             } else {
-                cancel.hide();
+                cancel.hide()
             }
         })
 
         cancel.on('click', function (e) {
-            e.preventDefault();
+            e.preventDefault()
             file.val('').trigger('change')
         })
     })();
@@ -111,10 +129,9 @@ jQuery(function ($) {
         }
     })();
 
-    /* image click */
+    /* image popup */
     (function () {
-        const image = $('img.profile-image-thumbnail'),
-            popup = $('.image-popup'),
+        const popup = $('.image-popup'),
             popupImage = popup.find('img')
 
         image.on('click', function () {

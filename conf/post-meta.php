@@ -2,6 +2,7 @@
 
 use Bojka\Roster\Objects\Profile;
 use Bojka\Roster\Supports\ImageSupport;
+
 use function Bokja\Roster\prefixed;
 
 if (!defined('ABSPATH')) {

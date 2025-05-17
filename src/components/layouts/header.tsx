@@ -1,7 +1,13 @@
+import ThemeSwitcher from '@/components/parts/theme-switcher'
+import {Ajax} from '@/lib/ajax'
 import useRosterContext from '@/lib/context'
+import {ActionType} from '@/lib/reducer'
+import {getThemeName} from '@/lib/utils'
+import {forwardRef, type HTMLAttributes} from 'react'
 
-export default function Header() {
+const Header = forwardRef<HTMLElement, HTMLAttributes<HTMLElement>>((_, ref) => {
     const {
+        dispatch,
         state: {
             sitemeta: {
                 homeUrl,
@@ -10,6 +16,7 @@ export default function Header() {
                 siteIcon,
                 siteTitle,
                 siteUrl,
+                theme,
                 userAvatar,
                 userName,
             },
@@ -17,55 +24,33 @@ export default function Header() {
     } = useRosterContext()
 
     return (
-        <header className="">
+        <header className="shrink-0" ref={ref}>
             <nav className="navbar bg-base-300 shadow-sm py-0 min-h-0">
                 <div className="flex-1">
                     <a href={siteUrl} className="btn btn-ghost text-[1rem]">
-                        <img src={siteIcon} className="h-6 w-6 me-1" alt={siteTitle}/>
+                        <img src={siteIcon} className="h-6 w-6 me-1" alt={siteTitle} />
                         <span className="hidden sm:block">{siteTitle}</span>
                     </a>
                 </div>
                 <div className="flex-none">
                     <ul className="menu menu-horizontal px-1 text-xs items-center">
                         <li>
-                            <label className="flex cursor-pointer gap-2">
-                                <svg
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    width="16"
-                                    height="16"
-                                    viewBox="0 0 24 24"
-                                    fill="none"
-                                    stroke="currentColor"
-                                    strokeWidth="2"
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round">
-                                    <circle cx="12" cy="12" r="5"/>
-                                    <path
-                                        d="M12 1v2M12 21v2M4.2 4.2l1.4 1.4M18.4 18.4l1.4 1.4M1 12h2M21 12h2M4.2 19.8l1.4-1.4M18.4 5.6l1.4-1.4"/>
-                                </svg>
-                                <input
-                                    className="toggle theme-controller toggle-sm"
-                                    type="checkbox"
-                                    value="dark"
-                                />
-                                <svg
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    width="16"
-                                    height="16"
-                                    viewBox="0 0 24 24"
-                                    fill="none"
-                                    stroke="currentColor"
-                                    strokeWidth="2"
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round">
-                                    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
-                                </svg>
-                            </label>
+                            <ThemeSwitcher
+                                dark={'dark' === theme}
+                                onSwitch={(dark: boolean) => {
+                                    const theme = getThemeName(dark)
+                                    Ajax.setTheme(theme).then()
+                                    dispatch({
+                                        type: ActionType.SET_THEME,
+                                        payload: theme,
+                                    })
+                                }}
+                            />
                         </li>
                         <li>
                             <details>
                                 <summary className="min-w-32">
-                                    <img src={userAvatar} className="h-4 w-4" alt="사용자 아바타"/>
+                                    <img src={userAvatar} className="h-4 w-4" alt="사용자 아바타" />
                                     {userName}
                                 </summary>
                                 <ul className="bg-base-100 rounded-t-none p-2 z-100">
@@ -94,4 +79,8 @@ export default function Header() {
             </nav>
         </header>
     )
-}
+})
+
+Header.displayName = 'Header'
+
+export default Header

@@ -3,22 +3,26 @@
 namespace Bojka\Roster\Supports;
 
 use Bojka\Roster\Modules\Options;
+use Bojka\Roster\Modules\UserMeta;
 use Bokja\Roster\Vendor\Bojaghi\Contract\Support;
 use Bokja\Roster\Vendor\Bojaghi\Template\Template;
 use Bokja\Roster\Vendor\Bojaghi\ViteScripts\ViteScript;
+
+use function Bojka\Roster\Facades\rosterGet;
 
 readonly class FrontPage implements Support
 {
     public function __construct(
         private Options $options,
         private Template $template,
+        private UserMeta $userMeta,
         private ViteScript $vite,
     ) {
     }
 
     public function addExtraAttrsToHTML(string $output): string
     {
-        return $output . ' data-theme="light"';
+        return $output . ' data-theme="' . esc_attr($this->userMeta->theme->get(get_current_user_id())) . '"';
     }
 
     public function before(): void
@@ -89,6 +93,15 @@ readonly class FrontPage implements Support
         $this->vite
             ->add('roster', 'src/roster.tsx')
             ->vars('rosterVars', [
+                'ajax'     => [
+                    'actions' => [
+                        'setTheme' => [
+                            'action' => 'roster_set_theme',
+                            'nonce'  => wp_create_nonce('roster_set_theme'),
+                        ],
+                    ],
+                    'url'     => admin_url('admin-ajax.php'),
+                ],
                 'api'      => [
                     'baseUrl' => rest_url('bokja/v1'),
                     'nonce'   => wp_create_nonce('wp_rest'),
@@ -107,10 +120,23 @@ readonly class FrontPage implements Support
                     'siteIcon'        => get_site_icon_url(32),
                     'siteUrl'         => get_the_permalink(),
                     'siteTitle'       => get_bloginfo('name'),
+                    'theme'           => $this->userMeta->theme->get($user->ID),
                     'userAvatar'      => get_avatar_url($user->ID),
                     'userName'        => $user->display_name,
                 ],
             ])
         ;
+    }
+
+    public function setTheme(string $theme): string
+    {
+        $userId = get_current_user_id();
+        if (!$userId) {
+            return '';
+        }
+
+        $this->userMeta->theme->update($userId, $theme);
+
+        return $this->userMeta->theme->get($userId);
     }
 }

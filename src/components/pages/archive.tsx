@@ -1,6 +1,7 @@
 import Dialog from '@/components/pages/dialog'
 import {ImageFull} from '@/components/parts/image-full'
 import ItemsGrid from '@/components/parts/items-grid.tsx'
+import Loading from '@/components/parts/loading'
 import PageTitle from '@/components/parts/page-title.tsx'
 import ToolAreaBottom from '@/components/parts/tool-area-bottom.tsx'
 import ToolAreaTop from '@/components/parts/tool-area-top.tsx'
@@ -23,7 +24,7 @@ export default function Archive() {
 
     const [showPopup, setShowPopup] = useState<boolean>(false)
 
-    const {data} = useQuery({
+    const {data, isLoading} = useQuery({
         queryKey: ['roster', 'get', [siteParams.page, siteParams.search]],
         queryFn: () => {
             return Roster.query({
@@ -32,6 +33,12 @@ export default function Archive() {
             })
         },
     })
+
+    if (isLoading) {
+        return (
+            <Loading show={true} />
+        )
+    }
 
     return (
         <>

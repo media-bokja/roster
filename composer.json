@@ -53,7 +53,8 @@
         "bojaghi/template": "^1.0",
         "bojaghi/clean-pages": "^1.0",
         "bojaghi/vite-scripts": "^1.1",
-        "bojaghi/fields-render": "^1.0"
+        "bojaghi/fields-render": "^1.0",
+        "bojaghi/admin-ajax": "^1.0"
     },
     "scripts": {
         "imposter": "@php imposter.php",
@@ -98,5 +99,5 @@
             "typisttech/imposter-plugin": true
         }
     },
-    "version": "0.7.0"
+    "version": "0.8.0"
 }

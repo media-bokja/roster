@@ -4,10 +4,12 @@ import {useReducer} from 'react'
 
 enum ActionType {
     SET_SITE_PARAMS = 'setSiteParams',
+    SET_THEME = 'setTheme',
 }
 
 type Action =
     | { type: ActionType.SET_SITE_PARAMS, payload: SiteParams }
+    | { type: ActionType.SET_THEME, payload: string }
 
 function reducer(prevState: RosterState, action: Action): RosterState {
     const {payload, type} = action
@@ -18,6 +20,16 @@ function reducer(prevState: RosterState, action: Action): RosterState {
             return {
                 ...prevState,
                 siteParams: payload,
+            }
+
+        case ActionType.SET_THEME:
+            document.getElementsByTagName('html')![0].setAttribute('data-theme', payload)
+            return {
+                ...prevState,
+                sitemeta: {
+                    ...prevState.sitemeta,
+                    theme: payload,
+                },
             }
 
         default:

@@ -4,8 +4,57 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "fd04053abd2f94f8cc2ab42ab35bc8a0",
+    "content-hash": "adc8000e99e8a263cebeea98221c06eb",
     "packages": [
+        {
+            "name": "bojaghi/admin-ajax",
+            "version": "1.0.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/bojaghi/admin-ajax.git",
+                "reference": "6bb1eebf1233711244154c219972cd18b7989a14"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/bojaghi/admin-ajax/zipball/6bb1eebf1233711244154c219972cd18b7989a14",
+                "reference": "6bb1eebf1233711244154c219972cd18b7989a14",
+                "shasum": ""
+            },
+            "require": {
+                "bojaghi/contract": "^1.0",
+                "bojaghi/helper": "^1.0",
+                "php": ">=8.0",
+                "psr/container": "^2.0"
+            },
+            "require-dev": {
+                "bojaghi/wp-tests": "^1.0",
+                "phpunit/phpunit": "^9",
+                "yoast/phpunit-polyfills": "^3.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Bojaghi\\AdminAjax\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "changwoo",
+                    "email": "ep6tri@hotmail.com"
+                }
+            ],
+            "description": "WordPress wp-admin/admin-ajax.php, wp-admin/admin-post.php handler helper.",
+            "homepage": "https://github.com/bojaghi/admin-ajax",
+            "support": {
+                "issues": "https://github.com/bojaghi/admin-ajax/issues",
+                "source": "https://github.com/bojaghi/admin-ajax/tree/1.0.3"
+            },
+            "time": "2024-12-28T10:51:30+00:00"
+        },
         {
             "name": "bojaghi/clean-pages",
             "version": "1.0.2",

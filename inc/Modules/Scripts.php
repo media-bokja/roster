@@ -112,10 +112,10 @@ class Scripts implements Module
             if ($item['handle'] && $item['src']) {
                 if (!wp_register_script(
                     handle: $item['handle'],
-                    src:    $item['src'],
-                    deps:   $item['deps'],
-                    ver:    $item['ver'],
-                    args:   $item['args'],
+                    src: $item['src'],
+                    deps: $item['deps'],
+                    ver: $item['ver'],
+                    args: $item['args'],
                 )) {
                     wp_die(sprintf('Failed to register script: %s', $item['handle']));
                 }
@@ -144,10 +144,10 @@ class Scripts implements Module
             if ($item['handle'] && $item['src']) {
                 if (!wp_register_style(
                     handle: $item['handle'],
-                    src:    $item['src'],
-                    deps:   $item['deps'],
-                    ver:    $item['ver'],
-                    media:  $item['media'],
+                    src: $item['src'],
+                    deps: $item['deps'],
+                    ver: $item['ver'],
+                    media: $item['media'],
                 )) {
                     wp_die(sprintf('Failed to register style: %s', $item['handle']));
                 }
@@ -229,9 +229,15 @@ class Scripts implements Module
             } elseif (is_array($rules)) {
                 // Detailed per-hook rules.
                 foreach ($rules as $handle => $conditions) {
-                    is_array($conditions) && isset($conditions[$hook]) &&
-                    is_callable($conditions[$hook]) && $conditions[$hook]($hook, $handle) &&
-                    wp_enqueue_script($handle);
+                    if (
+                        // Catch-all callback.
+                        (is_callable($conditions) && $conditions($hook, $handle)) ||
+                        // Per-hook callback.
+                        (is_array($conditions) && isset($conditions[$hook]) &&
+                            is_callable($conditions[$hook]) && $conditions[$hook]($hook, $handle))
+                    ) {
+                        wp_enqueue_script($handle);
+                    }
                 }
             }
         }
@@ -250,9 +256,15 @@ class Scripts implements Module
             } elseif (is_array($rules)) {
                 // Detailed per-hook rules.
                 foreach ($rules as $handle => $conditions) {
-                    is_array($conditions) && isset($conditions[$hook]) &&
-                    is_callable($conditions[$hook]) && $conditions[$hook]($hook, $handle) &&
-                    wp_enqueue_style($handle);
+                    if (
+                        // Catch-all callback.
+                        (is_callable($conditions) && $conditions($hook, $handle)) ||
+                        // Per-hook callback.
+                        (is_array($conditions) && isset($conditions[$hook]) &&
+                            is_callable($conditions[$hook]) && $conditions[$hook]($hook, $handle))
+                    ) {
+                        wp_enqueue_style($handle);
+                    }
                 }
             }
         }

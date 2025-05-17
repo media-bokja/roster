@@ -35,7 +35,7 @@ export default function Dialog(props: Props) {
                         <div className="flex flex-wrap gap-x-2 lx:gap-x-8 gap-y-6">
                             {'thumbnail' in profile.profileImage && (
                                 <figure
-                                    className="w-full sm:w-48 md:w-56 xl:w-64"
+                                    className="w-full sm:w-48 md:w-56 xl:w-64 cursor-pointer"
                                     onClick={() => onClickThumbnail && onClickThumbnail()}
                                 >
                                     <img

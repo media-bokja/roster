@@ -16,6 +16,7 @@ export function getDefaultState(override: Partial<RosterState> = {}): RosterStat
             siteIcon: '',
             siteTitle: '',
             siteUrl: '',
+            theme: 'light',
             userAvatar: '',
             userName: '',
             ...override.sitemeta,
@@ -39,4 +40,8 @@ export function setHistory(params: SiteParams) {
     }
 
     window.history.pushState({}, '', url.href)
+}
+
+export function getThemeName(dark: boolean): string {
+    return dark ? 'dark' : 'light'
 }

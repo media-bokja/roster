@@ -1,3 +1,12 @@
+#export-to-excel {
+    display: inline-flex;
+    align-items: center;
+
+    & > img {
+        margin-right: 0.25rem;
+    }
+}
+
 .manage-column.column-profile, .profile.column-profile {
     width: 96px;
 }

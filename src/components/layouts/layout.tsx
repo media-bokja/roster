@@ -1,19 +1,27 @@
-import Loading from '@/components/parts/loading'
-import {PropsWithChildren} from 'react'
+import {PropsWithChildren, useRef} from 'react'
 import Footer from './footer.tsx'
 import Header from './header.tsx'
 import Main from './main.tsx'
 
 export default function Layout(props: PropsWithChildren) {
+    const headerRef = useRef<HTMLElement>(null),
+        footerRef = useRef<HTMLElement>(null)
+
     return (
         <>
-            <Loading />
-            <div className="layout-default">
-                <Header />
+            <div
+                className="layout-default flex flex-col min-h-screen"
+                onKeyUpCapture={(e) => {
+                    if ('Escape' === e.key) {
+                        document.body.dispatchEvent(new CustomEvent('roster:escape', {}))
+                    }
+                }}
+            >
+                <Header ref={headerRef} />
                 <Main>
                     {props.children}
                 </Main>
-                <Footer />
+                <Footer ref={footerRef} />
             </div>
         </>
 

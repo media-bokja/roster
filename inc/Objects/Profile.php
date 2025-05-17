@@ -2,7 +2,7 @@
 
 namespace Bojka\Roster\Objects;
 
-use Bojka\Roster\Modules\CustomFields;
+use Bojka\Roster\Modules\PostMeta;
 use Bojka\Roster\Supports\ImageSupport;
 use DateTime;
 use DateTimeZone;
@@ -90,7 +90,7 @@ class Profile
                 $output->profileImage = self::manageProfileImage($profileFile, $output->id);
             } else {
                 // Keep original image.
-                $output->profileImage = rosterGet(CustomFields::class)->profileImage->get($output->id);
+                $output->profileImage = rosterGet(PostMeta::class)->profileImage->get($output->id);
             }
         }
 
@@ -130,7 +130,7 @@ class Profile
             ],
         );
 
-        $meta   = rosterGet(CustomFields::class);
+        $meta   = rosterGet(PostMeta::class);
         $post   = get_post($id);
         $output = new self();
 

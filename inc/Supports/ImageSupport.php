@@ -2,7 +2,7 @@
 
 namespace Bojka\Roster\Supports;
 
-use Bojka\Roster\Modules\CustomFields;
+use Bojka\Roster\Modules\PostMeta;
 
 use function Bojka\Roster\Facades\rosterGet;
 
@@ -97,7 +97,7 @@ class ImageSupport
 
     public function removeImage(int $postId): void
     {
-        $meta   = rosterGet(CustomFields::class);
+        $meta   = rosterGet(PostMeta::class);
         $images = $meta->profileImage->get($postId);
 
         if (!$images) {

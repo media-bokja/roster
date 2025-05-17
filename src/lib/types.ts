@@ -1,3 +1,8 @@
+type Action = {
+    action: string
+    nonce: string
+}
+
 type Profile = {
     id: number
     name: string
@@ -27,6 +32,7 @@ type SiteMeta = {
     siteIcon: string
     siteTitle: string
     siteUrl: string
+    theme: string
     userAvatar: string
     userName: string
 }
@@ -53,6 +59,7 @@ type ProfileImage = {
 }
 
 export type {
+    Action,
     Profile,
     ProfileImage,
     RosterState,

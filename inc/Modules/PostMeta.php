@@ -21,7 +21,7 @@ use function Bokja\Roster\prefixed;
  * @property-read Meta $ordinationDate
  * @property-read Meta $profileImage
  */
-class CustomFields extends CustomFieldsBase
+class PostMeta extends CustomFieldsBase
 {
     public function __get(string $name)
     {

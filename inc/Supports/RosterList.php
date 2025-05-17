@@ -2,12 +2,15 @@
 
 namespace Bojka\Roster\Supports;
 
-use Bojka\Roster\Modules\CustomFields;
+use Bojka\Roster\Modules\PostMeta;
+use Bokja\Roster\Vendor\Bojaghi\Template\Template;
 
 readonly class RosterList
 {
-    public function __construct(private CustomFields $meta)
-    {
+    public function __construct(
+        private PostMeta $meta,
+        private Template $template,
+    ) {
     }
 
     public function addColumns(array $columns): array
@@ -40,6 +43,24 @@ readonly class RosterList
                 'current_assignment' => __('현소임지', 'roster'),
             ],
             $date ? ['date' => $date] : [],
+        );
+    }
+
+    public function addExport(): void
+    {
+        echo $this->template->template(
+            'export',
+            [
+                'action'     => 'roster_export_profiles',
+                'export_url' => add_query_arg(
+                    [
+                        'action' => 'roster_export_profiles',
+                        'nonce'  => wp_create_nonce('roster_export_profiles'),
+                    ],
+                    admin_url('admin-post.php'),
+                ),
+                'icon_url'   => plugins_url('assets/excel-icon.png', ROSTER_MAIN),
+            ],
         );
     }
 

@@ -16,6 +16,12 @@ return [
                 'ver'    => $ver(),
                 'args'   => ['strategy' => 'defer', 'in_footer' => true],
             ],
+            [
+                'handle' => 'roster-livereload',
+                'src'    => 'http://localhost:35729/livereload.js?sipver=1',
+                'ver'    => null,
+                'args'   => ['in_footer' => true],
+            ]
         ],
         'admin_enqueue' => [
             'roster-admin-edit' => [
@@ -24,6 +30,9 @@ return [
                     return ROSTER_CPT_PROFILE === $post_type;
                 }
             ],
+            'roster-livereload' => function (): bool {
+                return defined('WP_DEBUG') && WP_DEBUG;
+            },
         ],
     ],
     'style'  => [
