@@ -1,14 +1,12 @@
 import Dialog from '@/components/pages/dialog'
+import useRosterQuery from '@/components/pages/use-roster-query'
 import {ImageFull} from '@/components/parts/image-full'
 import ItemsGrid from '@/components/parts/items-grid.tsx'
-import Loading from '@/components/parts/loading'
 import PageTitle from '@/components/parts/page-title.tsx'
 import ToolAreaBottom from '@/components/parts/tool-area-bottom.tsx'
 import ToolAreaTop from '@/components/parts/tool-area-top.tsx'
-import {Roster} from '@/lib/api.ts'
 import useRosterContext from '@/lib/context'
 import {ActionType} from '@/lib/reducer'
-import {useQuery} from '@tanstack/react-query'
 import {useState} from 'react'
 
 export default function Archive() {
@@ -22,30 +20,20 @@ export default function Archive() {
         },
     } = useRosterContext()
 
+    const {data} = useRosterQuery()
+
     const [showPopup, setShowPopup] = useState<boolean>(false)
 
-    const {data, isLoading} = useQuery({
-        queryKey: ['roster', 'get', [siteParams.page, siteParams.search]],
-        queryFn: () => {
-            return Roster.query({
-                page: siteParams.page,
-                search: siteParams.search,
-            })
-        },
-    })
-
-    if (isLoading) {
-        return (
-            <Loading show={true} />
-        )
+    if (!data) {
+        return null
     }
 
     return (
         <>
             <PageTitle title={pageTitle} />
             <ToolAreaTop
-                maxPage={data?.maxPage}
-                total={data?.total}
+                maxPage={data.maxPage}
+                total={data.total}
                 onClickSearch={(search) => {
                     siteParams.page = 0
                     siteParams.search = search
@@ -56,7 +44,7 @@ export default function Archive() {
                 }}
             />
             <ItemsGrid
-                items={data?.result || []}
+                items={data.result || []}
                 onClickItem={(item) => {
                     siteParams.p = item.id
                     dispatch({
@@ -66,8 +54,8 @@ export default function Archive() {
                 }}
             />
             <ToolAreaBottom
-                page={data?.page}
-                maxPage={data?.maxPage}
+                page={data.page}
+                maxPage={data.maxPage}
                 onClickPage={(page: number) => {
                     siteParams.page = page
                     dispatch({
@@ -86,12 +74,12 @@ export default function Archive() {
                         payload: siteParams,
                     })
                 }}
-                profile={data?.result.find((profile) => profile.id === siteParams.p)}
+                profile={data.result.find((profile) => profile.id === siteParams.p)}
             />
             <ImageFull
                 open={siteParams.p > 0 && showPopup}
                 onClose={() => setShowPopup(false)}
-                profile={data?.result.find((profile) => profile.id === siteParams.p)}
+                profile={data.result.find((profile) => profile.id === siteParams.p)}
             />
         </>
     )

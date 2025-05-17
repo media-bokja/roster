@@ -87,7 +87,7 @@ export default function Dialog(props: Props) {
                                         <td className="py-1">{profile.entranceDate}</td>
                                     </tr>
                                     <tr>
-                                        <th className="py-1" scope="row">첫 서원일</th>
+                                        <th className="py-1" scope="row">첫서원일</th>
                                         <td className="py-1">{profile.initialProfessionDate}</td>
                                     </tr>
                                     <tr>

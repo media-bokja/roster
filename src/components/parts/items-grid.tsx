@@ -15,9 +15,9 @@ export default function ItemsGrid(props: Props) {
 
     if (0 === items.length) {
         return (
-            <section className="mt-12 flex justify-center items-center h-[360px]">
+            <section className="mt-12 flex flex-col grow justify-center items-center">
                 <p className="text-xl text-base-content">
-                    명부를 찾을 수 없습니다.
+                    명단을 찾을 수 없습니다.
                 </p>
             </section>
         )

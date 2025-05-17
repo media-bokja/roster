@@ -3,7 +3,16 @@ import Footer from './footer.tsx'
 import Header from './header.tsx'
 import Main from './main.tsx'
 
-export default function Layout(props: PropsWithChildren) {
+type Props = {
+    condensed?: boolean
+} & PropsWithChildren
+
+export default function Layout(props: Props) {
+    const {
+        children,
+        condensed,
+    } = props
+
     const headerRef = useRef<HTMLElement>(null),
         footerRef = useRef<HTMLElement>(null)
 
@@ -18,12 +27,9 @@ export default function Layout(props: PropsWithChildren) {
                 }}
             >
                 <Header ref={headerRef} />
-                <Main>
-                    {props.children}
-                </Main>
+                <Main condensed={condensed}>{children}</Main>
                 <Footer ref={footerRef} />
             </div>
         </>
-
     )
 }

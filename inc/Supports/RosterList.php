@@ -3,7 +3,9 @@
 namespace Bojka\Roster\Supports;
 
 use Bojka\Roster\Modules\PostMeta;
+use Bojka\Roster\Objects\Profile;
 use Bokja\Roster\Vendor\Bojaghi\Template\Template;
+use WP_Query;
 
 readonly class RosterList
 {
@@ -62,6 +64,81 @@ readonly class RosterList
                 'icon_url'   => plugins_url('assets/excel-icon.png', ROSTER_MAIN),
             ],
         );
+    }
+
+    public function exportProfiles(): void
+    {
+        $fileName = sprintf('회원명부-%s.csv', wp_date('YmdHis'));
+
+        header("Cache-Control: public");
+        header('Content-Type: application/csv');
+        header("Content-Description: File Transfer");
+        header('Content-Disposition: attachment; filename="' . $fileName . '"');
+        header("Content-Transfer-Encoding: binary");
+
+        $query = new WP_Query(
+            [
+                'post_status'      => 'publish',
+                'post_type'        => ROSTER_CPT_PROFILE,
+                'orderby'          => 'title',
+                'order'            => 'ASC',
+                'posts_per_page'   => -1,
+                'no_found_rows'    => true,
+                'suppress_filters' => true,
+            ],
+        );
+
+        $fp = fopen('php://output', 'w');
+
+        $header = mb_convert_encoding(
+            [
+                'ID',
+                '이름',
+                '국적',
+                '세례명',
+                '축일',
+                '수도명',
+                '현소임지',
+                '생일',
+                '입회일',
+                '첫서원일',
+                '종신서원일',
+                '서품일',
+                '선종일',
+                '사진',
+            ],
+            'CP949',
+        );
+
+        fputcsv($fp, $header);
+
+        foreach ($query->posts as $post) {
+            $profile = Profile::get($post->ID, "treat_image=url");
+
+            $row = mb_convert_encoding(
+                [
+                    $post->ID,
+                    $profile->name,
+                    $profile->nationality,
+                    $profile->baptismalName,
+                    $profile->nameDay,
+                    $profile->monasticName,
+                    $profile->currentAssignment,
+                    $profile->birthday,
+                    $profile->entranceDate,
+                    $profile->initialProfessionDate,
+                    $profile->perpetualProfessionDate,
+                    $profile->ordinationDate,
+                    $profile->dateOfDeath,
+                    $profile->profileImage['full']['path'] ?? ''
+                ],
+                'CP949',
+            );
+
+            fputcsv($fp, $row);
+        }
+
+        fclose($fp);
     }
 
     public function outputColumnValues(string $column, int $postId): void

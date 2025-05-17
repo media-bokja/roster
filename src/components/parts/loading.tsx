@@ -14,7 +14,7 @@ export default function Loading(props: Props) {
     }
 
     return (
-        <div className="loading-cotainer text-center" role="alert">
+        <div className="loading-cotainer text-center self-center" role="alert">
             <p>
                 <span className="loading loading-spinner loading-xl" />
             </p>

@@ -47,6 +47,7 @@
     },
     "require": {
         "php": ">=8.2",
+        "ext-mbstring": "*",
         "bojaghi/continy": "^1.1",
         "bojaghi/custom-posts": "^1.0",
         "bojaghi/fields": "^1.0",
@@ -99,5 +100,5 @@
             "typisttech/imposter-plugin": true
         }
     },
-    "version": "0.8.0"
+    "version": "0.9.0"
 }

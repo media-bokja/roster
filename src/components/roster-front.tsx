@@ -1,12 +1,12 @@
 import Layout from '@/components/layouts/layout.tsx'
 import Archive from '@/components/pages/archive.tsx'
+import useRosterQuery from '@/components/pages/use-roster-query'
+import Loading from '@/components/parts/loading'
 import {RosterContext} from '@/lib/context'
 import {useRosterReducer} from '@/lib/reducer'
 import {getDefaultState} from '@/lib/utils'
-import {QueryClient, QueryClientProvider} from '@tanstack/react-query'
 
 const param = new URLSearchParams(window.location.search)
-const queryClient = new QueryClient()
 
 export default function RosterFront() {
     const [state, dispatch] = useRosterReducer(getDefaultState({
@@ -18,13 +18,17 @@ export default function RosterFront() {
         },
     }))
 
+    const {
+        isLoading,
+        isSuccess,
+    } = useRosterQuery()
+
     return (
-        <QueryClientProvider client={queryClient}>
-            <RosterContext.Provider value={{dispatch, state}}>
-                <Layout>
-                    <Archive />
-                </Layout>
-            </RosterContext.Provider>
-        </QueryClientProvider>
+        <RosterContext.Provider value={{dispatch, state}}>
+            <Layout condensed={isLoading}>
+                {isLoading && <Loading show={true} />}
+                {isSuccess && <Archive />}
+            </Layout>
+        </RosterContext.Provider>
     )
 }

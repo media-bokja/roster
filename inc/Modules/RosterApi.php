@@ -7,6 +7,8 @@ use Bokja\Roster\Vendor\Bojaghi\Contract\Module;
 use WP_Query;
 use WP_REST_Request;
 
+use function Bojka\Roster\Facades\rosterGet;
+
 class RosterApi implements Module
 {
     public function __construct()
@@ -29,8 +31,27 @@ class RosterApi implements Module
 
     public function query(WP_REST_Request $request): array
     {
+        $meta   = rosterGet(PostMeta::class);
         $page   = max(1, (int)$request->get_param('page'));
-        $serach = $request->get_param('search') ?? '';
+        $search = $request->get_param('search') ?? '';
+
+        // Replace AND to OR.
+        $callback = function ($sql, $queries, $type) use ($meta): array {
+            if (
+                'post' === $type &&
+                $meta->baptismalName->getKey() === $queries[0]['key'] &&
+                $meta->currentAssignment->getKey() === $queries[1]['key'] &&
+                $meta->monasticName->getKey() === $queries[2]['key']
+            ) {
+                $sql['where'] = ' OR' . substr($sql['where'], 4);
+            }
+
+            return $sql;
+        };
+
+        if ($search) {
+            add_filter('get_meta_sql', $callback, 10, 6);
+        }
 
         $query = new WP_Query(
             [
@@ -40,9 +61,31 @@ class RosterApi implements Module
                 'post_status'    => 'publish',
                 'post_type'      => ROSTER_CPT_PROFILE,
                 'posts_per_page' => 20,
-                's'              => $serach,
+                's'              => $search,
+                'meta_query'     => [
+                    'relation' => 'OR',
+                    [
+                        'key'     => $meta->baptismalName->getKey(),
+                        'value'   => $search,
+                        'compare' => 'LIKE',
+                    ],
+                    [
+                        'key'     => $meta->currentAssignment->getKey(),
+                        'value'   => $search,
+                        'compare' => 'LIKE',
+                    ],
+                    [
+                        'key'     => $meta->monasticName->getKey(),
+                        'value'   => $search,
+                        'compare' => 'LIKE',
+                    ]
+                ],
             ],
         );
+
+        if ($search) {
+            remove_filter('get_meta_sql', $callback);
+        }
 
         return [
             'result'  => array_map(
