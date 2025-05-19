@@ -1,23 +1,32 @@
+import useRosterContext from '@/lib/context'
 import {cn} from '@/lib/utils'
 import {PropsWithChildren} from 'react'
 
-type Props = {
-    condensed?: boolean
-} & PropsWithChildren
+type Props = PropsWithChildren
 
 export default function Main(props: Props) {
     const {
         children,
-        condensed,
     } = props
+
+    const {
+        state: {
+            layout: {
+                condensed,
+                verticalCenter,
+            },
+        },
+    } = useRosterContext()
 
     return (
         <main
             className={cn(
-                'w-[960px] mx-auto mt-4 py-6 px-4',
+                condensed ? 'w-[960px]' : 'max-w-[960px]',
+                'mx-auto mt-4 py-6 px-4',
                 'grow inline-flex flex-col',
-                condensed && 'justify-center items-center',
-            )}>
+                verticalCenter && 'justify-center items-center',
+            )}
+        >
             {children}
         </main>
     )

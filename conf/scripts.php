@@ -21,15 +21,14 @@ return [
                 'src'    => 'http://localhost:35729/livereload.js?sipver=1',
                 'ver'    => null,
                 'args'   => ['in_footer' => true],
-            ]
+            ],
         ],
         'admin_enqueue' => [
-            'roster-admin-edit' => [
-                'post.php' => function (): bool {
-                    global $post_type;
-                    return ROSTER_CPT_PROFILE === $post_type;
-                }
-            ],
+            'roster-admin-edit' => function (string $hook): bool {
+                global $post_type;
+                return ROSTER_CPT_PROFILE === $post_type &&
+                    ('post.php' === $hook || 'post-new.php' === $hook);
+            },
             'roster-livereload' => function (): bool {
                 return defined('WP_DEBUG') && WP_DEBUG;
             },

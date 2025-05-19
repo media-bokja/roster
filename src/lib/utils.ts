@@ -8,6 +8,11 @@ export function cn(...inputs: ClassValue[]) {
 
 export function getDefaultState(override: Partial<RosterState> = {}): RosterState {
     return {
+        layout: {
+            condensed: false,
+            showLoading: false,
+            verticalCenter: false,
+        },
         sitemeta: {
             homeUrl: '',
             pageTitle: '',
@@ -27,7 +32,6 @@ export function getDefaultState(override: Partial<RosterState> = {}): RosterStat
             search: '',
             ...override.siteParams,
         },
-        showLoading: false,
         ...override,
     }
 }

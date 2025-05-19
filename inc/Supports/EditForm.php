@@ -16,15 +16,16 @@ readonly class EditForm implements Support
 
     public function render(WP_Post $post): void
     {
-        $result = $this->template->template(
-            'edit-form',
-            [
-                'profile' => Profile::get($post->ID, "treat_image=url"),
-            ],
-        );
+        $profile = Profile::get($post->ID, "treat_image=url");
+        // Correct 'Auto Draft' here
+        if ('auto-draft' === $post->post_status && __('Auto Draft') === $profile->name) {
+            $profile->name = '';
+        }
 
+        $result = $this->template->template('edit-form', ['profile' => $profile]);
+
+        // Allow 'style' attrribute when using wp_kses().
         add_filter('safe_style_css', fn(array $styles) => [...$styles, 'display']);
-
         echo wp_kses($result, ksesEditForm());
     }
 
@@ -40,7 +41,7 @@ readonly class EditForm implements Support
         Profile::fromArray(
             $data,
             isset($_FILES['bokja_roster_profile_image']['tmp_name']) && $_FILES['bokja_roster_profile_image']['tmp_name'] ?
-                $_FILES['bokja_roster_profile_image'] : null
+                $_FILES['bokja_roster_profile_image'] : null,
         )->save();
     }
 }

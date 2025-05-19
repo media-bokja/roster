@@ -43,10 +43,16 @@ type SiteParams = {
     search: string // Search keyword
 }
 
+type RosterLayout = {
+    condensed: boolean
+    showLoading: boolean
+    verticalCenter: boolean
+}
+
 type RosterState = {
+    layout: RosterLayout
     sitemeta: SiteMeta
     siteParams: SiteParams
-    showLoading: boolean
 }
 
 type ProfileImage = {
@@ -62,6 +68,7 @@ export type {
     Action,
     Profile,
     ProfileImage,
+    RosterLayout,
     RosterState,
     SiteMeta,
     SiteParams,

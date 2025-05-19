@@ -35,26 +35,32 @@ class RosterApi implements Module
         $page   = max(1, (int)$request->get_param('page'));
         $search = $request->get_param('search') ?? '';
 
-        // Replace AND to OR.
-        $callback = function ($sql, $queries, $type) use ($meta): array {
-            if (
-                'post' === $type &&
-                $meta->baptismalName->getKey() === $queries[0]['key'] &&
-                $meta->currentAssignment->getKey() === $queries[1]['key'] &&
-                $meta->monasticName->getKey() === $queries[2]['key']
-            ) {
-                $sql['where'] = ' OR' . substr($sql['where'], 4);
-            }
-
-            return $sql;
-        };
-
         if ($search) {
-            add_filter('get_meta_sql', $callback, 10, 6);
+            $metaSearch = [
+                'relation' => 'OR',
+                [
+                    'key'     => $meta->baptismalName->getKey(),
+                    'value'   => $search,
+                    'compare' => 'LIKE',
+                ],
+                [
+                    'key'     => $meta->currentAssignment->getKey(),
+                    'value'   => $search,
+                    'compare' => 'LIKE',
+                ],
+                [
+                    'key'     => $meta->monasticName->getKey(),
+                    'value'   => $search,
+                    'compare' => 'LIKE',
+                ],
+            ];
+        } else {
+            $metaSearch = [];
         }
 
         $query = new WP_Query(
             [
+                'meta_search'    => $metaSearch,
                 'order'          => 'desc',
                 'orderby'        => 'date',
                 'paged'          => $page,
@@ -62,30 +68,9 @@ class RosterApi implements Module
                 'post_type'      => ROSTER_CPT_PROFILE,
                 'posts_per_page' => 20,
                 's'              => $search,
-                'meta_query'     => [
-                    'relation' => 'OR',
-                    [
-                        'key'     => $meta->baptismalName->getKey(),
-                        'value'   => $search,
-                        'compare' => 'LIKE',
-                    ],
-                    [
-                        'key'     => $meta->currentAssignment->getKey(),
-                        'value'   => $search,
-                        'compare' => 'LIKE',
-                    ],
-                    [
-                        'key'     => $meta->monasticName->getKey(),
-                        'value'   => $search,
-                        'compare' => 'LIKE',
-                    ]
-                ],
+                'search_columns' => ['post_title'],
             ],
         );
-
-        if ($search) {
-            remove_filter('get_meta_sql', $callback);
-        }
 
         return [
             'result'  => array_map(

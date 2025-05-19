@@ -20,7 +20,7 @@ export default function ItemProfileImage(props: Props) {
                 <img
                     alt={`${name} ${baptismalName}} 프로필 섬네일 이미지`}
                     className="w-full h-full object-cover"
-                    src={profileImage.thumbnail.path}
+                    src={profileImage.thumbnail.path.length ? profileImage.thumbnail.path : undefined}
                     title={`${name} ${baptismalName}} 프로필 섬네일 이미지`}
                     width={profileImage.thumbnail.width}
                     height={profileImage.thumbnail.height}

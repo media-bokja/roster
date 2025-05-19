@@ -28,7 +28,7 @@ const Header = forwardRef<HTMLElement, HTMLAttributes<HTMLElement>>((_, ref) => 
             <nav className="navbar bg-base-300 shadow-sm py-0 min-h-0">
                 <div className="flex-1">
                     <a href={siteUrl} className="btn btn-ghost text-[1rem]">
-                        <img src={siteIcon} className="h-6 w-6 me-1" alt={siteTitle} />
+                        <img src={siteIcon.length ? siteIcon : undefined} className="h-6 w-6 me-1" alt={siteTitle} />
                         <span className="hidden sm:block">{siteTitle}</span>
                     </a>
                 </div>

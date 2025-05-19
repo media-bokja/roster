@@ -35,6 +35,7 @@ return [
         'bokja/postMeta'      => Modules\PostMeta::class,
         'bokja/rosterApi'     => Modules\RosterApi::class,
         'bokja/scripts'       => Modules\Scripts::class,
+        'bokja/searchMeta'    => Modules\SearchMeta::class,
         'bokja/userMeta'      => Modules\UserMeta::class,
     ],
     'arguments' => [
@@ -54,6 +55,7 @@ return [
     'modules'   => [
         '_'             => [
             'bojaghi/cleanPages',
+            'bokja/searchMeta',
         ],
         'init'          => [
             Continy::PR_DEFAULT => [

@@ -5,8 +5,9 @@ const Footer = forwardRef<HTMLElement, HTMLAttributes<HTMLElement>>((_, ref) => 
     return (
         <footer
             className={cn(
-                'footer footer-center sm:footer-horizontal shrink-0',
+                'footer footer-center sm:footer-horizontal',
                 'mt-2 p-4',
+                'shrink-0',
                 'bg-base-300 text-base-content',
             )}
             ref={ref}

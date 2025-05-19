@@ -17,4 +17,5 @@ return array(
     'Bojaghi\\Contract\\' => array($vendorDir . '/bojaghi/contract/src'),
     'Bojaghi\\Continy\\' => array($vendorDir . '/bojaghi/continy/src'),
     'Bojaghi\\CleanPages\\' => array($vendorDir . '/bojaghi/clean-pages/src'),
+    'Bojaghi\\AdminAjax\\' => array($vendorDir . '/bojaghi/admin-ajax/src'),
 );

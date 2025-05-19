@@ -1,13 +1,15 @@
-import type {RosterState, SiteParams} from '@/lib/types'
+import type {RosterLayout, RosterState, SiteParams} from '@/lib/types'
 import {setHistory} from '@/lib/utils'
 import {useReducer} from 'react'
 
 enum ActionType {
+    SET_LAYOUT = 'setLayout',
     SET_SITE_PARAMS = 'setSiteParams',
     SET_THEME = 'setTheme',
 }
 
 type Action =
+    | { type: ActionType.SET_LAYOUT, payload: RosterLayout }
     | { type: ActionType.SET_SITE_PARAMS, payload: SiteParams }
     | { type: ActionType.SET_THEME, payload: string }
 
@@ -15,6 +17,12 @@ function reducer(prevState: RosterState, action: Action): RosterState {
     const {payload, type} = action
 
     switch (type) {
+        case ActionType.SET_LAYOUT:
+            return {
+                ...prevState,
+                layout: payload,
+            }
+
         case ActionType.SET_SITE_PARAMS:
             setHistory(payload)
             return {

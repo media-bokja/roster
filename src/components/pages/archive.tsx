@@ -7,7 +7,7 @@ import ToolAreaBottom from '@/components/parts/tool-area-bottom.tsx'
 import ToolAreaTop from '@/components/parts/tool-area-top.tsx'
 import useRosterContext from '@/lib/context'
 import {ActionType} from '@/lib/reducer'
-import {useState} from 'react'
+import {useEffect, useState} from 'react'
 
 export default function Archive() {
     const {
@@ -20,11 +20,23 @@ export default function Archive() {
         },
     } = useRosterContext()
 
-    const {data} = useRosterQuery()
+    const {isSuccess, isLoading, data} = useRosterQuery()
 
     const [showPopup, setShowPopup] = useState<boolean>(false)
 
-    if (!data) {
+    /* Change layout here */
+    useEffect(() => {
+        dispatch({
+            type: ActionType.SET_LAYOUT,
+            payload: {
+                condensed: isLoading || !data || 0 === data.result.length,
+                showLoading: isLoading,
+                verticalCenter: isLoading,
+            },
+        })
+    }, [isLoading, data])
+
+    if (!isSuccess || !data) {
         return null
     }
 

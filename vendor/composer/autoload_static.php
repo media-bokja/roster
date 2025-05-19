@@ -28,6 +28,7 @@ class ComposerStaticInitaf6eb2ac7a8f9e951512039a3d76ddf8
             'Bojaghi\\Contract\\' => 17,
             'Bojaghi\\Continy\\' => 16,
             'Bojaghi\\CleanPages\\' => 19,
+            'Bojaghi\\AdminAjax\\' => 18,
         ),
     );
 
@@ -76,6 +77,10 @@ class ComposerStaticInitaf6eb2ac7a8f9e951512039a3d76ddf8
         array (
             0 => __DIR__ . '/..' . '/bojaghi/clean-pages/src',
         ),
+        'Bojaghi\\AdminAjax\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/bojaghi/admin-ajax/src',
+        ),
     );
 
     public static $classMap = array (
@@ -88,6 +93,7 @@ class ComposerStaticInitaf6eb2ac7a8f9e951512039a3d76ddf8
         'Bojka\\Roster\\Modules\\ProfileImage' => __DIR__ . '/../..' . '/inc/Modules/ProfileImage.php',
         'Bojka\\Roster\\Modules\\RosterApi' => __DIR__ . '/../..' . '/inc/Modules/RosterApi.php',
         'Bojka\\Roster\\Modules\\Scripts' => __DIR__ . '/../..' . '/inc/Modules/Scripts.php',
+        'Bojka\\Roster\\Modules\\SearchMeta' => __DIR__ . '/../..' . '/inc/Modules/SearchMeta.php',
         'Bojka\\Roster\\Modules\\UserMeta' => __DIR__ . '/../..' . '/inc/Modules/UserMeta.php',
         'Bojka\\Roster\\Objects\\Profile' => __DIR__ . '/../..' . '/inc/Objects/Profile.php',
         'Bojka\\Roster\\Supports\\EditForm' => __DIR__ . '/../..' . '/inc/Supports/EditForm.php',

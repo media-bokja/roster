@@ -1,8 +1,8 @@
 <?php return array(
     'root' => array(
         'name' => 'media-bokja/roster',
-        'pretty_version' => '0.5.0',
-        'version' => '0.5.0.0',
+        'pretty_version' => '0.10.0',
+        'version' => '0.10.0.0',
         'reference' => null,
         'type' => 'wordpress-plugin',
         'install_path' => __DIR__ . '/../../',
@@ -10,6 +10,15 @@
         'dev' => true,
     ),
     'versions' => array(
+        'bojaghi/admin-ajax' => array(
+            'pretty_version' => '1.0.3',
+            'version' => '1.0.3.0',
+            'reference' => '6bb1eebf1233711244154c219972cd18b7989a14',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../bojaghi/admin-ajax',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
         'bojaghi/clean-pages' => array(
             'pretty_version' => '1.0.2',
             'version' => '1.0.2.0',
@@ -119,8 +128,8 @@
             'dev_requirement' => true,
         ),
         'media-bokja/roster' => array(
-            'pretty_version' => '0.5.0',
-            'version' => '0.5.0.0',
+            'pretty_version' => '0.10.0',
+            'version' => '0.10.0.0',
             'reference' => null,
             'type' => 'wordpress-plugin',
             'install_path' => __DIR__ . '/../../',
