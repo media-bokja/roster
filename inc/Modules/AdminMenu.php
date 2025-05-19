@@ -1,11 +1,11 @@
 <?php
 
-namespace Bojka\Roster\Modules;
+namespace Bokja\Roster\Modules;
 
-use Bojka\Roster\Supports\SettingsPage;
+use Bokja\Roster\Supports\SettingsPage;
 use Bokja\Roster\Vendor\Bojaghi\Contract\Module;
 
-use function Bojka\Roster\Facades\rosterCall;
+use function Bokja\Roster\Facades\rosterCall;
 
 class AdminMenu implements Module
 {

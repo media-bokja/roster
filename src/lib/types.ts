@@ -27,6 +27,7 @@ type Profile = {
 type SiteMeta = {
     homeUrl: string
     pageTitle: string
+    placeholderImage: string
     profileAdminUrl: string
     rosterAdminUrl: string
     siteIcon: string
@@ -41,6 +42,8 @@ type SiteParams = {
     p: number      // Profile ID.
     page: number   // Page number
     search: string // Search keyword
+    orderby: string
+    order: string
 }
 
 type RosterLayout = {

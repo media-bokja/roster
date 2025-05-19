@@ -16,6 +16,7 @@ export function getDefaultState(override: Partial<RosterState> = {}): RosterStat
         sitemeta: {
             homeUrl: '',
             pageTitle: '',
+            placeholderImage: '',
             profileAdminUrl: '',
             rosterAdminUrl: '',
             siteIcon: '',
@@ -30,6 +31,8 @@ export function getDefaultState(override: Partial<RosterState> = {}): RosterStat
             p: 0,
             page: 0,
             search: '',
+            orderby: '',
+            order: '',
             ...override.siteParams,
         },
         ...override,

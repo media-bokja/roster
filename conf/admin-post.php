@@ -7,7 +7,7 @@ if (!defined('ABSPATH')) {
 }
 
 return [
-    /** @uses Bojka\Roster\Modules\AdminPost::exportProfiles */
+    /** @uses Bokja\Roster\Modules\AdminPost::exportProfiles */
     [
         'roster_export_profiles',
         'bokja/adminPost@exportProfiles',

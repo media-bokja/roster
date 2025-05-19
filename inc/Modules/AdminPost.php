@@ -1,12 +1,12 @@
 <?php
 
-namespace Bojka\Roster\Modules;
+namespace Bokja\Roster\Modules;
 
-use Bojka\Roster\Supports\RosterList;
+use Bokja\Roster\Supports\RosterList;
 use Bokja\Roster\Vendor\Bojaghi\Contract\Module;
 use JetBrains\PhpStorm\NoReturn;
 
-use function Bojka\Roster\Facades\rosterGet;
+use function Bokja\Roster\Facades\rosterGet;
 
 class AdminPost implements Module
 {

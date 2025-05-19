@@ -14,17 +14,15 @@ export default function ItemProfile(props: Props) {
 
     return (
         <div className="card card-border bg-base-100">
-            {'thumbnail' in item.profileImage ? (
-                <a
-                    href={'#'}
-                    onClick={(e) => {
-                        e.preventDefault()
-                        onClickItem && onClickItem(item)
-                    }}
-                >
-                    <ItemProfileImage profile={item} />
-                </a>
-            ) : ('')}
+            <a
+                href={'#'}
+                onClick={(e) => {
+                    e.preventDefault()
+                    onClickItem && onClickItem(item)
+                }}
+            >
+                <ItemProfileImage profile={item} />
+            </a>
             <div className="card-body px-2 py-4">
                 <a
                     href={'#'}

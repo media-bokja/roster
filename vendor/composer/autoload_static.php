@@ -18,7 +18,7 @@ class ComposerStaticInitaf6eb2ac7a8f9e951512039a3d76ddf8
         ),
         'B' => 
         array (
-            'Bojka\\Roster\\' => 13,
+            'Bokja\\Roster\\' => 13,
             'Bojaghi\\ViteScripts\\' => 20,
             'Bojaghi\\Template\\' => 17,
             'Bojaghi\\Helper\\' => 15,
@@ -37,7 +37,7 @@ class ComposerStaticInitaf6eb2ac7a8f9e951512039a3d76ddf8
         array (
             0 => __DIR__ . '/..' . '/psr/container/src',
         ),
-        'Bojka\\Roster\\' => 
+        'Bokja\\Roster\\' => 
         array (
             0 => __DIR__ . '/../..' . '/inc',
         ),
@@ -84,23 +84,23 @@ class ComposerStaticInitaf6eb2ac7a8f9e951512039a3d76ddf8
     );
 
     public static $classMap = array (
-        'Bojka\\Roster\\Modules\\AdminAjax' => __DIR__ . '/../..' . '/inc/Modules/AdminAjax.php',
-        'Bojka\\Roster\\Modules\\AdminEdit' => __DIR__ . '/../..' . '/inc/Modules/AdminEdit.php',
-        'Bojka\\Roster\\Modules\\AdminMenu' => __DIR__ . '/../..' . '/inc/Modules/AdminMenu.php',
-        'Bojka\\Roster\\Modules\\AdminPost' => __DIR__ . '/../..' . '/inc/Modules/AdminPost.php',
-        'Bojka\\Roster\\Modules\\Options' => __DIR__ . '/../..' . '/inc/Modules/Options.php',
-        'Bojka\\Roster\\Modules\\PostMeta' => __DIR__ . '/../..' . '/inc/Modules/PostMeta.php',
-        'Bojka\\Roster\\Modules\\ProfileImage' => __DIR__ . '/../..' . '/inc/Modules/ProfileImage.php',
-        'Bojka\\Roster\\Modules\\RosterApi' => __DIR__ . '/../..' . '/inc/Modules/RosterApi.php',
-        'Bojka\\Roster\\Modules\\Scripts' => __DIR__ . '/../..' . '/inc/Modules/Scripts.php',
-        'Bojka\\Roster\\Modules\\SearchMeta' => __DIR__ . '/../..' . '/inc/Modules/SearchMeta.php',
-        'Bojka\\Roster\\Modules\\UserMeta' => __DIR__ . '/../..' . '/inc/Modules/UserMeta.php',
-        'Bojka\\Roster\\Objects\\Profile' => __DIR__ . '/../..' . '/inc/Objects/Profile.php',
-        'Bojka\\Roster\\Supports\\EditForm' => __DIR__ . '/../..' . '/inc/Supports/EditForm.php',
-        'Bojka\\Roster\\Supports\\FrontPage' => __DIR__ . '/../..' . '/inc/Supports/FrontPage.php',
-        'Bojka\\Roster\\Supports\\ImageSupport' => __DIR__ . '/../..' . '/inc/Supports/ImageSupport.php',
-        'Bojka\\Roster\\Supports\\RosterList' => __DIR__ . '/../..' . '/inc/Supports/RosterList.php',
-        'Bojka\\Roster\\Supports\\SettingsPage' => __DIR__ . '/../..' . '/inc/Supports/SettingsPage.php',
+        'Bokja\\Roster\\Modules\\AdminAjax' => __DIR__ . '/../..' . '/inc/Modules/AdminAjax.php',
+        'Bokja\\Roster\\Modules\\AdminEdit' => __DIR__ . '/../..' . '/inc/Modules/AdminEdit.php',
+        'Bokja\\Roster\\Modules\\AdminMenu' => __DIR__ . '/../..' . '/inc/Modules/AdminMenu.php',
+        'Bokja\\Roster\\Modules\\AdminPost' => __DIR__ . '/../..' . '/inc/Modules/AdminPost.php',
+        'Bokja\\Roster\\Modules\\Options' => __DIR__ . '/../..' . '/inc/Modules/Options.php',
+        'Bokja\\Roster\\Modules\\PostMeta' => __DIR__ . '/../..' . '/inc/Modules/PostMeta.php',
+        'Bokja\\Roster\\Modules\\ProfileImage' => __DIR__ . '/../..' . '/inc/Modules/ProfileImage.php',
+        'Bokja\\Roster\\Modules\\RosterApi' => __DIR__ . '/../..' . '/inc/Modules/RosterApi.php',
+        'Bokja\\Roster\\Modules\\Scripts' => __DIR__ . '/../..' . '/inc/Modules/Scripts.php',
+        'Bokja\\Roster\\Modules\\SearchMeta' => __DIR__ . '/../..' . '/inc/Modules/SearchMeta.php',
+        'Bokja\\Roster\\Modules\\UserMeta' => __DIR__ . '/../..' . '/inc/Modules/UserMeta.php',
+        'Bokja\\Roster\\Objects\\Profile' => __DIR__ . '/../..' . '/inc/Objects/Profile.php',
+        'Bokja\\Roster\\Supports\\EditForm' => __DIR__ . '/../..' . '/inc/Supports/EditForm.php',
+        'Bokja\\Roster\\Supports\\FrontPage' => __DIR__ . '/../..' . '/inc/Supports/FrontPage.php',
+        'Bokja\\Roster\\Supports\\ImageSupport' => __DIR__ . '/../..' . '/inc/Supports/ImageSupport.php',
+        'Bokja\\Roster\\Supports\\RosterList' => __DIR__ . '/../..' . '/inc/Supports/RosterList.php',
+        'Bokja\\Roster\\Supports\\SettingsPage' => __DIR__ . '/../..' . '/inc/Supports/SettingsPage.php',
         'Bokja\\Roster\\Vendor\\Bojaghi\\AdminAjax\\AdminAjax' => __DIR__ . '/..' . '/bojaghi/admin-ajax/src/AdminAjax.php',
         'Bokja\\Roster\\Vendor\\Bojaghi\\AdminAjax\\AdminPost' => __DIR__ . '/..' . '/bojaghi/admin-ajax/src/AdminPost.php',
         'Bokja\\Roster\\Vendor\\Bojaghi\\AdminAjax\\SubmitBase' => __DIR__ . '/..' . '/bojaghi/admin-ajax/src/SubmitBase.php',

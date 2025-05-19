@@ -1,10 +1,10 @@
 <?php
 
-namespace Bojka\Roster\Supports;
+namespace Bokja\Roster\Supports;
 
-use Bojka\Roster\Modules\PostMeta;
+use Bokja\Roster\Modules\PostMeta;
 
-use function Bojka\Roster\Facades\rosterGet;
+use function Bokja\Roster\Facades\rosterGet;
 
 class ImageSupport
 {

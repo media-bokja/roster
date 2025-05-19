@@ -1,4 +1,5 @@
-import {type Profile} from '@/lib/types.ts'
+import useRosterContext from '@/lib/context'
+import {type Profile, ProfileImage} from '@/lib/types.ts'
 import {cn} from '@/lib/utils'
 
 type Props = {
@@ -14,18 +15,23 @@ export default function ItemProfileImage(props: Props) {
             isNew,
         },
     } = props
+
+    const {
+        transparent,
+        props: imgProps,
+    } = getThumbnailImage(profileImage)
+
     return (
         <figure className="relative">
-            {'thumbnail' in profileImage && (
-                <img
-                    alt={`${name} ${baptismalName}} 프로필 섬네일 이미지`}
-                    className="w-full h-full object-cover"
-                    src={profileImage.thumbnail.path.length ? profileImage.thumbnail.path : undefined}
-                    title={`${name} ${baptismalName}} 프로필 섬네일 이미지`}
-                    width={profileImage.thumbnail.width}
-                    height={profileImage.thumbnail.height}
-                />
-            )}
+            <img
+                alt={`${name} ${baptismalName}} 프로필 섬네일 이미지`}
+                className={cn(
+                    'w-full h-full object-cover',
+                    {'opacity-50': transparent},
+                )}
+                title={`${name} ${baptismalName}} 프로필 섬네일 이미지`}
+                {...imgProps}
+            />
             {isNew && (
                 <div
                     className={cn(
@@ -39,4 +45,42 @@ export default function ItemProfileImage(props: Props) {
             )}
         </figure>
     )
+}
+
+const getThumbnailImage = (profileImage: { [key: string]: ProfileImage }) => {
+    const {
+        state: {
+            sitemeta: {
+                placeholderImage,
+            },
+        },
+    } = useRosterContext()
+
+    let src: string | undefined,
+        width: number | undefined,
+        height: number | undefined,
+        transparent: boolean | undefined
+
+    if (profileImage && 'thumbnail' in profileImage) {
+        src = profileImage.thumbnail.path
+        width = profileImage.thumbnail.width
+        height = profileImage.thumbnail.height
+        transparent = false
+    }
+
+    if (!src || 0 === src.length) {
+        src = placeholderImage
+        width = 240
+        height = 240
+        transparent = true
+    }
+
+    return {
+        transparent,
+        props: {
+            src,
+            width,
+            height,
+        },
+    }
 }

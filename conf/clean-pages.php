@@ -1,8 +1,8 @@
 <?php
 
-use Bojka\Roster\Supports\FrontPage;
+use Bokja\Roster\Supports\FrontPage;
 
-use function Bojka\Roster\Facades\rosterCall;
+use function Bokja\Roster\Facades\rosterCall;
 
 if (!defined('ABSPATH')) {
     exit;

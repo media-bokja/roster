@@ -7,7 +7,7 @@ if (!defined('ABSPATH')) {
 }
 
 return [
-    /** @uses Bojka\Roster\Modules\AdminAjax::setTheme() */
+    /** @uses Bokja\Roster\Modules\AdminAjax::setTheme() */
     [
         'roster_set_theme',
         'bokja/adminAjax@setTheme',

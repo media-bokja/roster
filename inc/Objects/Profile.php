@@ -1,15 +1,15 @@
 <?php
 
-namespace Bojka\Roster\Objects;
+namespace Bokja\Roster\Objects;
 
-use Bojka\Roster\Modules\PostMeta;
-use Bojka\Roster\Supports\ImageSupport;
+use Bokja\Roster\Modules\PostMeta;
+use Bokja\Roster\Supports\ImageSupport;
 use DateTime;
 use DateTimeZone;
 use Exception;
 use WP_Post;
 
-use function Bojka\Roster\Facades\rosterGet;
+use function Bokja\Roster\Facades\rosterGet;
 use function Bokja\Roster\prefixed;
 
 class Profile
@@ -42,7 +42,7 @@ class Profile
     public string $monasticName = '';
 
     /** @var string 축일 */
-    public string $nameDay;
+    public string $nameDay = '';
 
     /** @var string 국적 */
     public string $nationality = '';
@@ -57,12 +57,12 @@ class Profile
     public array $profileImage = [
         'full'      => [],
         'medium'    => [],
-        'thumbnail' => []
+        'thumbnail' => [],
     ];
 
     public ?bool $isNew = null;
 
-    public static function fromArray(array $data, ?array $profileFile): Profile
+    public static function fromArray(array $data, ?array $profileFile = null): Profile
     {
         $output = new self();
 
@@ -179,18 +179,6 @@ class Profile
                 $output->nameDay = self::sanitizeNameDay($output->nameDay);
             }
 
-            // Make sure nameDay format
-            if ($output->nameDay && str_contains($output->nameDay, '-')) {
-                [$month, $day] = explode('-', $output->nameDay, 2);;
-                $month = absint($month);
-                $day   = absint($day);
-                if ($month && $day) {
-                    $output->nameDay = sprintf('%02d-%02d', $month, $day);
-                } else {
-                    $output->nameDay = '';
-                }
-            }
-
             if (count($output->profileImage) && $treatImage) {
                 $base = match ($treatImage) {
                     'url'  => wp_get_upload_dir()['baseurl'],
@@ -233,7 +221,12 @@ class Profile
         return $output;
     }
 
-    public static function sanitizeNameDay(mixed $value): string
+    public static function formatNameDay(string $value, string $format = '%1$02d-%2$02d'): string
+    {
+        return self::sanitizeNameDay($value, $format);
+    }
+
+    public static function sanitizeNameDay(mixed $value, string $format = '%1$02d-%2$02d'): string
     {
         $output = '';
 
@@ -243,7 +236,7 @@ class Profile
             $day   = absint($exp[1]);
 
             if ($month && $day) {
-                $output = sprintf('%02d-%02d', $month, $day);
+                $output = sprintf($format, $month, $day);
             }
         }
 

@@ -1,10 +1,11 @@
 <?php
 
-namespace Bojka\Roster\Tests\Supports;
+namespace Bokja\Roster\Tests\Supports;
 
-use Bojka\Roster\Supports\ImageSupport;
+use Bokja\Roster\Objects\Profile;
+use Bokja\Roster\Supports\ImageSupport;
 
-use function Bojka\Roster\Facades\rosterGet;
+use function Bokja\Roster\Facades\rosterGet;
 
 class TestImageSupport extends \WP_UnitTestCase
 {
@@ -25,9 +26,20 @@ class TestImageSupport extends \WP_UnitTestCase
         $this->assertArrayHasKey('mime-type', $output['full']);
         $this->assertArrayHasKey('path', $output['full']);
         $this->assertArrayHasKey('width', $output['full']);
-        $this->assertEquals(700, $output['full']['height']);
-        $this->assertEquals(700, $output['full']['width']);
+        $this->assertEquals(720, $output['full']['height']);
+        $this->assertEquals(720, $output['full']['width']);
         $this->assertEquals('image/webp', $output['full']['mime-type']);
+
+        $this->assertArrayHasKey('medium', $output);
+        $this->assertArrayHasKey('file', $output['medium']);
+        $this->assertArrayHasKey('filesize', $output['medium']);
+        $this->assertArrayHasKey('height', $output['medium']);
+        $this->assertArrayHasKey('mime-type', $output['medium']);
+        $this->assertArrayHasKey('path', $output['medium']);
+        $this->assertArrayHasKey('width', $output['medium']);
+        $this->assertEquals(480, $output['medium']['height']);
+        $this->assertEquals(480, $output['medium']['width']);
+        $this->assertEquals('image/webp', $output['medium']['mime-type']);
 
         $this->assertArrayHasKey('thumbnail', $output);
         $this->assertArrayHasKey('file', $output['thumbnail']);
@@ -36,8 +48,8 @@ class TestImageSupport extends \WP_UnitTestCase
         $this->assertArrayHasKey('mime-type', $output['thumbnail']);
         $this->assertArrayHasKey('path', $output['thumbnail']);
         $this->assertArrayHasKey('width', $output['thumbnail']);
-        $this->assertEquals(200, $output['thumbnail']['height']);
-        $this->assertEquals(200, $output['thumbnail']['width']);
+        $this->assertEquals(240, $output['thumbnail']['height']);
+        $this->assertEquals(240, $output['thumbnail']['width']);
         $this->assertEquals('image/webp', $output['thumbnail']['mime-type']);
 
         // Check file exists
@@ -48,7 +60,11 @@ class TestImageSupport extends \WP_UnitTestCase
         $this->assertFileExists($thumbnailPath);
 
         // Test removeImages
-        $support->removeImage($output);
+        $profile = new Profile();
+        $profile->profileImage = $output;
+        $profile->save();
+
+        $support->removeImage($profile->id);
         $this->assertFileDoesNotExist($fullPath);
         $this->assertFileDoesNotExist($thumbnailPath);
     }

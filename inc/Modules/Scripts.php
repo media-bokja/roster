@@ -1,6 +1,6 @@
 <?php
 
-namespace Bojka\Roster\Modules;
+namespace Bokja\Roster\Modules;
 
 use Bokja\Roster\Vendor\Bojaghi\Contract\Module;
 use Bokja\Roster\Vendor\Bojaghi\Helper\Helper;

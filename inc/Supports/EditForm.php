@@ -1,8 +1,8 @@
 <?php
 
-namespace Bojka\Roster\Supports;
+namespace Bokja\Roster\Supports;
 
-use Bojka\Roster\Objects\Profile;
+use Bokja\Roster\Objects\Profile;
 use Bokja\Roster\Vendor\Bojaghi\Contract\Support;
 use Bokja\Roster\Vendor\Bojaghi\Template\Template;
 use WP_Post;

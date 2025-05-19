@@ -1,11 +1,11 @@
 <?php
 
-namespace Bojka\Roster\Modules;
+namespace Bokja\Roster\Modules;
 
-use Bojka\Roster\Supports\FrontPage;
+use Bokja\Roster\Supports\FrontPage;
 use Bokja\Roster\Vendor\Bojaghi\Contract\Module;
 
-use function Bojka\Roster\Facades\rosterCall;
+use function Bokja\Roster\Facades\rosterCall;
 
 class AdminAjax implements Module
 {

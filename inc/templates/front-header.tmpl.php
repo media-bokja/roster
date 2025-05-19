@@ -1,7 +1,7 @@
 <?php
 
 use Bokja\Roster\Vendor\Bojaghi\Template\Template;
-use Bojka\Roster\Objects\Profile;
+use Bokja\Roster\Objects\Profile;
 
 /**
  * @var Template $this

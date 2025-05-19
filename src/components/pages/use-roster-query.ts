@@ -8,14 +8,16 @@ export default function useRosterQuery() {
             siteParams: {
                 page,
                 search,
+                orderby,
+                order,
             },
         },
     } = useRosterContext()
 
     return useQuery({
-        queryKey: ['roster', 'get', [page, search]],
+        queryKey: ['roster', 'get', [order, orderby, page, search]],
         queryFn: () => {
-            return Roster.query({page, search})
+            return Roster.query({order, orderby, page, search})
         },
     })
 }

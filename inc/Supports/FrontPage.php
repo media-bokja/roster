@@ -1,23 +1,22 @@
 <?php
 
-namespace Bojka\Roster\Supports;
+namespace Bokja\Roster\Supports;
 
-use Bojka\Roster\Modules\Options;
-use Bojka\Roster\Modules\UserMeta;
+use Bokja\Roster\Modules\Options;
+use Bokja\Roster\Modules\UserMeta;
 use Bokja\Roster\Vendor\Bojaghi\Contract\Support;
 use Bokja\Roster\Vendor\Bojaghi\Template\Template;
 use Bokja\Roster\Vendor\Bojaghi\ViteScripts\ViteScript;
 
-use function Bojka\Roster\Facades\rosterGet;
-
 readonly class FrontPage implements Support
 {
     public function __construct(
-        private Options $options,
-        private Template $template,
-        private UserMeta $userMeta,
+        private Options    $options,
+        private Template   $template,
+        private UserMeta   $userMeta,
         private ViteScript $vite,
-    ) {
+    )
+    {
     }
 
     public function addExtraAttrsToHTML(string $output): string
@@ -93,7 +92,7 @@ readonly class FrontPage implements Support
         $this->vite
             ->add('roster', 'src/roster.tsx')
             ->vars('rosterVars', [
-                'ajax'     => [
+                'ajax'       => [
                     'actions' => [
                         'setTheme' => [
                             'action' => 'roster_set_theme',
@@ -102,28 +101,30 @@ readonly class FrontPage implements Support
                     ],
                     'url'     => admin_url('admin-ajax.php'),
                 ],
-                'api'      => [
+                'api'        => [
                     'baseUrl' => rest_url('bokja/v1'),
                     'nonce'   => wp_create_nonce('wp_rest'),
                 ],
-                'sitemeta' => [
-                    'homeUrl'         => home_url(),
-                    'pageTitle'       => get_the_title(),
-                    'profileAdminUrl' => get_edit_profile_url($user->ID),
-                    'rosterAdminUrl'  => current_user_can('edit_posts') ? admin_url(
+                'sitemeta'   => [
+                    'homeUrl'          => home_url(),
+                    'pageTitle'        => get_the_title(),
+                    'placeholderImage' => plugins_url('assets/placeholder-128.webp', ROSTER_MAIN),
+                    'profileAdminUrl'  => get_edit_profile_url($user->ID),
+                    'rosterAdminUrl'   => current_user_can('edit_posts') ? admin_url(
                         add_query_arg(
                             'post_type',
                             ROSTER_CPT_PROFILE,
                             'edit.php',
                         ),
                     ) : '',
-                    'siteIcon'        => get_site_icon_url(32),
-                    'siteUrl'         => get_the_permalink(),
-                    'siteTitle'       => get_bloginfo('name'),
-                    'theme'           => $this->userMeta->theme->get($user->ID),
-                    'userAvatar'      => get_avatar_url($user->ID),
-                    'userName'        => $user->display_name,
+                    'siteIcon'         => get_site_icon_url(32),
+                    'siteUrl'          => get_the_permalink(),
+                    'siteTitle'        => get_bloginfo('name'),
+                    'theme'            => $this->userMeta->theme->get($user->ID),
+                    'userAvatar'       => get_avatar_url($user->ID),
+                    'userName'         => $user->display_name,
                 ],
+                'siteParams' => [],
             ])
         ;
     }

@@ -1,6 +1,6 @@
 <?php
 
-namespace Bojka\Roster\Modules;
+namespace Bokja\Roster\Modules;
 
 use Bokja\Roster\Vendor\Bojaghi\Fields\Modules\Options as OptionsBase;
 use Bokja\Roster\Vendor\Bojaghi\Fields\Option\Option;

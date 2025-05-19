@@ -1,15 +1,16 @@
 <?php
 
-namespace Bojka\Roster\Modules;
+namespace Bokja\Roster\Modules;
 
-use Bojka\Roster\Supports\EditForm;
-use Bojka\Roster\Supports\RosterList;
+use Bokja\Roster\Supports\EditForm;
+use Bokja\Roster\Supports\RosterList;
 use Bokja\Roster\Vendor\Bojaghi\Contract\Module;
 use WP_Post;
+use WP_Query;
 use WP_Screen;
 
-use function Bojka\Roster\Facades\rosterCall;
-use function Bojka\Roster\Facades\rosterGet;
+use function Bokja\Roster\Facades\rosterCall;
+use function Bokja\Roster\Facades\rosterGet;
 
 class AdminEdit implements Module
 {
@@ -21,24 +22,6 @@ class AdminEdit implements Module
         add_filter('post_updated_messages', [$this, 'updatedMessages']);
     }
 
-    public function currentScreen(WP_Screen $screen): void
-    {
-        if (ROSTER_CPT_PROFILE !== $screen->post_type) {
-            return;
-        }
-
-        if ('edit' === $screen->base) {
-            add_action("manage_{$screen->post_type}_posts_custom_column", [$this, 'outputColumnValues'], 10, 2);
-            add_action('manage_posts_extra_tablenav', [$this, 'addExport'], 10);
-            add_filter("manage_{$screen->post_type}_posts_columns", [$this, 'addColumns']);
-        }
-
-        if ('post' === $screen->base) {
-            add_action('post_edit_form_tag', [$this, 'addAttribute']);
-            add_action('edit_form_after_title', [$this, 'editForm']);
-        }
-    }
-
     public function addAttribute(WP_Post $post): void
     {
         if (ROSTER_CPT_PROFILE !== $post->post_type) {
@@ -48,16 +31,6 @@ class AdminEdit implements Module
         echo 'enctype="multipart/form-data"';
     }
 
-    public function addExport(string $which): void
-    {
-        global $post_type;
-
-        if (ROSTER_CPT_PROFILE !== $post_type) {
-            return;
-        }
-
-        rosterGet(RosterList::class)->addExport();
-    }
     /**
      * @param array $columns
      *
@@ -70,6 +43,72 @@ class AdminEdit implements Module
         return rosterCall(RosterList::class, 'addColumns', [$columns]);
     }
 
+    public function addExport(string $which): void
+    {
+        global $post_type;
+
+        if (ROSTER_CPT_PROFILE !== $post_type) {
+            return;
+        }
+
+        rosterGet(RosterList::class)->addExport();
+    }
+
+    /**
+     * @param array $columns
+     *
+     * @return array
+     *
+     * @uses RosterList::addSortableColumns()
+     */
+    public function addSortableColumns(array $columns): array
+    {
+        return rosterCall(RosterList::class, 'addSortableColumns', [$columns]);
+    }
+
+    /**
+     * @param WP_Query $query
+     *
+     * @return void
+     *
+     * @uses RosterList::preGetPosts
+     */
+    public function preGetPosts(WP_Query $query): void
+    {
+        if ($query->is_main_query()) {
+            remove_action('pre_get_posts', [$this, 'preGetPosts']);
+            rosterCall(RosterList::class, 'preGetPosts', [$query]);
+        }
+    }
+
+    /**
+     * @param WP_Screen $screen
+     *
+     * @return void
+     */
+    public function currentScreen(WP_Screen $screen): void
+    {
+        if (ROSTER_CPT_PROFILE !== $screen->post_type) {
+            return;
+        }
+
+        if ('edit' === $screen->base) {
+            // List
+            add_action("manage_{$screen->post_type}_posts_custom_column", [$this, 'outputColumnValues'], 10, 2);
+            add_action('manage_posts_extra_tablenav', [$this, 'addExport'], 10);
+            add_action('pre_get_posts', [$this, 'preGetPosts']);
+
+            add_filter("manage_{$screen->post_type}_posts_columns", [$this, 'addColumns']);
+            add_filter("manage_{$screen->id}_sortable_columns", [$this, 'addSortableColumns']);
+        }
+
+        if ('post' === $screen->base) {
+            // Single
+            add_action('post_edit_form_tag', [$this, 'addAttribute']);
+            add_action('edit_form_after_title', [$this, 'editForm']);
+        }
+    }
+
     public function editForm(WP_Post $post): void
     {
         rosterGet(EditForm::class)->render($post);
@@ -77,7 +116,7 @@ class AdminEdit implements Module
 
     /**
      * @param string $column
-     * @param int    $postId
+     * @param int $postId
      *
      * @return void
      *

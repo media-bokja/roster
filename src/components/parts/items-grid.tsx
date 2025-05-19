@@ -24,13 +24,19 @@ export default function ItemsGrid(props: Props) {
     }
 
     return (
-        <section className={cn(
-            'mt-12 min-h-[360px]',
-            'grid auto-rows-auto gap-x-4 gap-y-6',
-            'grid-cols-2 sm:grid-cols-3 md:grid-cols-4',
-        )}>
+        <section
+            className={cn(
+                'mt-6 min-h-[360px]',
+                'grid auto-rows-auto gap-x-4 gap-y-6',
+                'grid-cols-2 sm:grid-cols-3 md:grid-cols-4',
+            )}
+        >
             {items.map((item) => (
-                <ItemProfile key={item.id} item={item} onClickItem={onClickItem} />
+                <ItemProfile
+                    key={item.id}
+                    item={item}
+                    onClickItem={onClickItem}
+                />
             ))}
         </section>
     )

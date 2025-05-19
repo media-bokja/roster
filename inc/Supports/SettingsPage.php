@@ -1,14 +1,14 @@
 <?php
 
-namespace Bojka\Roster\Supports;
+namespace Bokja\Roster\Supports;
 
-use Bojka\Roster\Modules\Options;
+use Bokja\Roster\Modules\Options;
 use Bokja\Roster\Vendor\Bojaghi\Contract\Module;
 use Bokja\Roster\Vendor\Bojaghi\Fields\Option\Option;
 use Bokja\Roster\Vendor\Bojaghi\FieldsRender\AdminCompound;
 use Bokja\Roster\Vendor\Bojaghi\Template\Template;
 
-use function Bojka\Roster\Facades\rosterGet;
+use function Bokja\Roster\Facades\rosterGet;
 use function Bokja\Roster\Kses\ksesEditForm;
 
 readonly class SettingsPage implements Module

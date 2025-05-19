@@ -1,11 +1,11 @@
 <?php
 
-namespace Bojka\Roster\Modules;
+namespace Bokja\Roster\Modules;
 
-use Bojka\Roster\Supports\ImageSupport;
+use Bokja\Roster\Supports\ImageSupport;
 use Bokja\Roster\Vendor\Bojaghi\Contract\Module;
 
-use function Bojka\Roster\Facades\rosterGet;
+use function Bokja\Roster\Facades\rosterGet;
 
 class ProfileImage implements Module
 {

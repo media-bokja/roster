@@ -1,18 +1,20 @@
 <?php
 
-namespace Bojka\Roster\Supports;
+namespace Bokja\Roster\Supports;
 
-use Bojka\Roster\Modules\PostMeta;
-use Bojka\Roster\Objects\Profile;
+use Bokja\Roster\Modules\PostMeta;
+use Bokja\Roster\Objects\Profile;
 use Bokja\Roster\Vendor\Bojaghi\Template\Template;
 use WP_Query;
+use function Bokja\Roster\Facades\rosterGet;
 
 readonly class RosterList
 {
     public function __construct(
         private PostMeta $meta,
         private Template $template,
-    ) {
+    )
+    {
     }
 
     public function addColumns(array $columns): array
@@ -40,8 +42,9 @@ readonly class RosterList
             ['profile' => __('사진', 'roster')],
             $columns,
             [
-                'bapdismal_name'     => __('세례명', 'roster'),
+                'baptismal_name'     => __('세례명', 'roster'),
                 'birthday'           => __('생일', 'roster'),
+                'monastic_name'      => __('수도명', 'roster'),
                 'current_assignment' => __('현소임지', 'roster'),
             ],
             $date ? ['date' => $date] : [],
@@ -64,6 +67,16 @@ readonly class RosterList
                 'icon_url'   => plugins_url('assets/excel-icon.png', ROSTER_MAIN),
             ],
         );
+    }
+
+    public function addSortableColumns(array $columns): array
+    {
+        return [
+            ...$columns,
+            'baptismal_name' => ['baptismal_name', false /* descending first */],
+            'birthday'       => ['birthday', true /* ascending first */],
+            'monastic_name'  => ['monastic_name', false /* descending first */],
+        ];
     }
 
     public function exportProfiles(): void
@@ -130,7 +143,7 @@ readonly class RosterList
                     $profile->perpetualProfessionDate,
                     $profile->ordinationDate,
                     $profile->dateOfDeath,
-                    $profile->profileImage['full']['path'] ?? ''
+                    $profile->profileImage['full']['path'] ?? '',
                 ],
                 'CP949',
             );
@@ -145,24 +158,37 @@ readonly class RosterList
     {
         switch ($column) {
             case 'profile':
-                $profile = $this->meta->profileImage->get($postId);
-                if (isset($profile['thumbnail']['path'])) {
-                    $url = path_join(
-                        wp_get_upload_dir()['baseurl'],
-                        $profile['thumbnail']['path'],
-                    );
-                    printf(
-                        '<img class="profile-thumbnail" src="%s" alt="%s" width="%s" height=%s">',
-                        esc_url($url),
-                        esc_attr(sprintf('%s 프로필 이미지', get_post_field('post_title', $postId))),
-                        esc_attr($profile['thumbnail']['width'] ?? ''),
-                        esc_attr($profile['thumbnail']['height'] ?? ''),
-                    );
+                $image         = $this->meta->profileImage->get($postId);
+                $baptismalName = $this->meta->baptismalName->get($postId);
+                $title         = sprintf('%s %s 프로필 이미지', get_post_field('post_title', $postId), $baptismalName);
+
+                if (isset($image['thumbnail']['path'])) {
+                    $url    = path_join(wp_get_upload_dir()['baseurl'], $image['thumbnail']['path']);
+                    $width  = $image['thumbnail']['width'] ?? '';
+                    $height = $image['thumbnail']['height'] ?? '';
+                } else {
+                    $url    = plugins_url('assets/placeholder-128.webp', ROSTER_MAIN);
+                    $width  = '128';
+                    $height = '128';
                 }
+
+                /** @noinspection HtmlUnknownTarget */
+                printf(
+                    '<img class="profile-thumbnail" src="%1$s" alt="%2$s" title="%2$s" width="%3$s" height=%4$s">',
+                    esc_url($url),
+                    esc_attr($title),
+                    esc_attr($width),
+                    esc_attr($height),
+                );
                 break;
 
-            case 'bapdismal_name':
+            case 'baptismal_name':
                 echo esc_html($this->meta->baptismalName->get($postId));
+                $nameDay = Profile::formatNameDay($this->meta->nameDay->get($postId), '%1$02d/%2$02d');
+                if ($nameDay) {
+                    echo '<br/>';
+                    echo esc_html("($nameDay)");
+                }
                 break;
 
             case 'birthday':
@@ -174,6 +200,65 @@ readonly class RosterList
 
             case'current_assignment':
                 echo esc_html($this->meta->currentAssignment->get($postId));
+                break;
+
+            case 'monastic_name':
+                echo esc_html($this->meta->monasticName->get($postId));
+                break;
+        }
+    }
+
+    public function preGetPosts(WP_Query $query): void
+    {
+        $meta = rosterGet(PostMeta::class);
+
+        // Custom search
+        $s = $query->get('s');
+        if ($s) {
+            $query->set('meta_search', [
+                'relation' => 'OR',
+                [
+                    'key'     => $meta->baptismalName->getKey(),
+                    'value'   => $s,
+                    'compare' => 'LIKE',
+                ],
+                [
+                    'key'     => $meta->currentAssignment->getKey(),
+                    'value'   => $s,
+                    'compare' => 'LIKE',
+                ],
+                [
+                    'key'     => $meta->monasticName->getKey(),
+                    'value'   => $s,
+                    'compare' => 'LIKE',
+                ],
+            ]);
+        }
+
+        // Custom order
+        $orderby = $_GET['orderby'] ?? '';
+        $order   = 'desc' === ($_GET['order'] ?? 'asc') ? 'DESC' : 'ASC';
+
+        switch ($orderby) {
+            case 'birthday':
+                $query->set('meta_key', $meta->birthday->getKey());
+                $query->set('meta_type', 'DATE');
+                $query->set('orderby', 'meta_value');
+                $query->set('order', $order);
+                break;
+
+            case 'baptismal_name':
+                $query->set('meta_key', $meta->baptismalName->getKey());
+                $query->set('meta_type', 'CHAR');
+                $query->set('orderby', 'meta_value');
+                $query->set('order', $order);
+                break;
+
+            case 'monastic_name':
+                $query->set('meta_key', $meta->monasticName->getKey());
+                $query->set('meta_type', 'CHAR');
+                $query->set('orderby', 'meta_value');
+                $query->set('order', $order);
                 break;
         }
     }

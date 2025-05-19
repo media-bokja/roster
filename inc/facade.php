@@ -1,6 +1,6 @@
 <?php
 
-namespace Bojka\Roster\Facades;
+namespace Bokja\Roster\Facades;
 
 use Bokja\Roster\Vendor\Bojaghi\Continy\Continy;
 use Bokja\Roster\Vendor\Bojaghi\Continy\ContinyException;

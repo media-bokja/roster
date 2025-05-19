@@ -1,10 +1,10 @@
 <?php
 
-use Bojka\Roster\Modules;
+use Bokja\Roster\Modules;
 use Bokja\Roster\Vendor\Bojaghi;
 use Bokja\Roster\Vendor\Bojaghi\Continy\Continy;
 
-use function Bojka\Roster\Facades\roster;
+use function Bokja\Roster\Facades\roster;
 
 if (!defined('ABSPATH')) {
     exit;

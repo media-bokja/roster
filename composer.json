@@ -6,7 +6,7 @@
     "license": "GPL-2.0-or-later",
     "autoload": {
         "psr-4": {
-            "Bojka\\Roster\\": "inc/"
+            "Bokja\\Roster\\": "inc/"
         },
         "files": [
             "inc/facade.php",
@@ -15,7 +15,7 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "Bojka\\Roster\\Tests\\": "tests/"
+            "Bokja\\Roster\\Tests\\": "tests/"
         }
     },
     "authors": [
@@ -100,5 +100,5 @@
             "typisttech/imposter-plugin": true
         }
     },
-    "version": "0.10.0"
+    "version": "0.11.0"
 }

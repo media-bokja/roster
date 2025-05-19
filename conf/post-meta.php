@@ -1,7 +1,7 @@
 <?php
 
-use Bojka\Roster\Objects\Profile;
-use Bojka\Roster\Supports\ImageSupport;
+use Bokja\Roster\Objects\Profile;
+use Bokja\Roster\Supports\ImageSupport;
 
 use function Bokja\Roster\prefixed;
 
@@ -74,7 +74,7 @@ return [
         prefixed('initial_profession_date')   => [
             'object_subtype'    => ROSTER_CPT_PROFILE,
             'type'              => 'string',
-            'description'       => '초(初)서원일, 첫 서원일',
+            'description'       => '첫서원일',
             'single'            => true,
             'default'           => '',
             'sanitize_callback' => 'sanitize_text_field',
@@ -101,7 +101,7 @@ return [
             'description'       => '축일',
             'single'            => true,
             'default'           => '',
-            'sanitize_callback' => [Profile::class, 'sanitizeNameDay'],
+            'sanitize_callback' => fn($v) => Profile::sanitizeNameDay($v),
             'auth_callback'     => null,
             'show_in_rest'      => false,
             'revisions_enabled' => false,

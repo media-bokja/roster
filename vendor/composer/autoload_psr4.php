@@ -7,7 +7,7 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'Psr\\Container\\' => array($vendorDir . '/psr/container/src'),
-    'Bojka\\Roster\\' => array($baseDir . '/inc'),
+    'Bokja\\Roster\\' => array($baseDir . '/inc'),
     'Bojaghi\\ViteScripts\\' => array($vendorDir . '/bojaghi/vite-scripts/src'),
     'Bojaghi\\Template\\' => array($vendorDir . '/bojaghi/template/src'),
     'Bojaghi\\Helper\\' => array($vendorDir . '/bojaghi/helper/src'),
