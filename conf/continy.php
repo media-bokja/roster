@@ -24,6 +24,8 @@ return [
         'bojaghi/adminPost'   => Bojaghi\AdminAjax\AdminPost::class,
         'bojaghi/cleanPages'  => Bojaghi\CleanPages\CleanPages::class,
         'bojaghi/customPosts' => Bojaghi\CustomPosts\CustomPosts::class,
+        'bojaghi/scripts'     => Bojaghi\Scripts\Script::class,
+        'bojaghi/searchMeta'  => Bojaghi\SearchMeta\SearchMeta::class,
         'bojaghi/template'    => Bojaghi\Template\Template::class,
         'bojaghi/viteScripts' => Bojaghi\ViteScripts\ViteScript::class,
         // Plugin side
@@ -34,8 +36,6 @@ return [
         'bokja/options'       => Modules\Options::class,
         'bokja/postMeta'      => Modules\PostMeta::class,
         'bokja/rosterApi'     => Modules\RosterApi::class,
-        'bokja/scripts'       => Modules\Scripts::class,
-        'bokja/searchMeta'    => Modules\SearchMeta::class,
         'bokja/userMeta'      => Modules\UserMeta::class,
     ],
     'arguments' => [
@@ -44,18 +44,18 @@ return [
         'bojaghi/adminPost'   => fn() => [__DIR__ . '/admin-post.php', roster()],
         'bojaghi/cleanPages'  => __DIR__ . '/clean-pages.php',
         'bojaghi/customPosts' => __DIR__ . '/custom-posts.php',
+        'bojaghi/scripts'     => __DIR__ . '/scripts.php',
         'bojaghi/template'    => __DIR__ . '/template.php',
         'bojaghi/viteScripts' => __DIR__ . '/vite-scripts.php',
         // Plugin side
         'bokja/options'       => __DIR__ . '/options.php',
         'bokja/postMeta'      => __DIR__ . '/post-meta.php',
-        'bokja/scripts'       => __DIR__ . '/scripts.php',
         'bokja/userMeta'      => __DIR__ . '/user-meta.php',
     ],
     'modules'   => [
         '_'             => [
             'bojaghi/cleanPages',
-            'bokja/searchMeta',
+            'bojaghi/searchMeta',
         ],
         'init'          => [
             Continy::PR_DEFAULT => [
@@ -63,11 +63,11 @@ return [
                 'bojaghi/adminAjax',
                 'bojaghi/adminPost',
                 'bojaghi/customPosts',
+                'bojaghi/scripts',
                 // Plugin side
                 'bokja/adminMenu',
                 'bokja/options',
                 'bokja/postMeta',
-                'bokja/scripts',
             ],
         ],
         'admin_init'    => [

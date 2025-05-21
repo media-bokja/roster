@@ -30,9 +30,10 @@ export function getDefaultState(override: Partial<RosterState> = {}): RosterStat
         siteParams: {
             p: 0,
             page: 0,
+            perpage: 50,
             search: '',
-            orderby: '',
-            order: '',
+            orderby: 'entrance',
+            order: 'asc',
             ...override.siteParams,
         },
         ...override,

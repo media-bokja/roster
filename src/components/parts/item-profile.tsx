@@ -31,7 +31,7 @@ export default function ItemProfile(props: Props) {
                         onClickItem && onClickItem(item)
                     }}
                 >
-                    <h2 className="card-title text-base">
+                    <h2 className="card-title text-base hover:text-primary dark:hover:text-accent">
                         {item.name}
                         {' '}
                         {item.baptismalName}

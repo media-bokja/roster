@@ -7,6 +7,7 @@ export default function useRosterQuery() {
         state: {
             siteParams: {
                 page,
+                perpage,
                 search,
                 orderby,
                 order,
@@ -15,9 +16,9 @@ export default function useRosterQuery() {
     } = useRosterContext()
 
     return useQuery({
-        queryKey: ['roster', 'get', [order, orderby, page, search]],
+        queryKey: ['roster', 'get', [order, orderby, page, perpage, search]],
         queryFn: () => {
-            return Roster.query({order, orderby, page, search})
+            return Roster.query({order, orderby, page, perpage, search})
         },
     })
 }

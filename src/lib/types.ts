@@ -39,9 +39,10 @@ type SiteMeta = {
 }
 
 type SiteParams = {
-    p: number      // Profile ID.
-    page: number   // Page number
-    search: string // Search keyword
+    p: number       // Profile ID
+    page: number    // Page number
+    perpage: number // Items per page
+    search: string  // Search keyword
     orderby: string
     order: string
 }

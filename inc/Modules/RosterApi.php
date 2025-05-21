@@ -37,15 +37,24 @@ class RosterApi implements Module
                     'orderby' => [
                         'sanitize_callback' => function ($param) {
                             $param = sanitize_key(strtolower($param));
-                            return in_array($param, ['birthday', 'date', 'name']) ? $param : 'date';
+                            return in_array($param, ['birthday', 'date', 'entrance', 'name']) ? $param : 'entrance';
                         },
                         'validate_callback' => function ($param) {
-                            return in_array($param, ['birthday', 'date', 'name']);
+                            return in_array($param, ['birthday', 'date', 'entrance', 'name']);
                         },
                     ],
                     'page'    => [
                         'sanitize_callback' => function ($param) {
                             return max(1, absint($param));
+                        },
+                        'validate_callback' => function ($param) {
+                            return is_numeric($param);
+                        },
+                    ],
+                    'perpage' => [
+                        'sanitize_callback' => function ($param) {
+                            $param = absint($param);
+                            return in_array($param, [25, 50, 100], true) ? $param : 50;
                         },
                         'validate_callback' => function ($param) {
                             return is_numeric($param);
@@ -65,44 +74,28 @@ class RosterApi implements Module
     {
         $meta = rosterGet(PostMeta::class);
 
-        $order   = $request->get_param('order') ?? 'desc';
-        $orderby = $request->get_param('orderby') ?? 'date';
+        $order   = $request->get_param('order');
+        $orderby = $request->get_param('orderby');
         $page    = $request->get_param('page');
+        $perPage = $request->get_param('perpage');
         $search  = $request->get_param('search');
 
         $args = [
-            'meta_search'    => [],
             'order'          => $order,
-            'orderby'        => $orderby,
             'paged'          => $page,
             'post_status'    => 'publish',
             'post_type'      => ROSTER_CPT_PROFILE,
-            'posts_per_page' => 20,
+            'posts_per_page' => $perPage,
             's'              => $search,
             'search_columns' => ['post_title'],
+            'search_meta'    => [
+                $meta->baptismalName->getKey(),
+                $meta->currentAssignment->getKey(),
+                $meta->monasticName->getKey()
+            ],
         ];
 
-        if ($search) {
-            $args['meta_search'] = [
-                'relation' => 'OR',
-                [
-                    'key'     => $meta->baptismalName->getKey(),
-                    'value'   => $search,
-                    'compare' => 'LIKE',
-                ],
-                [
-                    'key'     => $meta->currentAssignment->getKey(),
-                    'value'   => $search,
-                    'compare' => 'LIKE',
-                ],
-                [
-                    'key'     => $meta->monasticName->getKey(),
-                    'value'   => $search,
-                    'compare' => 'LIKE',
-                ],
-            ];
-        }
-
+        // Set orderby param
         switch ($orderby) {
             case 'birthday':
                 $args['orderby']   = 'meta_value';
@@ -110,12 +103,18 @@ class RosterApi implements Module
                 $args['meta_type'] = 'DATE';
                 break;
 
+            case 'entrance':
+                $args['orderby']   = 'meta_value';
+                $args['meta_key']  = $meta->entranceDate->getKey();
+                $args['meta_type'] = 'DATE';
+                break;
+
             case 'date':
-                $args['orderby']   = 'date';
+                $args['orderby'] = 'date';
                 break;
 
             case 'name':
-                $args['orderby']   = 'title';
+                $args['orderby'] = 'title';
                 break;
         }
 

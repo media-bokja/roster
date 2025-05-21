@@ -21,6 +21,8 @@ class ComposerStaticInitaf6eb2ac7a8f9e951512039a3d76ddf8
             'Bokja\\Roster\\' => 13,
             'Bojaghi\\ViteScripts\\' => 20,
             'Bojaghi\\Template\\' => 17,
+            'Bojaghi\\SearchMeta\\' => 19,
+            'Bojaghi\\Scripts\\' => 16,
             'Bojaghi\\Helper\\' => 15,
             'Bojaghi\\Fields\\' => 15,
             'Bojaghi\\FieldsRender\\' => 21,
@@ -48,6 +50,14 @@ class ComposerStaticInitaf6eb2ac7a8f9e951512039a3d76ddf8
         'Bojaghi\\Template\\' => 
         array (
             0 => __DIR__ . '/..' . '/bojaghi/template/src',
+        ),
+        'Bojaghi\\SearchMeta\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/bojaghi/search-meta/src',
+        ),
+        'Bojaghi\\Scripts\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/bojaghi/scripts/src',
         ),
         'Bojaghi\\Helper\\' => 
         array (
@@ -92,8 +102,6 @@ class ComposerStaticInitaf6eb2ac7a8f9e951512039a3d76ddf8
         'Bokja\\Roster\\Modules\\PostMeta' => __DIR__ . '/../..' . '/inc/Modules/PostMeta.php',
         'Bokja\\Roster\\Modules\\ProfileImage' => __DIR__ . '/../..' . '/inc/Modules/ProfileImage.php',
         'Bokja\\Roster\\Modules\\RosterApi' => __DIR__ . '/../..' . '/inc/Modules/RosterApi.php',
-        'Bokja\\Roster\\Modules\\Scripts' => __DIR__ . '/../..' . '/inc/Modules/Scripts.php',
-        'Bokja\\Roster\\Modules\\SearchMeta' => __DIR__ . '/../..' . '/inc/Modules/SearchMeta.php',
         'Bokja\\Roster\\Modules\\UserMeta' => __DIR__ . '/../..' . '/inc/Modules/UserMeta.php',
         'Bokja\\Roster\\Objects\\Profile' => __DIR__ . '/../..' . '/inc/Objects/Profile.php',
         'Bokja\\Roster\\Supports\\EditForm' => __DIR__ . '/../..' . '/inc/Supports/EditForm.php',
@@ -124,6 +132,8 @@ class ComposerStaticInitaf6eb2ac7a8f9e951512039a3d76ddf8
         'Bokja\\Roster\\Vendor\\Bojaghi\\Fields\\Option\\Option' => __DIR__ . '/..' . '/bojaghi/fields/src/Option/Option.php',
         'Bokja\\Roster\\Vendor\\Bojaghi\\Fields\\Option\\OptionFactory' => __DIR__ . '/..' . '/bojaghi/fields/src/Option/OptionFactory.php',
         'Bokja\\Roster\\Vendor\\Bojaghi\\Helper\\Helper' => __DIR__ . '/..' . '/bojaghi/helper/src/Helper.php',
+        'Bokja\\Roster\\Vendor\\Bojaghi\\Scripts\\Script' => __DIR__ . '/..' . '/bojaghi/scripts/src/Script.php',
+        'Bokja\\Roster\\Vendor\\Bojaghi\\SearchMeta\\SearchMeta' => __DIR__ . '/..' . '/bojaghi/search-meta/src/SearchMeta.php',
         'Bokja\\Roster\\Vendor\\Bojaghi\\Template\\Template' => __DIR__ . '/..' . '/bojaghi/template/src/Template.php',
         'Bokja\\Roster\\Vendor\\Bojaghi\\ViteScripts\\Localize' => __DIR__ . '/..' . '/bojaghi/vite-scripts/src/Localize.php',
         'Bokja\\Roster\\Vendor\\Bojaghi\\ViteScripts\\TagHelper' => __DIR__ . '/..' . '/bojaghi/vite-scripts/src/TagHelper.php',

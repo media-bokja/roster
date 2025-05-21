@@ -24,12 +24,16 @@ export default function ToolAreaTop(props: Props) {
     } = useRosterContext()
 
     const {
+        perpage,
         search,
         orderby,
+        order,
     } = siteParams
 
     const [searchText, setSearchText] = useState<string>(search)
-
+console.log('orderby', orderby)
+console.log('order', order)
+console.log('perpage', perpage)
     return (
         <>
             <section
@@ -77,24 +81,50 @@ export default function ToolAreaTop(props: Props) {
             </section>
             <section className={cn('block mt-4 w-full text-right')}>
                 <select
-                    className="select select-ghost select-md w-2/12"
+                    className="select select-ghost select-md w-fit"
                     onChange={(e) => {
-                        const value = (e.target as HTMLSelectElement).value
+                        const [orderby, order] = (e.target as HTMLSelectElement).value.split(':', 2)
+
                         dispatch({
                             type: ActionType.SET_SITE_PARAMS,
                             payload: {
                                 ...siteParams,
-                                orderby: value,
-                                order: 'date' === value ? 'desc' : 'asc',
+                                orderby,
+                                order,
                             },
                         })
                     }}
-                    value={orderby}
+                    value={`${orderby}:${order}`}
                 >
                     <option disabled={true}>정렬 순서</option>
-                    <option value="date">등록일 내림차순</option>
-                    <option value="birthday">생일 오름차순</option>
-                    <option value="name">이름 오름차순</option>
+                    <option value="entrance:asc">입회일 오름차순</option>
+                    <option value="entrance:desc">입회일 내림차순</option>
+                    <option value="date:asc">등록일 오름차순</option>
+                    <option value="date:desc">등록일 내림차순</option>
+                    <option value="birthday:asc">생일 오름차순</option>
+                    <option value="birthday:desc">생일 내림차순</option>
+                    <option value="name:asc">이름 오름차순</option>
+                    <option value="name:desc">이름 내림차순</option>
+                </select>
+                <select
+                    className="select select-ghost select-md w-fit"
+                    onChange={(e) => {
+                        const perpage = parseInt((e.target as HTMLSelectElement).value)
+
+                        dispatch({
+                            type: ActionType.SET_SITE_PARAMS,
+                            payload: {
+                                ...siteParams,
+                                perpage,
+                            },
+                        })
+                    }}
+                    value={perpage}
+                >
+                    <option disabled={true}>항목 수</option>
+                    <option value={25}>25</option>
+                    <option value={50}>50</option>
+                    <option value={100}>100</option>
                 </select>
             </section>
         </>

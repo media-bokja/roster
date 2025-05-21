@@ -20,6 +20,7 @@ namespace Roster {
         orderby?: string
         order?: string
         page?: number
+        perpage?: number
         search?: string
     }
 
@@ -29,6 +30,7 @@ namespace Roster {
         query.order && q.set('order', query.order)
         query.orderby && q.set('orderby', query.orderby)
         query.page && q.set('page', query.page.toString())
+        query.perpage && q.set('perpage', query.perpage.toString())
         query.search && q.set('search', query.search)
 
         const qs = q.toString()

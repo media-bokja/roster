@@ -24,9 +24,11 @@ export default function ItemProfileImage(props: Props) {
     return (
         <figure className="relative">
             <img
-                alt={`${name} ${baptismalName}} 프로필 섬네일 이미지`}
+                alt={`${name} ${baptismalName} 프로필 섬네일 이미지`}
                 className={cn(
-                    'w-full h-full object-cover',
+                    'w-3/4 h-[192px] object-cover',
+                    'border border-neutral-300 dark:border-neutral-700 rounded',
+                    'shadow-lg',
                     {'opacity-50': transparent},
                 )}
                 title={`${name} ${baptismalName}} 프로필 섬네일 이미지`}
@@ -37,7 +39,7 @@ export default function ItemProfileImage(props: Props) {
                     className={cn(
                         'badge badge-secondary',
                         'text-[0.7rem] px-2 py-0',
-                        'absolute top-1.5 right-1.5',
+                        'absolute top-1 right-0',
                     )}
                 >
                     신규

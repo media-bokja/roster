@@ -11,9 +11,10 @@ export default function RosterFront() {
     const [state, dispatch] = useRosterReducer(getDefaultState({
         ...rosterVars,
         siteParams: {
-            orderby: param.get('orderby') ?? '',
-            order: param.get('order') ?? '',
+            orderby: param.get('orderby') ?? 'entrance',
+            order: param.get('order') ?? 'asc',
             p: parseInt(param.get('p') ?? '0') || 0,
+            perpage: parseInt(param.get('p') ?? '50') || 50,
             page: parseInt(param.get('page') ?? '1') || 1,
             search: param.get('search') ?? '',
         },

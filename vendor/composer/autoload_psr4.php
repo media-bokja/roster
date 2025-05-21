@@ -10,6 +10,8 @@ return array(
     'Bokja\\Roster\\' => array($baseDir . '/inc'),
     'Bojaghi\\ViteScripts\\' => array($vendorDir . '/bojaghi/vite-scripts/src'),
     'Bojaghi\\Template\\' => array($vendorDir . '/bojaghi/template/src'),
+    'Bojaghi\\SearchMeta\\' => array($vendorDir . '/bojaghi/search-meta/src'),
+    'Bojaghi\\Scripts\\' => array($vendorDir . '/bojaghi/scripts/src'),
     'Bojaghi\\Helper\\' => array($vendorDir . '/bojaghi/helper/src'),
     'Bojaghi\\Fields\\' => array($vendorDir . '/bojaghi/fields/src'),
     'Bojaghi\\FieldsRender\\' => array($vendorDir . '/bojaghi/fields-render/src'),

@@ -6,6 +6,7 @@ use Bokja\Roster\Modules\PostMeta;
 use Bokja\Roster\Objects\Profile;
 use Bokja\Roster\Vendor\Bojaghi\Template\Template;
 use WP_Query;
+
 use function Bokja\Roster\Facades\rosterGet;
 
 readonly class RosterList
@@ -13,8 +14,7 @@ readonly class RosterList
     public function __construct(
         private PostMeta $meta,
         private Template $template,
-    )
-    {
+    ) {
     }
 
     public function addColumns(array $columns): array
@@ -215,23 +215,10 @@ readonly class RosterList
         // Custom search
         $s = $query->get('s');
         if ($s) {
-            $query->set('meta_search', [
-                'relation' => 'OR',
-                [
-                    'key'     => $meta->baptismalName->getKey(),
-                    'value'   => $s,
-                    'compare' => 'LIKE',
-                ],
-                [
-                    'key'     => $meta->currentAssignment->getKey(),
-                    'value'   => $s,
-                    'compare' => 'LIKE',
-                ],
-                [
-                    'key'     => $meta->monasticName->getKey(),
-                    'value'   => $s,
-                    'compare' => 'LIKE',
-                ],
+            $query->set('search_meta', [
+                $meta->baptismalName->getKey(),
+                $meta->currentAssignment->getKey(),
+                $meta->monasticName->getKey()
             ]);
         }
 

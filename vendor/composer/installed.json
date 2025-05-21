@@ -384,6 +384,108 @@
             "install-path": "../bojaghi/helper"
         },
         {
+            "name": "bojaghi/scripts",
+            "version": "1.0.2",
+            "version_normalized": "1.0.2.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/bojaghi/scripts.git",
+                "reference": "2f062566be5a93dc40c3bc9403c5a2aab8a98cbf"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/bojaghi/scripts/zipball/2f062566be5a93dc40c3bc9403c5a2aab8a98cbf",
+                "reference": "2f062566be5a93dc40c3bc9403c5a2aab8a98cbf",
+                "shasum": ""
+            },
+            "require": {
+                "bojaghi/contract": "^1.1",
+                "bojaghi/helper": "^1.1",
+                "php": ">=8.0"
+            },
+            "require-dev": {
+                "bojaghi/wp-tests": "^1.1",
+                "phpunit/phpunit": "^9",
+                "yoast/phpunit-polyfills": "^4.0"
+            },
+            "time": "2025-05-21T18:24:51+00:00",
+            "type": "library",
+            "installation-source": "dist",
+            "autoload": {
+                "psr-4": {
+                    "Bojaghi\\Scripts\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "changwoo",
+                    "email": "ep6tri@hotmail.com"
+                }
+            ],
+            "description": "Module for registering and enqueueing scripts in WordPress",
+            "homepage": "https://github.com/bojaghi/scripts",
+            "support": {
+                "issues": "https://github.com/bojaghi/scripts/issues",
+                "source": "https://github.com/bojaghi/scripts/tree/1.0.2"
+            },
+            "install-path": "../bojaghi/scripts"
+        },
+        {
+            "name": "bojaghi/search-meta",
+            "version": "1.0.0",
+            "version_normalized": "1.0.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/bojaghi/search-meta.git",
+                "reference": "d63896dca9f746a775baf000ac2aad168baefb90"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/bojaghi/search-meta/zipball/d63896dca9f746a775baf000ac2aad168baefb90",
+                "reference": "d63896dca9f746a775baf000ac2aad168baefb90",
+                "shasum": ""
+            },
+            "require": {
+                "bojaghi/contract": "*",
+                "bojaghi/helper": "^1.1",
+                "php": ">=8.0"
+            },
+            "require-dev": {
+                "bojaghi/wp-tests": "^1.1",
+                "phpunit/phpunit": "^9",
+                "yoast/phpunit-polyfills": "^4.0"
+            },
+            "time": "2025-05-20T14:35:13+00:00",
+            "type": "library",
+            "installation-source": "dist",
+            "autoload": {
+                "psr-4": {
+                    "Bojaghi\\SearchMeta\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "changwoo",
+                    "email": "ep6tri@hotmail.com"
+                }
+            ],
+            "description": "Supports custom field search with 's' parameter.",
+            "homepage": "https://github.com/bojaghi/search-meta",
+            "support": {
+                "issues": "https://github.com/bojaghi/search-meta/issues",
+                "source": "https://github.com/bojaghi/search-meta/tree/1.0.0"
+            },
+            "install-path": "../bojaghi/search-meta"
+        },
+        {
             "name": "bojaghi/template",
             "version": "1.0.1",
             "version_normalized": "1.0.1.0",
