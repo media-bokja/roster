@@ -26,7 +26,7 @@ export default function ItemProfileImage(props: Props) {
             <img
                 alt={`${name} ${baptismalName} 프로필 섬네일 이미지`}
                 className={cn(
-                    'w-3/4 h-[192px] object-cover',
+                    'w-auto h-[192px] object-cover',
                     'border border-neutral-300 dark:border-neutral-700 rounded',
                     'shadow-lg',
                     {'opacity-50': transparent},
