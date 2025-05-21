@@ -25,6 +25,7 @@ export function getDefaultState(override: Partial<RosterState> = {}): RosterStat
             theme: 'light',
             userAvatar: '',
             userName: '',
+            version: '',
             ...override.sitemeta,
         },
         siteParams: {

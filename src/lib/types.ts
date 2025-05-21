@@ -36,6 +36,7 @@ type SiteMeta = {
     theme: string
     userAvatar: string
     userName: string
+    version: string
 }
 
 type SiteParams = {

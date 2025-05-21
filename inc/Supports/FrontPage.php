@@ -11,12 +11,11 @@ use Bokja\Roster\Vendor\Bojaghi\ViteScripts\ViteScript;
 readonly class FrontPage implements Support
 {
     public function __construct(
-        private Options    $options,
-        private Template   $template,
-        private UserMeta   $userMeta,
+        private Options $options,
+        private Template $template,
+        private UserMeta $userMeta,
         private ViteScript $vite,
-    )
-    {
+    ) {
     }
 
     public function addExtraAttrsToHTML(string $output): string
@@ -123,6 +122,7 @@ readonly class FrontPage implements Support
                     'theme'            => $this->userMeta->theme->get($user->ID),
                     'userAvatar'       => get_avatar_url($user->ID),
                     'userName'         => $user->display_name,
+                    'version'          => ROSTER_VERSION,
                 ],
                 'siteParams' => [],
             ])
