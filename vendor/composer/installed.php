@@ -1,8 +1,8 @@
 <?php return array(
     'root' => array(
         'name' => 'media-bokja/roster',
-        'pretty_version' => '1.0.0',
-        'version' => '1.0.0.0',
+        'pretty_version' => '1.0.2',
+        'version' => '1.0.2.0',
         'reference' => null,
         'type' => 'wordpress-plugin',
         'install_path' => __DIR__ . '/../../',
@@ -146,8 +146,8 @@
             'dev_requirement' => true,
         ),
         'media-bokja/roster' => array(
-            'pretty_version' => '1.0.0',
-            'version' => '1.0.0.0',
+            'pretty_version' => '1.0.2',
+            'version' => '1.0.2.0',
             'reference' => null,
             'type' => 'wordpress-plugin',
             'install_path' => __DIR__ . '/../../',

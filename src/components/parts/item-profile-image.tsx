@@ -63,10 +63,10 @@ const getThumbnailImage = (profileImage: { [key: string]: ProfileImage }) => {
         height: number | undefined,
         transparent: boolean | undefined
 
-    if (profileImage && 'thumbnail' in profileImage) {
-        src = profileImage.thumbnail.path
-        width = profileImage.thumbnail.width
-        height = profileImage.thumbnail.height
+    if (profileImage && 'medium' in profileImage) {
+        src = profileImage.medium.path
+        width = profileImage.medium.width
+        height = profileImage.medium.height
         transparent = false
     }
 

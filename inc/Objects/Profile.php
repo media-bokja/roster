@@ -62,6 +62,16 @@ class Profile
 
     public ?bool $isNew = null;
 
+    public function delete(int|string $id, bool $force = false): void
+    {
+        wp_delete_post($id, $force);
+    }
+
+    public static function formatNameDay(string $value, string $format = '%1$02d-%2$02d'): string
+    {
+        return self::sanitizeNameDay($value, $format);
+    }
+
     public static function fromArray(array $data, ?array $profileFile = null): Profile
     {
         $output = new self();
@@ -213,17 +223,19 @@ class Profile
     {
         $output = '';
 
-        if ($string && ($timestamp = strtotime($string))) {
+        if (preg_match('/\d{4}-\d{1,2}-\d{1,2}/', $string) && ($timestamp = strtotime($string))) {
             $format = get_option('date_format');
             $output = wp_date($format, $timestamp);
+        } else {
+            $exploded = explode('-', $string);
+            if (1 === count($exploded)) {
+                $output = sprintf(__('%1$04d년 경', 'roster'), $exploded[0]);
+            } elseif (2 === count($exploded)) {
+                $output = sprintf(__('%1$04d년 %2$02d월 경', 'roster'), $exploded[0], $exploded[1]);
+            }
         }
 
         return $output;
-    }
-
-    public static function formatNameDay(string $value, string $format = '%1$02d-%2$02d'): string
-    {
-        return self::sanitizeNameDay($value, $format);
     }
 
     public static function sanitizeNameDay(mixed $value, string $format = '%1$02d-%2$02d'): string
@@ -243,14 +255,27 @@ class Profile
         return $output;
     }
 
-    public function toArray(): array
+    public static function sanitizeApproxDate(string $value): string
     {
-        return (array)$this;
-    }
+        if (preg_match('/^\d{4}-\d{2}-\d{2}$/', $value)) {
+            return $value;
+        }
 
-    public function delete(int|string $id, bool $force = false): void
-    {
-        wp_delete_post($id, $force);
+        $value = preg_replace('/[^0-9]/', '', $value);
+
+        if (strlen($value) >= 4) {
+            $year  = (int)substr($value, 0, 4);
+            $month = (int)substr($value, 4, 2);
+            if ($year > 0 && $month > 0) {
+                $value = sprintf('%04d-%02d', $year, $month);
+            } else {
+                $value = sprintf('%04d', $year);
+            }
+        } else {
+            $value = '';
+        }
+
+        return $value;
     }
 
     public function save(): int
@@ -293,5 +318,10 @@ class Profile
         $this->id = (int)$id;
 
         return $id;
+    }
+
+    public function toArray(): array
+    {
+        return (array)$this;
     }
 }

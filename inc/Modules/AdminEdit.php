@@ -147,6 +147,9 @@ class AdminEdit implements Module
         if (ROSTER_CPT_PROFILE === $post_type) {
             $messages['post'][1] = __('명부 업데이트 됨.', 'roster');
             $messages['post'][4] = __('명부 업데이트 됨.', 'roster');
+            $messages['post'][6] = __('새 명부가 등록되었습니다.', 'roster');
+            $messages['post'][7] = __('명부가 저장됨', 'roster');
+            $messages['post'][8] = __('명부를 제출했습니다.', 'roster');
         }
 
         return $messages;

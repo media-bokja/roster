@@ -123,3 +123,22 @@ body.admin-bar .image-popup {
         width: 6rem;
     }
 }
+
+/* 정확하지 않은 날짜 */
+.date-picker-wrapper {
+    margin-bottom: 0.5rem;
+}
+
+input[type="checkbox"].approx-date {
+    margin-left: 0.5rem;
+}
+
+input[type="text"].approx-date {
+    width: 142px;
+}
+
+@media screen and (max-width: 782px) {
+    .form-table td input[type="text"].approx-date {
+        width: 159px;
+    }
+}

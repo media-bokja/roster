@@ -143,4 +143,33 @@ jQuery(function ($) {
             popup.addClass('hidden')
         })
     })()
+
+    /* approx. date */
+    $.fn.approxDate = function () {
+        const me = this,
+            td = me.closest('td'),
+            checkbox = td.find('input[type="checkbox"].approx-date'),
+            approxWrapper = td.find('.date-approx-wrapper'),
+            approx = approxWrapper.find('input[type="text"].approx-date')
+
+        checkbox.on('change', function () {
+            if (checkbox.is(':checked')) {
+                approxWrapper.removeClass('hidden')
+                me.prop('disabled', true)
+                approx.prop('disabled', false)
+            } else {
+                approxWrapper.addClass('hidden')
+                me.prop('disabled', false)
+                approx.prop('disabled', true)
+            }
+        }).trigger('change')
+
+        return this
+    };
+
+    (function () {
+        table.find('input[type="date"].date-picker').each(function (i, elem) {
+            $(elem).approxDate()
+        })
+    })()
 })

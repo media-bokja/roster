@@ -1,3 +1,4 @@
+import useRosterContext from '@/lib/context'
 import type {Profile} from '@/lib/types'
 
 type Props = {
@@ -15,6 +16,14 @@ export default function Dialog(props: Props) {
         profile,
     } = props
 
+    const {
+        state: {
+            sitemeta: {
+                pageTitle
+            }
+        }
+    } = useRosterContext()
+
     if (!open || !profile) {
         return null
     }
@@ -30,7 +39,9 @@ export default function Dialog(props: Props) {
                     </button>
                 </form>
                 <div>
-                    <h2 className="text-xl font-bold">명단 상세</h2>
+                    <h2 className="text-xl font-bold">
+                        {pageTitle} 상세
+                    </h2>
                     <section className="roster-single mt-6">
                         <div className="flex flex-wrap gap-x-2 lx:gap-x-8 gap-y-6">
                             {'thumbnail' in profile.profileImage && (

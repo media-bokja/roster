@@ -47,6 +47,7 @@ namespace Bokja\Roster\Kses {
                     'target'  => true,
                     'title'   => true,
                 ],
+                'br'       => [],
                 'button'   => [
                     ...$defaultProp,
                     'disabled' => true,
@@ -77,6 +78,7 @@ namespace Bokja\Roster\Kses {
                 'h5'       => [
                     ...$defaultProp,
                 ],
+                'hr'       => [],
                 'img'      => [
                     ...$defaultProp,
                     'data-src' => true,
@@ -100,7 +102,7 @@ namespace Bokja\Roster\Kses {
                 ],
                 'label'    => [
                     ...$defaultProp,
-                    'for' => true
+                    'for' => true,
                 ],
                 'option'   => [
                     ...$defaultProp,
