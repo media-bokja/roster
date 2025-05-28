@@ -37,11 +37,14 @@ export default function ItemProfile(props: Props) {
                         {item.baptismalName}
                     </h2>
                 </a>
-                <p>
-                    {[item.birthday.length ? `${item.birthday}생` : '', item.currentAssignment]
-                        .filter((str: string) => str.length > 0)
-                        .join(', ')}
-                </p>
+                <div className="leading-5">
+                    {item.birthday.length > 0 && (
+                        <p className="" title="생일">생일: {item.birthday}</p>
+                    )}
+                    {item.currentAssignment.length > 0 && (
+                        <p className="" title="현소임지">현소임지: {item.currentAssignment}</p>
+                    )}
+                </div>
             </div>
         </div>
     )

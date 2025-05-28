@@ -227,10 +227,10 @@ class Profile
             $format = get_option('date_format');
             $output = wp_date($format, $timestamp);
         } else {
-            $exploded = explode('-', $string);
-            if (1 === count($exploded)) {
+            $exploded = array_map(fn($v) => intval($v), explode('-', $string));
+            if (1 === count($exploded) && $exploded[0] > 0) {
                 $output = sprintf(__('%1$04d년 경', 'roster'), $exploded[0]);
-            } elseif (2 === count($exploded)) {
+            } elseif (2 === count($exploded) && $exploded[0] > 0 && $exploded[1] > 0) {
                 $output = sprintf(__('%1$04d년 %2$02d월 경', 'roster'), $exploded[0], $exploded[1]);
             }
         }
