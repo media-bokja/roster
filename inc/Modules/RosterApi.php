@@ -100,13 +100,13 @@ class RosterApi implements Module
             case 'birthday':
                 $args['orderby']   = 'meta_value';
                 $args['meta_key']  = $meta->birthday->getKey();
-                $args['meta_type'] = 'DATE';
+                $args['meta_type'] = 'CHAR';
                 break;
 
             case 'entrance':
                 $args['orderby']   = 'meta_value';
                 $args['meta_key']  = $meta->entranceDate->getKey();
-                $args['meta_type'] = 'DATE';
+                $args['meta_type'] = 'CHAR';
                 break;
 
             case 'date':

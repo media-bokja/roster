@@ -45,6 +45,7 @@ readonly class RosterList
                 'baptismal_name'     => __('세례명', 'roster'),
                 'birthday'           => __('생일', 'roster'),
                 'monastic_name'      => __('수도명', 'roster'),
+                'entrance_date'      => __('입회일', 'roster'),
                 'current_assignment' => __('현소임지', 'roster'),
             ],
             $date ? ['date' => $date] : [],
@@ -75,6 +76,7 @@ readonly class RosterList
             ...$columns,
             'baptismal_name' => ['baptismal_name', false /* descending first */],
             'birthday'       => ['birthday', true /* ascending first */],
+            'entrance_date'  => ['entrance_date', true /* ascending first */],
             'monastic_name'  => ['monastic_name', false /* descending first */],
         ];
     }
@@ -202,6 +204,10 @@ readonly class RosterList
                 echo esc_html($this->meta->currentAssignment->get($postId));
                 break;
 
+            case 'entrance_date':
+                echo esc_html($this->meta->entranceDate->get($postId));
+                break;
+
             case 'monastic_name':
                 echo esc_html($this->meta->monasticName->get($postId));
                 break;
@@ -236,6 +242,13 @@ readonly class RosterList
 
             case 'baptismal_name':
                 $query->set('meta_key', $meta->baptismalName->getKey());
+                $query->set('meta_type', 'CHAR');
+                $query->set('orderby', 'meta_value');
+                $query->set('order', $order);
+                break;
+
+            case 'entrance_date':
+                $query->set('meta_key', $meta->entranceDate->getKey());
                 $query->set('meta_type', 'CHAR');
                 $query->set('orderby', 'meta_value');
                 $query->set('order', $order);

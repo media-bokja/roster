@@ -1,5 +1,6 @@
 import ItemProfileImage from '@/components/parts/item-profile-image'
 import {type Profile} from '@/lib/types.ts'
+import {cn} from '@/lib/utils'
 
 type Props = {
     item: Profile
@@ -39,10 +40,31 @@ export default function ItemProfile(props: Props) {
                 </a>
                 <div className="leading-5">
                     {item.birthday.length > 0 && (
-                        <p className="" title="생일">생일: {item.birthday}</p>
+                        <p title="생일">
+                            <span
+                                className={cn(
+                                    'font-medium after:content-[":"]',
+                                )}
+                            >생일</span> {item.birthday}
+                        </p>
                     )}
-                    {item.currentAssignment.length > 0 && (
-                        <p className="" title="현소임지">현소임지: {item.currentAssignment}</p>
+                    {item.dateOfDeath.length > 0 && (
+                        <p title="선종일">
+                            <span
+                                className={cn(
+                                    'font-medium after:content-[":"]',
+                                )}
+                            >선종일</span> {item.dateOfDeath}
+                        </p>
+                    )}
+                    {item.dateOfDeath.length === 0 && item.currentAssignment.length > 0 && (
+                        <p title="현소임지">
+                            <span
+                                className={cn(
+                                    'font-medium after:content-[":"]',
+                                )}
+                            >현소임지</span> {item.currentAssignment}
+                        </p>
                     )}
                 </div>
             </div>

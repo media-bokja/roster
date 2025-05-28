@@ -87,7 +87,11 @@
             "@wp-tests:clean",
             "bin/install-wp-tests.sh $DB_NAME $DB_USER $DB_PASS $DB_HOST latest"
         ],
-        "vsync": "vendor/bin/version-sync"
+        "vsync": [
+            "@composer dump-autoload",
+            "vendor/bin/version-sync",
+            "@composer dump-autoload --no-dev -o"
+        ]
     },
     "require-dev": {
         "typisttech/imposter": "*",
@@ -102,5 +106,5 @@
             "typisttech/imposter-plugin": true
         }
     },
-    "version": "1.1.1"
+    "version": "1.1.2"
 }
