@@ -40,6 +40,7 @@ type SiteMeta = {
 }
 
 type SiteParams = {
+    menu: 'roster' | 'monthly-overview'
     p: number       // Profile ID
     page: number    // Page number
     perpage: number // Items per page
@@ -49,9 +50,7 @@ type SiteParams = {
 }
 
 type RosterLayout = {
-    condensed: boolean
     showLoading: boolean
-    verticalCenter: boolean
 }
 
 type RosterState = {
@@ -69,8 +68,15 @@ type ProfileImage = {
     width: number
 }
 
+type MonthlyEventsGetResult = {
+    birthday: Profile[]
+    dateOfDeath: Profile[]
+    nameDay: Profile[]
+}
+
 export type {
     Action,
+    MonthlyEventsGetResult,
     Profile,
     ProfileImage,
     RosterLayout,

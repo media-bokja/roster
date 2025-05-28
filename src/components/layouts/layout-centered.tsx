@@ -1,12 +1,12 @@
+import MainCentered from '@/components/layouts/main-centered'
 import {cn} from '@/lib/utils.ts'
 import {PropsWithChildren, useRef} from 'react'
 import Footer from './footer.tsx'
 import Header from './header.tsx'
-import Main from './main.tsx'
 
 type Props = PropsWithChildren
 
-export default function Layout(props: Props) {
+export default function LayoutCentered(props: Props) {
     const {
         children,
     } = props
@@ -18,18 +18,13 @@ export default function Layout(props: Props) {
         <>
             <div
                 className={cn(
-                    'layout-default',
-                    'min-h-screen',
+                    'layout-centered',
+                    'h-screen',
                     'flex flex-col',
                 )}
-                onKeyUpCapture={(e) => {
-                    if ('Escape' === e.key) {
-                        document.body.dispatchEvent(new CustomEvent('roster:escape', {}))
-                    }
-                }}
             >
                 <Header ref={headerRef} />
-                <Main>{children}</Main>
+                <MainCentered>{children}</MainCentered>
                 <Footer ref={footerRef} />
             </div>
         </>

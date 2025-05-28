@@ -3,7 +3,7 @@ import {PropsWithChildren} from 'react'
 
 type Props = PropsWithChildren
 
-export default function Main(props: Props) {
+export default function MainCentered(props: Props) {
     const {
         children,
     } = props
@@ -11,9 +11,10 @@ export default function Main(props: Props) {
     return (
         <main
             className={cn(
-                'w-full lg:w-[960px]',
+                'w-[960px]',
                 'mx-auto mt-4 py-6 px-4',
                 'grow inline-flex flex-col',
+                'justify-center items-center',
             )}
         >
             {children}

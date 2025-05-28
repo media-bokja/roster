@@ -1,4 +1,4 @@
-import {Profile} from '@/lib/types.ts'
+import {type MonthlyEventsGetResult, Profile} from '@/lib/types.ts'
 
 let baseUrl = ''
 let nonce = ''
@@ -49,7 +49,24 @@ namespace Roster {
     }
 }
 
+namespace MonthlyEvents {
+    export const get = async (year: number, month: number): Promise<MonthlyEventsGetResult> => {
+        const endpoint = `${baseUrl}/monthly-events/${year}/${month}`
+
+        const r = await fetch(endpoint, {
+            method: 'GET',
+            headers: {
+                'Origin': location.origin,
+                'X-WP-Nonce': nonce,
+            },
+        })
+
+        return await r.json()
+    }
+}
+
 export {
     initApi,
+    MonthlyEvents,
     Roster,
 }

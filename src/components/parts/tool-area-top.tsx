@@ -31,9 +31,7 @@ export default function ToolAreaTop(props: Props) {
     } = siteParams
 
     const [searchText, setSearchText] = useState<string>(search)
-console.log('orderby', orderby)
-console.log('order', order)
-console.log('perpage', perpage)
+
     return (
         <>
             <section

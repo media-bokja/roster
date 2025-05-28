@@ -68,6 +68,34 @@ class RosterApi implements Module
                 ],
             ],
         );
+
+        register_rest_route(
+            'bokja/v1',
+            '/monthly-events/(?P<year>\d{4})/(?P<month>\d{1,2})',
+            [
+                'callback'            => [$this, 'monthlyEvents'],
+                'methods'             => 'GET',
+                'permission_callback' => fn() => is_user_logged_in(),
+                'args'                => [
+                    'year'  => [
+                        'sanitize_callback' => function ($param) {
+                            return absint($param);
+                        },
+                        'validate_callback' => function ($param) {
+                            return is_numeric($param);
+                        },
+                    ],
+                    'month' => [
+                        'sanitize_callback' => function ($param) {
+                            return absint($param);
+                        },
+                        'validate_callback' => function ($param) {
+                            return 1 <= $param && $param <= 12;
+                        },
+                    ],
+                ],
+            ],
+        );
     }
 
     public function query(WP_REST_Request $request): array
@@ -129,5 +157,79 @@ class RosterApi implements Module
             'maxPage' => $query->max_num_pages,
             'total'   => $query->found_posts,
         ];
+    }
+
+    public function monthlyEvents(WP_REST_Request $request): array
+    {
+        $meta  = rosterGet(PostMeta::class);
+        $month = sprintf('%02d', $request->get_param('month'));
+
+        // 생일
+        $query = new WP_Query(
+            [
+                'no_found_rows'  => true,
+                'post_type'      => ROSTER_CPT_PROFILE,
+                'posts_per_page' => -1,
+                'post_status'    => 'publish',
+                'orderby'        => 'meta_value',
+                'order'          => 'ASC',
+                'meta_key'       => $meta->entranceDate->getKey(),
+                'meta_query'     => [
+                    [
+                        'key'     => $meta->birthday->getKey(),
+                        'value'   => "^\d{4}-$month",
+                        'compare' => 'RLIKE',
+                    ]
+                ]
+            ],
+        );
+
+        $birthday = array_map(fn($p) => Profile::get($p, "treat_date=string&treat_image=url"), $query->posts);
+
+        // 축일
+        $query = new WP_Query(
+            [
+                'no_found_rows'  => true,
+                'post_type'      => ROSTER_CPT_PROFILE,
+                'posts_per_page' => -1,
+                'post_status'    => 'publish',
+                'orderby'        => 'meta_value',
+                'order'          => 'ASC',
+                'meta_key'       => $meta->entranceDate->getKey(),
+                'meta_query'     => [
+                    [
+                        'key'     => $meta->nameDay->getKey(),
+                        'value'   => "^$month-",
+                        'compare' => 'RLIKE',
+                    ]
+                ]
+            ],
+        );
+
+        $nameDay = array_map(fn($p) => Profile::get($p, "treat_date=string&treat_image=url"), $query->posts);
+
+        // 선종일
+        $query = new WP_Query(
+            [
+                'no_found_rows'  => true,
+                'post_type'      => ROSTER_CPT_PROFILE,
+                'posts_per_page' => -1,
+                'post_status'    => 'publish',
+                'orderby'        => 'meta_value',
+                'order'          => 'ASC',
+                'meta_key'       => $meta->entranceDate->getKey(),
+                'meta_query'     => [
+                    [
+                        'key'     => $meta->dateOfDeath->getKey(),
+                        'value'   => "^\d{4}-$month",
+                        'compare' => 'RLIKE',
+                    ]
+                ]
+            ],
+        );
+
+        $dateOfDeath = array_map(fn($p) => Profile::get($p, "treat_date=string&treat_image=url"), $query->posts);
+
+        return compact('birthday', 'nameDay', 'dateOfDeath');
     }
 }

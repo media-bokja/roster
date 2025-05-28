@@ -2,7 +2,6 @@ import Dialog from '@/components/pages/dialog'
 import useRosterQuery from '@/components/pages/use-roster-query'
 import {ImageFull} from '@/components/parts/image-full'
 import ItemsGrid from '@/components/parts/items-grid.tsx'
-import PageTitle from '@/components/parts/page-title.tsx'
 import ToolAreaBottom from '@/components/parts/tool-area-bottom.tsx'
 import ToolAreaTop from '@/components/parts/tool-area-top.tsx'
 import useRosterContext from '@/lib/context'
@@ -13,10 +12,7 @@ export default function Archive() {
     const {
         dispatch,
         state: {
-            sitemeta: {
-                pageTitle,
-            },
-            siteParams,
+            siteParams
         },
     } = useRosterContext()
 
@@ -29,9 +25,7 @@ export default function Archive() {
         dispatch({
             type: ActionType.SET_LAYOUT,
             payload: {
-                condensed: isLoading || !data || 0 === data.result.length,
                 showLoading: isLoading,
-                verticalCenter: isLoading,
             },
         })
     }, [isLoading, data])
@@ -42,7 +36,6 @@ export default function Archive() {
 
     return (
         <>
-            <PageTitle title={pageTitle} />
             <ToolAreaTop
                 maxPage={data.maxPage}
                 total={data.total}
