@@ -1,6 +1,7 @@
 <?php
 
 use Bokja\Roster\Vendor\Bojaghi\Template\Template;
+use Bokja\Roster\Vendor\Bojaghi\FieldsRender\AdminCompound as AC;
 use Bokja\Roster\Objects\Profile;
 
 /**
@@ -105,13 +106,22 @@ if (2 === count($exploded_name_day)) {
     <tr>
         <th scope="row"><label for="roster-nationality">국적</label></th>
         <td>
-            <input
-                id="roster-nationality"
-                name="bokja_roster[nationality]"
-                type="text"
-                class="text regular-text"
-                value="<?php echo esc_attr($profile->nationality); ?>"
-            />
+            <?php
+            // 차후에 설정으로 옮길 수도...
+            $choices = [__('대한민국', 'roster'), __('필리핀', 'roster')];
+            if ($profile->nationality && !in_array($profile->nationality, $choices, true)) {
+                $choices[] = $profile->nationality;
+            }
+            echo AC::choice(
+                choices: $choices,
+                value: $profile->nationality,
+                attrs: [
+                    'id'   => 'roster-nationality',
+                    'name' => 'bokja_roster[nationality]',
+                ],
+            );
+            echo AC::description(__('원하는 국가가 없으면 선택상자에서 첫번째로 보이는 입력 상자에 새로 기입하세요.', 'roster'));
+            ?>
         </td>
     </tr>
     <tr>

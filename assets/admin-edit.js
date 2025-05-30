@@ -43,6 +43,14 @@ jQuery(function ($) {
         })
     })();
 
+    /* nationality as select2 */
+    (function () {
+        $('#roster-nationality').select2({
+            tags: true,
+            width: '10rem',
+        })
+    })();
+
     /* name day validation */
     (function () {
         const month = $('#roster_name_day-month'),

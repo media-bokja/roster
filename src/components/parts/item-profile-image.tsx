@@ -1,6 +1,5 @@
-import useRosterContext from '@/lib/context'
-import {type Profile, ProfileImage} from '@/lib/types.ts'
-import {cn} from '@/lib/utils'
+import {type Profile} from '@/lib/types.ts'
+import {cn, getThumbnailImage} from '@/lib/utils'
 
 type Props = {
     profile: Profile
@@ -50,42 +49,4 @@ export default function ItemProfileImage(props: Props) {
             )}
         </figure>
     )
-}
-
-const getThumbnailImage = (profileImage: { [key: string]: ProfileImage }) => {
-    const {
-        state: {
-            sitemeta: {
-                placeholderImage,
-            },
-        },
-    } = useRosterContext()
-
-    let src: string | undefined,
-        width: number | undefined,
-        height: number | undefined,
-        transparent: boolean | undefined
-
-    if (profileImage && 'medium' in profileImage) {
-        src = profileImage.medium.path
-        width = profileImage.medium.width
-        height = profileImage.medium.height
-        transparent = false
-    }
-
-    if (!src || 0 === src.length) {
-        src = placeholderImage
-        width = 240
-        height = 240
-        transparent = true
-    }
-
-    return {
-        transparent,
-        props: {
-            src,
-            width,
-            height,
-        },
-    }
 }
