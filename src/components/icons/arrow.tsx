@@ -1,8 +1,8 @@
-type Props = {
-    className?: string
-}
+import type {SVGAttributes} from 'react'
 
-export default function ArrowRight(props: Props) {
+type Props = SVGAttributes<SVGElement>
+
+function ArrowRight(props: Props) {
     return (
         <svg className={props.className} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
             <g strokeLinejoin="round" strokeLinecap="round" strokeWidth="2" fill="none" stroke="currentColor">
@@ -10,4 +10,13 @@ export default function ArrowRight(props: Props) {
             </g>
         </svg>
     )
+}
+
+function ArrowLeft(props: Props) {
+    return <ArrowRight className={props.className + ' -scale-x-100'} />
+}
+
+export {
+    ArrowLeft,
+    ArrowRight,
 }

@@ -8,16 +8,19 @@ jQuery(function ($) {
     /* image preview */
     (function () {
         const preview = $('img.profile-image-preview'),
-            wrap = preview.closest('div')
+            wrap = preview.closest('div'),
+            remove = $('label[for="roster-remove-profile_image"]')
 
         file.on('change', function (e) {
             const file = e.target.files[0]
             if (file) {
                 preview.attr('src', URL.createObjectURL(file))
                 wrap.removeClass('hidden')
+                remove.addClass('hidden')
             } else {
                 preview.attr('src', '')
                 wrap.addClass('hidden')
+                remove.removeClass('hidden')
             }
         })
     })();

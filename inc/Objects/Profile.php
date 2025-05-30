@@ -107,6 +107,15 @@ class Profile
         return $output;
     }
 
+    public static function removeProfileImage(int $postId): void
+    {
+        $support = rosterGet(ImageSupport::class);
+        $support->removeImage($postId);
+
+        $meta = rosterGet(PostMeta::class);
+        $meta->profileImage->delete($postId);
+    }
+
     private static function manageProfileImage(array $file, int $postId): array
     {
         if (!isset($file['error'], $file['tmp_name'], $file['type']) || UPLOAD_ERR_OK !== $file['error']) {

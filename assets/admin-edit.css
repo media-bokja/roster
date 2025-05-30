@@ -8,6 +8,10 @@
     margin-bottom: 0.75rem;
 }
 
+.profile-image-wrap img {
+    display: block;
+}
+
 .profile-image-wrap .label {
     display: block;
     font-size: 0.8rem;

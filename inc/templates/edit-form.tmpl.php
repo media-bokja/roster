@@ -42,6 +42,15 @@ if (2 === count($exploded_name_day)) {
                             height="<?php echo esc_attr($thumbnail['height'] ?? ''); ?>"
                             alt="<?php echo esc_attr(sprintf('%s의 프로필 이미지 섬네일', $profile->name)); ?>"
                         />
+                        <label for="roster-remove-profile_image">
+                            <input
+                                id="roster-remove-profile_image"
+                                type="checkbox"
+                                name="bokja_roster_remove_profile_image"
+                                value="yes"
+                            />
+                            <?php esc_html_e('업로드된 사진을 삭제하겠습니다.', 'rostr'); ?>
+                        </label>
                     </div>
                 <?php else : ?>
                     <?php esc_html_e('사진이 첨부되지 않았습니다.', 'roster'); ?>

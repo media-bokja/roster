@@ -50,8 +50,8 @@ namespace Roster {
 }
 
 namespace MonthlyEvents {
-    export const get = async (year: number, month: number): Promise<MonthlyEventsGetResult> => {
-        const endpoint = `${baseUrl}/monthly-events/${year}/${month}`
+    export const get = async (month: number): Promise<MonthlyEventsGetResult> => {
+        const endpoint = `${baseUrl}/monthly-events/${month}`
 
         const r = await fetch(endpoint, {
             method: 'GET',

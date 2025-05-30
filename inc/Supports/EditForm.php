@@ -6,6 +6,8 @@ use Bokja\Roster\Objects\Profile;
 use Bokja\Roster\Vendor\Bojaghi\Contract\Support;
 use Bokja\Roster\Vendor\Bojaghi\Template\Template;
 use WP_Post;
+
+use function Bokja\Roster\Facades\rosterGet;
 use function Bokja\Roster\Kses\ksesEditForm;
 
 readonly class EditForm implements Support
@@ -37,6 +39,12 @@ readonly class EditForm implements Support
 
         $data       = $_POST['bokja_roster'];
         $data['ID'] = $post->ID;
+
+        // Remove profile image
+        $remove = filter_var($_POST['bokja_roster_remove_profile_image'] ?? 'no', FILTER_VALIDATE_BOOLEAN);
+        if ($remove) {
+            Profile::removeProfileImage($post->ID);
+        }
 
         Profile::fromArray(
             $data,

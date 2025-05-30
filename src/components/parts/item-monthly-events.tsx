@@ -8,6 +8,7 @@ type Props = {
     items: Profile[]
     label: string
     noItemsText?: string
+    onClickItem?: (item: Profile) => void
     valueFunc?: (item: Profile) => string
 }
 
@@ -17,6 +18,7 @@ export default function ItemMonthlyEvents(props: Props) {
         field,
         fieldLabel,
         items,
+        onClickItem,
         noItemsText,
         label,
     } = props
@@ -35,7 +37,10 @@ export default function ItemMonthlyEvents(props: Props) {
             )}
             {0 < items.length && items.map((item) => (
                 <li key={item.id} className="list-row">
-                    <figure className="flex relative overflow-hidden w-[72px] h-[72px] rounded-box">
+                    <figure
+                        className="flex relative overflow-hidden w-[72px] h-[72px] rounded-box cursor-pointer"
+                        onClick={() => onClickItem && onClickItem(item)}
+                    >
                         <img
                             alt={`${item.name} ${item.baptismalName} 프로필 섬네일`}
                             className="w-full h-auto object-cover"
@@ -43,7 +48,10 @@ export default function ItemMonthlyEvents(props: Props) {
                         />
                     </figure>
                     <div className="list-col-grow">
-                        <div className="text-md font-semibold ">
+                        <div
+                            className="text-md font-semibold cursor-pointer hover:text-primary dark:hover:text-accent"
+                            onClick={() => onClickItem && onClickItem(item)}
+                        >
                             {item.name} {item.baptismalName}
                         </div>
                         <div className="text-sm opacity-80">

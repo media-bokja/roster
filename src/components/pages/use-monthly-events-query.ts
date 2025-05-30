@@ -1,11 +1,11 @@
 import {MonthlyEvents} from '@/lib/api'
 import {useQuery} from '@tanstack/react-query'
 
-export default function useMonthlyEventsQuery(year: number, month: number) {
+export default function useMonthlyEventsQuery(month: number) {
     return useQuery({
-        queryKey: ['monthlyEvents', 'get', [year, month]],
+        queryKey: ['monthlyEvents', 'get', [month]],
         queryFn: () => {
-            return MonthlyEvents.get(year, month)
+            return MonthlyEvents.get(month)
         },
     })
 }

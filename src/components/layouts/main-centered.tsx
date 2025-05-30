@@ -11,7 +11,7 @@ export default function MainCentered(props: Props) {
     return (
         <main
             className={cn(
-                'w-[960px]',
+                'max-w-[960px]',
                 'mx-auto mt-4 py-6 px-4',
                 'grow inline-flex flex-col',
                 'justify-center items-center',

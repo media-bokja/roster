@@ -71,20 +71,12 @@ class RosterApi implements Module
 
         register_rest_route(
             'bokja/v1',
-            '/monthly-events/(?P<year>\d{4})/(?P<month>\d{1,2})',
+            '/monthly-events/(?P<month>\d{1,2})',
             [
                 'callback'            => [$this, 'monthlyEvents'],
                 'methods'             => 'GET',
                 'permission_callback' => fn() => is_user_logged_in(),
                 'args'                => [
-                    'year'  => [
-                        'sanitize_callback' => function ($param) {
-                            return absint($param);
-                        },
-                        'validate_callback' => function ($param) {
-                            return is_numeric($param);
-                        },
-                    ],
                     'month' => [
                         'sanitize_callback' => function ($param) {
                             return absint($param);
