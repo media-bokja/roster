@@ -19,12 +19,30 @@ readonly class EditForm implements Support
     public function render(WP_Post $post): void
     {
         $profile = Profile::get($post->ID, "treat_image=url");
+
         // Correct 'Auto Draft' here
         if ('auto-draft' === $post->post_status && __('Auto Draft') === $profile->name) {
             $profile->name = '';
         }
 
-        $result = $this->template->template('edit-form', ['profile' => $profile]);
+        // Nationality options
+        $countries = [
+            __('대한민국', 'roster'),
+            __('동(東)티모르', 'roster'),
+            __('베트남', 'roster'),
+            __('필리핀', 'roster'),
+        ];
+        if (!in_array($profile->nationality, $countries, true)) {
+            $countries[] = $profile->nationality;
+        }
+
+        $result = $this->template->template(
+            'edit-form',
+            [
+                'countries' => $countries,
+                'profile'   => $profile,
+            ],
+        );
 
         // Allow 'style' attrribute when using wp_kses().
         add_filter('safe_style_css', fn(array $styles) => [...$styles, 'display']);

@@ -8,8 +8,8 @@ use Bokja\Roster\Objects\Profile;
  * @var Template $this
  *
  * Context
+ * countries: string[]
  * profile: Profile
- * thumbnail: array
  */
 
 /** @var Profile $profile */
@@ -107,13 +107,8 @@ if (2 === count($exploded_name_day)) {
         <th scope="row"><label for="roster-nationality">국적</label></th>
         <td>
             <?php
-            // 차후에 설정으로 옮길 수도...
-            $choices = [__('대한민국', 'roster'), __('필리핀', 'roster')];
-            if ($profile->nationality && !in_array($profile->nationality, $choices, true)) {
-                $choices[] = $profile->nationality;
-            }
             echo AC::choice(
-                choices: $choices,
+                choices: $this->get('countries'),
                 value: $profile->nationality,
                 attrs: [
                     'id'   => 'roster-nationality',

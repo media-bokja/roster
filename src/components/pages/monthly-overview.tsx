@@ -6,6 +6,7 @@ import ItemMonthlyEvents from '@/components/parts/item-monthly-events'
 import useRosterContext from '@/lib/context'
 import {ActionType} from '@/lib/reducer'
 import {type Profile} from '@/lib/types'
+import {cn} from '@/lib/utils'
 import {useCallback, useEffect, useState} from 'react'
 
 const theMonth = new Date().getMonth() + 1
@@ -57,6 +58,8 @@ export default function MonthlyOverview() {
         nameDay,
     } = data
 
+    const classNameRow = 'box-border grow shrink'
+
     return (
         <>
             <div className="mt-8">
@@ -74,48 +77,54 @@ export default function MonthlyOverview() {
                 </div>
                 <div className="divider" />
 
-                {/* 생일 */}
-                <ItemMonthlyEvents
-                    className={'mt-8'}
-                    field={'birthday'}
-                    fieldLabel={'생일'}
-                    items={birthday}
-                    label={'생일이신 분'}
-                    noItemsText={'이 달에는 생일이신 분이 없습니다.'}
-                    onClickItem={(item: Profile) => {
-                        setCurrentProfile(item)
-                    }}
-                />
+                <div className={cn(
+                    'monthly-events',
+                    'flex flex-row flex-wrap gap-x-5 gap-y-10',
+                    'min-h-[260px]'
+                )}>
+                    {/* 생일 */}
+                    <ItemMonthlyEvents
+                        className={classNameRow}
+                        field={'birthday'}
+                        fieldLabel={'생일'}
+                        items={birthday}
+                        label={'생일이신 분'}
+                        noItemsText={'이 달에는 생일이신 분이 없습니다.'}
+                        onClickItem={(item: Profile) => {
+                            setCurrentProfile(item)
+                        }}
+                    />
 
-                {/* 축일 */}
-                <ItemMonthlyEvents
-                    className={'mt-8'}
-                    field={'nameDay'}
-                    fieldLabel={'축일'}
-                    items={nameDay}
-                    label={'축일이신 분'}
-                    noItemsText={'이 달에는 축일이신 분이 없습니다.'}
-                    onClickItem={(item: Profile) => {
-                        setCurrentProfile(item)
-                    }}
-                    valueFunc={(item: Profile) => {
-                        const [month, day] = item.nameDay.split('-')
-                        return `${month}월 ${day}일`
-                    }}
-                />
+                    {/* 축일 */}
+                    <ItemMonthlyEvents
+                        className={classNameRow}
+                        field={'nameDay'}
+                        fieldLabel={'축일'}
+                        items={nameDay}
+                        label={'축일이신 분'}
+                        noItemsText={'이 달에는 축일이신 분이 없습니다.'}
+                        onClickItem={(item: Profile) => {
+                            setCurrentProfile(item)
+                        }}
+                        valueFunc={(item: Profile) => {
+                            const [month, day] = item.nameDay.split('-')
+                            return `${month}월 ${day}일`
+                        }}
+                    />
 
-                {/* 선종일 */}
-                <ItemMonthlyEvents
-                    className={'mt-8 mb-4'}
-                    field={'dateOfDeath'}
-                    fieldLabel={'선종일'}
-                    items={dateOfDeath}
-                    label={'선종하신 분'}
-                    noItemsText={'이 달에는 선종하신 분이 없습니다.'}
-                    onClickItem={(item: Profile) => {
-                        setCurrentProfile(item)
-                    }}
-                />
+                    {/* 선종일 */}
+                    <ItemMonthlyEvents
+                        className={classNameRow}
+                        field={'dateOfDeath'}
+                        fieldLabel={'선종일'}
+                        items={dateOfDeath}
+                        label={'선종하신 분'}
+                        noItemsText={'이 달에는 선종하신 분이 없습니다.'}
+                        onClickItem={(item: Profile) => {
+                            setCurrentProfile(item)
+                        }}
+                    />
+                </div>
             </div>
             <Dialog
                 open={!!currentProfile}

@@ -12,15 +12,49 @@
     display: block;
 }
 
-.profile-image-wrap .label {
+/* 프로필 이미지 위 '현재 사진' 레이블 */
+.profile-image-wrap .description.label {
     display: block;
     font-size: 0.8rem;
     margin: 0 0 0.25rem;
 }
 
+/* 업로드 사진 삭제 체크박스 */
+.profile-image-wrap label {
+    display: block;
+    margin-top: 0.25rem;
+}
+
+@media screen and (max-width: 782px) {
+    .profile-image-wrap label {
+        margin-top: 0.5rem;
+    }
+}
+
 /* 프로필 이미지에 마우스 커서 */
 .profile-image-thumbnail {
     cursor: pointer;
+}
+
+/* 국적 */
+.select2-search--dropdown .select2-search__field {
+    padding: 0 4px !important;
+}
+
+@media screen and (max-width: 782px) {
+    .select2-container--default .select2-selection--single,
+    .select2-container--default .select2-selection__rendered {
+        padding: 3px 10px !important;
+        min-height: 40px;
+    }
+
+    .select2-container--default .select2-selection__arrow {
+        min-height: 40px;
+    }
+
+    .select2-container--default .select2-results__option {
+        padding: 14px 8px !important;
+    }
 }
 
 /* 세례명 축일 */

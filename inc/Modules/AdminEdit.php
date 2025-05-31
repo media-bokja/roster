@@ -5,6 +5,7 @@ namespace Bokja\Roster\Modules;
 use Bokja\Roster\Supports\EditForm;
 use Bokja\Roster\Supports\RosterList;
 use Bokja\Roster\Vendor\Bojaghi\Contract\Module;
+use WP_Admin_Bar;
 use WP_Post;
 use WP_Query;
 use WP_Screen;
@@ -20,6 +21,22 @@ class AdminEdit implements Module
 
         add_action('save_post_' . ROSTER_CPT_PROFILE, [$this, 'savePost'], 10, 3);
         add_filter('post_updated_messages', [$this, 'updatedMessages']);
+    }
+
+    public function addAdminBarMenu(WP_Admin_Bar $adminBar): void
+    {
+        $front = rosterGet(Options::class)->pages->get()['front'];
+        if (!$front) {
+            return;
+        }
+
+        $adminBar->add_node(
+            [
+                'id'    => 'view-front',
+                'title' => __('회원명부 보기', 'roster'),
+                'href'  => get_permalink($front),
+            ],
+        );
     }
 
     public function addAttribute(WP_Post $post): void
@@ -107,6 +124,8 @@ class AdminEdit implements Module
             add_action('post_edit_form_tag', [$this, 'addAttribute']);
             add_action('edit_form_after_title', [$this, 'editForm']);
         }
+
+        add_action('admin_bar_menu', [$this, 'addAdminBarMenu'], 500);
     }
 
     public function editForm(WP_Post $post): void
@@ -116,7 +135,7 @@ class AdminEdit implements Module
 
     /**
      * @param string $column
-     * @param int $postId
+     * @param int    $postId
      *
      * @return void
      *
