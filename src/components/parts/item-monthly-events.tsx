@@ -50,7 +50,7 @@ export default function ItemMonthlyEvents(props: Props) {
                             <img
                                 alt={`${item.name} ${item.baptismalName} 프로필 섬네일`}
                                 className={cn(
-                                    "w-full h-auto object-cover",
+                                    'w-full h-auto object-cover',
                                     {'opacity-50': transparent},
                                 )}
                                 title={`${item.name} ${item.baptismalName} 프로필 섬네일`}
@@ -65,7 +65,7 @@ export default function ItemMonthlyEvents(props: Props) {
                                 {item.name} {item.baptismalName}
                             </div>
                             <div className="text-sm opacity-80">
-                                {!!field && !!fieldLabel && (
+                                {('dateOfDeath' !== field && !!fieldLabel) && (
                                     <p>{fieldLabel}: {valueFunc(item)}</p>
                                 )}
                                 {item.dateOfDeath.length > 0 && <p>선종일: {item.dateOfDeath}</p>}

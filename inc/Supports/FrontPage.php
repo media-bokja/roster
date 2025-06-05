@@ -107,7 +107,7 @@ readonly class FrontPage implements Support
                 'sitemeta'   => [
                     'homeUrl'          => home_url(),
                     'pageTitle'        => get_the_title(),
-                    'placeholderImage' => plugins_url('assets/placeholder-128.webp', ROSTER_MAIN),
+                    'placeholderImage' => plugins_url('assets/placeholder-240.webp', ROSTER_MAIN),
                     'profileAdminUrl'  => get_edit_profile_url($user->ID),
                     'rosterAdminUrl'   => current_user_can('edit_posts') ? admin_url(
                         add_query_arg(
