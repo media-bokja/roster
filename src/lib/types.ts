@@ -20,6 +20,7 @@ type Profile = {
     profileImage: {
         [key: string]: ProfileImage
     }
+    remarks: string
     /* API result only */
     isNew: boolean;
 }

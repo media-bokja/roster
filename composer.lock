@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "1edc23a18b9ab53c1048ea94e7b8d0d6",
+    "content-hash": "03e2b9a4db8d12930fd769e12d914ab8",
     "packages": [
         {
             "name": "bojaghi/admin-ajax",
@@ -57,16 +57,16 @@
         },
         {
             "name": "bojaghi/clean-pages",
-            "version": "1.0.2",
+            "version": "1.0.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/bojaghi/clean-pages.git",
-                "reference": "1aa3df71f7d1ffeb84a588407eaf2cdbecc01021"
+                "reference": "f6708503ea6115b9e85195cad8f3b4c20c4b5282"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/bojaghi/clean-pages/zipball/1aa3df71f7d1ffeb84a588407eaf2cdbecc01021",
-                "reference": "1aa3df71f7d1ffeb84a588407eaf2cdbecc01021",
+                "url": "https://api.github.com/repos/bojaghi/clean-pages/zipball/f6708503ea6115b9e85195cad8f3b4c20c4b5282",
+                "reference": "f6708503ea6115b9e85195cad8f3b4c20c4b5282",
                 "shasum": ""
             },
             "require": {
@@ -93,9 +93,9 @@
             "homepage": "https://github.com/bojaghi/clean-pages",
             "support": {
                 "issues": "https://github.com/bojaghi/clean-pages/issues",
-                "source": "https://github.com/bojaghi/clean-pages/tree/1.0.2"
+                "source": "https://github.com/bojaghi/clean-pages/tree/1.0.6"
             },
-            "time": "2025-05-10T17:27:57+00:00"
+            "time": "2025-06-09T14:58:27+00:00"
         },
         {
             "name": "bojaghi/continy",
@@ -275,16 +275,16 @@
         },
         {
             "name": "bojaghi/fields-render",
-            "version": "1.0.4",
+            "version": "1.0.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/bojaghi/fields-render.git",
-                "reference": "923fdd57ac85749405c75a0e1bfb30ef69f42d59"
+                "reference": "6d5b36dc002bd4af6c655d3b0e2e03d25caff0ef"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/bojaghi/fields-render/zipball/923fdd57ac85749405c75a0e1bfb30ef69f42d59",
-                "reference": "923fdd57ac85749405c75a0e1bfb30ef69f42d59",
+                "url": "https://api.github.com/repos/bojaghi/fields-render/zipball/6d5b36dc002bd4af6c655d3b0e2e03d25caff0ef",
+                "reference": "6d5b36dc002bd4af6c655d3b0e2e03d25caff0ef",
                 "shasum": ""
             },
             "require": {
@@ -315,25 +315,26 @@
             "homepage": "https://github.com/bojaghi/fields-render",
             "support": {
                 "issues": "https://github.com/bojaghi/fields-render/issues",
-                "source": "https://github.com/bojaghi/fields-render/tree/1.0.4"
+                "source": "https://github.com/bojaghi/fields-render/tree/1.0.5"
             },
-            "time": "2025-05-14T23:43:29+00:00"
+            "time": "2025-05-24T05:40:37+00:00"
         },
         {
             "name": "bojaghi/helper",
-            "version": "1.1.0",
+            "version": "1.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/bojaghi/helper.git",
-                "reference": "e84223e627e5f86e6e4b1986f42b506c22071e82"
+                "reference": "9ce3e051abf504ab3149a72b0d5e25f77c96c4cf"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/bojaghi/helper/zipball/e84223e627e5f86e6e4b1986f42b506c22071e82",
-                "reference": "e84223e627e5f86e6e4b1986f42b506c22071e82",
+                "url": "https://api.github.com/repos/bojaghi/helper/zipball/9ce3e051abf504ab3149a72b0d5e25f77c96c4cf",
+                "reference": "9ce3e051abf504ab3149a72b0d5e25f77c96c4cf",
                 "shasum": ""
             },
             "require": {
+                "bojaghi/continy": "^1.1",
                 "php": ">=8.0"
             },
             "require-dev": {
@@ -361,22 +362,22 @@
             "homepage": "https://github.com/bojaghi/helper",
             "support": {
                 "issues": "https://github.com/bojaghi/helper/issues",
-                "source": "https://github.com/bojaghi/helper/tree/1.1.0"
+                "source": "https://github.com/bojaghi/helper/tree/1.2.0"
             },
-            "time": "2024-12-19T01:41:49+00:00"
+            "time": "2025-06-02T16:43:06+00:00"
         },
         {
             "name": "bojaghi/scripts",
-            "version": "1.0.2",
+            "version": "1.0.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/bojaghi/scripts.git",
-                "reference": "2f062566be5a93dc40c3bc9403c5a2aab8a98cbf"
+                "reference": "c80e8e6e049e93709a313bff28a30035d7ee21b7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/bojaghi/scripts/zipball/2f062566be5a93dc40c3bc9403c5a2aab8a98cbf",
-                "reference": "2f062566be5a93dc40c3bc9403c5a2aab8a98cbf",
+                "url": "https://api.github.com/repos/bojaghi/scripts/zipball/c80e8e6e049e93709a313bff28a30035d7ee21b7",
+                "reference": "c80e8e6e049e93709a313bff28a30035d7ee21b7",
                 "shasum": ""
             },
             "require": {
@@ -409,9 +410,9 @@
             "homepage": "https://github.com/bojaghi/scripts",
             "support": {
                 "issues": "https://github.com/bojaghi/scripts/issues",
-                "source": "https://github.com/bojaghi/scripts/tree/1.0.2"
+                "source": "https://github.com/bojaghi/scripts/tree/1.0.3"
             },
-            "time": "2025-05-21T18:24:51+00:00"
+            "time": "2025-05-21T18:48:15+00:00"
         },
         {
             "name": "bojaghi/search-meta",
@@ -510,19 +511,20 @@
         },
         {
             "name": "bojaghi/vite-scripts",
-            "version": "1.1.1",
+            "version": "1.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/bojaghi/vite-scripts.git",
-                "reference": "6b41a923f389e2f1df919acbb6b8fc6f78255f9f"
+                "reference": "12ec422a7bc560072150f0d6281b630bf61e164c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/bojaghi/vite-scripts/zipball/6b41a923f389e2f1df919acbb6b8fc6f78255f9f",
-                "reference": "6b41a923f389e2f1df919acbb6b8fc6f78255f9f",
+                "url": "https://api.github.com/repos/bojaghi/vite-scripts/zipball/12ec422a7bc560072150f0d6281b630bf61e164c",
+                "reference": "12ec422a7bc560072150f0d6281b630bf61e164c",
                 "shasum": ""
             },
             "require": {
+                "bojaghi/fields-render": "^1.0",
                 "bojaghi/helper": "^1.1",
                 "php": ">=8.0"
             },
@@ -544,9 +546,9 @@
             "homepage": "https://github.com/bojaghi/vite-scripts",
             "support": {
                 "issues": "https://github.com/bojaghi/vite-scripts/issues",
-                "source": "https://github.com/bojaghi/vite-scripts/tree/1.1.1"
+                "source": "https://github.com/bojaghi/vite-scripts/tree/1.2.0"
             },
-            "time": "2025-05-06T21:02:44+00:00"
+            "time": "2025-05-20T22:44:31+00:00"
         },
         {
             "name": "psr/container",
@@ -822,16 +824,16 @@
         },
         {
             "name": "nikic/php-parser",
-            "version": "v5.4.0",
+            "version": "v5.5.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nikic/PHP-Parser.git",
-                "reference": "447a020a1f875a434d62f2a401f53b82a396e494"
+                "reference": "ae59794362fe85e051a58ad36b289443f57be7a9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nikic/PHP-Parser/zipball/447a020a1f875a434d62f2a401f53b82a396e494",
-                "reference": "447a020a1f875a434d62f2a401f53b82a396e494",
+                "url": "https://api.github.com/repos/nikic/PHP-Parser/zipball/ae59794362fe85e051a58ad36b289443f57be7a9",
+                "reference": "ae59794362fe85e051a58ad36b289443f57be7a9",
                 "shasum": ""
             },
             "require": {
@@ -874,9 +876,9 @@
             ],
             "support": {
                 "issues": "https://github.com/nikic/PHP-Parser/issues",
-                "source": "https://github.com/nikic/PHP-Parser/tree/v5.4.0"
+                "source": "https://github.com/nikic/PHP-Parser/tree/v5.5.0"
             },
-            "time": "2024-12-30T11:07:19+00:00"
+            "time": "2025-05-31T08:24:38+00:00"
         },
         {
             "name": "phar-io/manifest",
@@ -2679,13 +2681,13 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": {},
+    "stability-flags": [],
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
         "php": ">=8.2",
         "ext-mbstring": "*"
     },
-    "platform-dev": {},
+    "platform-dev": [],
     "plugin-api-version": "2.6.0"
 }

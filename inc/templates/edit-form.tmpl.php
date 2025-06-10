@@ -197,6 +197,17 @@ if (2 === count($exploded_name_day)) {
         </td>
     </tr>
     <tr>
+        <th scope="row"><label for="roster-remarks">비고</label></th>
+        <td>
+            <textarea
+                id="roster-remarks"
+                name="bokja_roster[remarks]"
+                cols="35"
+                rows="4"
+            ><?php echo esc_html($profile->remarks); ?></textarea>
+        </td>
+    </tr>
+    <tr>
         <?php echo $this->template('part-date-field', [
             'id'    => 'roster-birthday',
             'label' => __('생일', 'roster'),

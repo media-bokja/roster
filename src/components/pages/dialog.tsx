@@ -1,5 +1,6 @@
 import useRosterContext from '@/lib/context'
 import type {Profile} from '@/lib/types'
+import nl2br from 'react-nl2br'
 
 type Props = {
     open: boolean
@@ -82,6 +83,12 @@ export default function Dialog(props: Props) {
                                     <tr>
                                         <th className="py-1" scope="row">현소임지</th>
                                         <td className="py-1">{profile.currentAssignment}</td>
+                                    </tr>
+                                    <tr>
+                                        <th className="py-1" scope="row">비고</th>
+                                        <td className="py-1">
+                                            {nl2br(profile.remarks)}
+                                        </td>
                                     </tr>
                                     </tbody>
                                 </table>

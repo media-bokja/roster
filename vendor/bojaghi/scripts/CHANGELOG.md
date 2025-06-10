@@ -1,10 +1,16 @@
 # CHANGELOG
 
+## 1.0.3
+
+2025-05-23
+
+- Fix wrong style enqueue.
+
 ## 1.0.2
 
 2025-05-23
 
-- Fix wrong name in composer.json
+- Fix wrong name in composer.json.
 
 ## 1.0.1
 

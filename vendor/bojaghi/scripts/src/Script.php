@@ -172,31 +172,6 @@ class Script implements Module
         $this->scriptAdminRules = [];
     }
 
-    public function adminEnqueueStyles(string $hook): void
-    {
-        self::prepEnqueue(
-            caller: 'wp_enqueue_style',
-            rules: $this->styleAdminRules,
-            handles: $this->styles,
-            hook: $hook,
-        );
-
-        // Reset rules
-        $this->styleAdminRules = [];
-    }
-
-    public function enqueueScripts(): void
-    {
-        self::prepEnqueue(
-            caller: 'wp_enqueue_script',
-            rules: $this->scriptRules,
-            handles: $this->scripts,
-        );
-
-        // Reset rules
-        $this->scriptRules = [];
-    }
-
     private static function prepEnqueue(
         callable       $caller,
         callable|array $rules,
@@ -232,6 +207,31 @@ class Script implements Module
                 );
             }
         }
+    }
+
+    public function adminEnqueueStyles(string $hook): void
+    {
+        self::prepEnqueue(
+            caller: 'wp_enqueue_style',
+            rules: $this->styleAdminRules,
+            handles: $this->styles,
+            hook: $hook,
+        );
+
+        // Reset rules
+        $this->styleAdminRules = [];
+    }
+
+    public function enqueueScripts(): void
+    {
+        self::prepEnqueue(
+            caller: 'wp_enqueue_script',
+            rules: $this->scriptRules,
+            handles: $this->scripts,
+        );
+
+        // Reset rules
+        $this->scriptRules = [];
     }
 
     public function enqueueStyles(): void

@@ -60,6 +60,9 @@ class Profile
         'thumbnail' => [],
     ];
 
+    /** @var string 비고 */
+    public string $remarks = '';
+
     public ?bool $isNew = null;
 
     public function delete(int|string $id, bool $force = false): void
@@ -93,6 +96,7 @@ class Profile
         $output->nationality             = $data['nationality'] ?? '';
         $output->ordinationDate          = $data['ordination_date'] ?? '';
         $output->perpetualProfessionDate = $data['perpetual_profession_date'] ?? '';
+        $output->remarks                 = $data['remarks'] ?? '';
         $output->isNew                   = $data['isNew'] ?? null;
 
         if ($output->id > 0) {
@@ -184,6 +188,7 @@ class Profile
             $output->ordinationDate          = $meta->ordinationDate->get($post->ID);
             $output->perpetualProfessionDate = $meta->perpetualProfessionDate->get($post->ID);
             $output->profileImage            = $meta->profileImage->get($post->ID);
+            $output->remarks                 = $post->post_content;
             $output->isNew                   = self::setIsNew($post);
 
             if ('string' === $treatDate) {
@@ -290,7 +295,7 @@ class Profile
     public function save(): int
     {
         $postarr = [
-            'post_content' => '',
+            'post_content' => sanitize_textarea_field(esc_html($this->remarks)),
             'post_name'    => "roster-$this->id",
             'post_status'  => 'publish',
             'post_title'   => $this->name,
