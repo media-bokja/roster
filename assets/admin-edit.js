@@ -122,7 +122,7 @@ jQuery(function ($) {
                 return true
             }
 
-            if (0 < monthVal && monthVal < 12 && 0 < dayVal && dayVal <= lastDay) {
+            if (0 < monthVal && monthVal < 13 && 0 < dayVal && dayVal <= lastDay) {
                 // valid
                 month[0].setCustomValidity('')
                 day[0].setCustomValidity('')
