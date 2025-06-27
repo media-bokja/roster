@@ -1,6 +1,5 @@
 import ItemProfileImage from '@/components/parts/item-profile-image'
 import {type Profile} from '@/lib/types.ts'
-import {cn} from '@/lib/utils'
 
 type Props = {
     item: Profile
@@ -12,6 +11,8 @@ export default function ItemProfile(props: Props) {
         item,
         onClickItem,
     } = props
+
+    const labelCommonClass = 'font-medium grow min-w-[58px] after:content-[":"]'
 
     return (
         <div className="card card-border bg-base-100">
@@ -40,30 +41,21 @@ export default function ItemProfile(props: Props) {
                 </a>
                 <div className="leading-5">
                     {item.birthday.length > 0 && (
-                        <p title="생일">
-                            <span
-                                className={cn(
-                                    'font-medium after:content-[":"]',
-                                )}
-                            >생일</span> {item.birthday}
+                        <p title="생일" className="inline-flex flex-col md:flex-row md:mt-0">
+                            <span className={labelCommonClass}>생일</span>
+                            <span>{item.birthday}</span>
                         </p>
                     )}
                     {item.dateOfDeath.length > 0 && (
-                        <p title="선종일">
-                            <span
-                                className={cn(
-                                    'font-medium after:content-[":"]',
-                                )}
-                            >선종일</span> {item.dateOfDeath}
+                        <p title="선종일" className="inline-flex flex-col md:flex-row mt-2 md:mt-0">
+                            <span className={labelCommonClass}>선종일</span>
+                            <span>{item.dateOfDeath}</span>
                         </p>
                     )}
                     {item.dateOfDeath.length === 0 && item.currentAssignment.length > 0 && (
-                        <p title="현소임지">
-                            <span
-                                className={cn(
-                                    'font-medium after:content-[":"]',
-                                )}
-                            >현소임지</span> {item.currentAssignment}
+                        <p title="현소임지" className="inline-flex flex-col md:flex-row mt-2 md:mt-0">
+                            <span className={labelCommonClass}>현소임지</span>
+                            <span className="shrink break-keep">{item.currentAssignment}</span>
                         </p>
                     )}
                 </div>

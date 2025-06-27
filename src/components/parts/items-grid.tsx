@@ -28,7 +28,7 @@ export default function ItemsGrid(props: Props) {
             className={cn(
                 'mt-6 min-h-[360px]',
                 'grid auto-rows-auto gap-x-4 gap-y-6',
-                'grid-cols-2 sm:grid-cols-3 md:grid-cols-4',
+                'grid-cols-2 sm:grid-cols-4 md:grid-cols-5',
             )}
         >
             {items.map((item) => (

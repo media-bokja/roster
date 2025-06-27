@@ -58,7 +58,7 @@ export default function MonthlyOverview() {
         nameDay,
     } = data
 
-    const classNameRow = 'box-border grow shrink'
+    const classNameRow = 'box-border grow shrink max-w-full sm:max-w-1/3'
 
     return (
         <>
@@ -79,7 +79,7 @@ export default function MonthlyOverview() {
 
                 <div className={cn(
                     'monthly-events',
-                    'flex flex-row flex-wrap gap-x-5 gap-y-10',
+                    'flex flex-row flex-wrap md:gap-x-5 gap-y-10',
                     'min-h-[260px]'
                 )}>
                     {/* 생일 */}

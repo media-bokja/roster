@@ -17,8 +17,8 @@ class AdminMenu implements Module
     public function addAdminMenu(): void
     {
         add_options_page(
-            '인원 명부 설정 페이지',
-            '인원 명부 설정',
+            '회원 명부 설정 페이지',
+            '회원 명부 설정',
             'manage_options',
             SettingsPage::PAGE_SLUG,
             fn() => rosterCall(SettingsPage::class, 'render'),

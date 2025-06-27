@@ -54,17 +54,17 @@
         },
         {
             "name": "bojaghi/clean-pages",
-            "version": "1.0.6",
-            "version_normalized": "1.0.6.0",
+            "version": "1.1.0",
+            "version_normalized": "1.1.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/bojaghi/clean-pages.git",
-                "reference": "f6708503ea6115b9e85195cad8f3b4c20c4b5282"
+                "reference": "b94c1eb7dcd84901f52cf71189a283aacdf55f69"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/bojaghi/clean-pages/zipball/f6708503ea6115b9e85195cad8f3b4c20c4b5282",
-                "reference": "f6708503ea6115b9e85195cad8f3b4c20c4b5282",
+                "url": "https://api.github.com/repos/bojaghi/clean-pages/zipball/b94c1eb7dcd84901f52cf71189a283aacdf55f69",
+                "reference": "b94c1eb7dcd84901f52cf71189a283aacdf55f69",
                 "shasum": ""
             },
             "require": {
@@ -77,7 +77,7 @@
                 "phpunit/phpunit": "^9",
                 "yoast/phpunit-polyfills": "^4.0"
             },
-            "time": "2025-06-09T14:58:27+00:00",
+            "time": "2025-06-15T17:46:09+00:00",
             "type": "library",
             "installation-source": "dist",
             "autoload": {
@@ -89,11 +89,16 @@
             "license": [
                 "GPL-2.0-or-later"
             ],
+            "authors": [
+                {
+                    "name": "changwoo"
+                }
+            ],
             "description": "워드프레스 플러그인에서 테마와 완전히 무관한 빈 페이지를 운영하게 도와줌니다.",
             "homepage": "https://github.com/bojaghi/clean-pages",
             "support": {
                 "issues": "https://github.com/bojaghi/clean-pages/issues",
-                "source": "https://github.com/bojaghi/clean-pages/tree/1.0.6"
+                "source": "https://github.com/bojaghi/clean-pages/tree/1.1.0"
             },
             "install-path": "../bojaghi/clean-pages"
         },

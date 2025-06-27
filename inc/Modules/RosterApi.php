@@ -111,7 +111,7 @@ class RosterApi implements Module
             'search_meta'    => [
                 $meta->baptismalName->getKey(),
                 $meta->currentAssignment->getKey(),
-                $meta->monasticName->getKey()
+                $meta->monasticName->getKey(),
             ],
         ];
 
@@ -156,6 +156,13 @@ class RosterApi implements Module
         $meta  = rosterGet(PostMeta::class);
         $month = sprintf('%02d', $request->get_param('month'));
 
+        // 1순위 정렬은 각각의 'order'에서 지정되었으나 2순위 정렬은 옵션이 없음. 필터로 꾸겨 넣음.
+        $orderby = function (string $clause, WP_Query $query): string {
+            global $wpdb;
+            return $clause . ", $wpdb->posts.post_title ASC";
+        };
+        add_filter('posts_orderby', $orderby, 10, 2);
+
         // 생일
         $query = new WP_Query(
             [
@@ -165,14 +172,14 @@ class RosterApi implements Module
                 'post_status'    => 'publish',
                 'orderby'        => 'meta_value',
                 'order'          => 'ASC',
-                'meta_key'       => $meta->entranceDate->getKey(),
+                'meta_key'       => $meta->birthday->getKey(),
                 'meta_query'     => [
                     [
                         'key'     => $meta->birthday->getKey(),
                         'value'   => "^\d{4}-$month",
                         'compare' => 'RLIKE',
-                    ]
-                ]
+                    ],
+                ],
             ],
         );
 
@@ -187,14 +194,14 @@ class RosterApi implements Module
                 'post_status'    => 'publish',
                 'orderby'        => 'meta_value',
                 'order'          => 'ASC',
-                'meta_key'       => $meta->entranceDate->getKey(),
+                'meta_key'       => $meta->nameDay->getKey(),
                 'meta_query'     => [
                     [
                         'key'     => $meta->nameDay->getKey(),
                         'value'   => "^$month-",
                         'compare' => 'RLIKE',
-                    ]
-                ]
+                    ],
+                ],
             ],
         );
 
@@ -209,18 +216,20 @@ class RosterApi implements Module
                 'post_status'    => 'publish',
                 'orderby'        => 'meta_value',
                 'order'          => 'ASC',
-                'meta_key'       => $meta->entranceDate->getKey(),
+                'meta_key'       => $meta->dateOfDeath->getKey(),
                 'meta_query'     => [
                     [
                         'key'     => $meta->dateOfDeath->getKey(),
                         'value'   => "^\d{4}-$month",
                         'compare' => 'RLIKE',
-                    ]
-                ]
+                    ],
+                ],
             ],
         );
 
         $dateOfDeath = array_map(fn($p) => Profile::get($p, "treat_date=string&treat_image=url"), $query->posts);
+
+        remove_filter('posts_orderby', $orderby);
 
         return compact('birthday', 'nameDay', 'dateOfDeath');
     }

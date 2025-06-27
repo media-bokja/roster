@@ -11,7 +11,7 @@ export default function Main(props: Props) {
     return (
         <main
             className={cn(
-                'w-full lg:w-[960px]',
+                'w-full lg:w-[1092px]',
                 'mx-auto mt-4 py-6 px-4',
                 'grow inline-flex flex-col',
             )}

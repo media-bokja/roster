@@ -7,7 +7,7 @@
  * Author URI: ep6tri@hotmail.com
  * Requires at least: 6.8
  * Requires PHP: 8.2
- * Version: 1.3.1
+ * Version: 1.3.2
  * License: GPLv2 or later
  */
 
@@ -20,6 +20,6 @@ if (!defined('ABSPATH')) {
 require_once __DIR__ . '/vendor/autoload.php';
 
 const ROSTER_MAIN    = __FILE__;
-const ROSTER_VERSION = '1.3.1';
+const ROSTER_VERSION = '1.3.2';
 
 roster();
