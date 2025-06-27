@@ -15,7 +15,7 @@ class ImageSupport
     public static function getUploadDir(): string
     {
         $d   = wp_get_upload_dir();
-        $dir = path_join($d['basedir'], 'bojka-roster');
+        $dir = path_join($d['basedir'], 'bokja-roster');
         $rel = wp_date('/Y/m');
 
         return $dir . $rel;

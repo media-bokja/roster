@@ -12,8 +12,6 @@ export default function ItemProfile(props: Props) {
         onClickItem,
     } = props
 
-    const labelCommonClass = 'font-medium grow min-w-[58px] after:content-[":"]'
-
     return (
         <div className="card card-border bg-base-100">
             <a
@@ -25,7 +23,7 @@ export default function ItemProfile(props: Props) {
             >
                 <ItemProfileImage profile={item} />
             </a>
-            <div className="card-body px-2 py-4">
+            <div className="card-body p-2">
                 <a
                     href={'#'}
                     onClick={(e) => {
@@ -41,21 +39,18 @@ export default function ItemProfile(props: Props) {
                 </a>
                 <div className="leading-5">
                     {item.birthday.length > 0 && (
-                        <p title="생일" className="inline-flex flex-col md:flex-row md:mt-0">
-                            <span className={labelCommonClass}>생일</span>
-                            <span>{item.birthday}</span>
+                        <p className="" title="생일">
+                            <span className="shrink">{item.birthday}</span> 생
                         </p>
                     )}
                     {item.dateOfDeath.length > 0 && (
-                        <p title="선종일" className="inline-flex flex-col md:flex-row mt-2 md:mt-0">
-                            <span className={labelCommonClass}>선종일</span>
-                            <span>{item.dateOfDeath}</span>
+                        <p className="" title="선종일">
+                            <span className="shrink">{item.dateOfDeath}</span> 선종
                         </p>
                     )}
                     {item.dateOfDeath.length === 0 && item.currentAssignment.length > 0 && (
-                        <p title="현소임지" className="inline-flex flex-col md:flex-row mt-2 md:mt-0">
-                            <span className={labelCommonClass}>현소임지</span>
-                            <span className="shrink break-keep">{item.currentAssignment}</span>
+                        <p title="현소임지" className="">
+                            <span className="shrink overflow-hidden break-all" >{item.currentAssignment}</span>
                         </p>
                     )}
                 </div>

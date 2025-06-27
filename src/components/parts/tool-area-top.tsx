@@ -24,6 +24,7 @@ export default function ToolAreaTop(props: Props) {
     } = useRosterContext()
 
     const {
+        page,
         perpage,
         search,
         orderby,
@@ -42,32 +43,32 @@ export default function ToolAreaTop(props: Props) {
                 )}
             >
                 <div className="text-sm mt-6 mb-3 ps-1 sm:my-0">
-                    전체 <span>{maxPage ?? 0}</span> 페이지, <span>{total ?? 0}</span> 항목
+                    전체 <span>{maxPage ?? 0}</span> 페이지,
+                    {' '}<span>{total ?? 0}</span> 항목,
+                    {' '}현재 <span>{Math.max(page, 1)}</span> 페이지
                 </div>
-                <div className="flex sm:ms-4">
-                    <div className="">
-                        <label
-                            className={cn(
-                                'input max-w-64',
-                                'focus:outline-0 focus:outline-base-300 focus:outline-offset-0',
-                                'focus-within:outline-0 focus-within:outline-base-300 focus-within:outline-offset-0',
-                            )}
-                        >
-                            명부 검색
-                            <input
-                                className="grow"
-                                onChange={(e) => setSearchText(e.target.value)}
-                                onKeyUp={(e) => {
-                                    if (e.key === 'Enter') {
-                                        onClickSearch?.(searchText)
-                                    }
-                                }}
-                                placeholder="검색어, 이름, ..."
-                                type="search"
-                                value={searchText}
-                            />
-                        </label>
-                    </div>
+                <div className="flex justify-between sm:ms-4">
+                    <label
+                        className={cn(
+                            'input w-full md:w-56',
+                            'focus:outline-0 focus:outline-base-300 focus:outline-offset-0',
+                            'focus-within:outline-0 focus-within:outline-base-300 focus-within:outline-offset-0',
+                        )}
+                    >
+                        명부 검색
+                        <input
+                            className="grow"
+                            onChange={(e) => setSearchText(e.target.value)}
+                            onKeyUp={(e) => {
+                                if (e.key === 'Enter') {
+                                    onClickSearch?.(searchText)
+                                }
+                            }}
+                            placeholder="검색어, 이름, ..."
+                            type="search"
+                            value={searchText}
+                        />
+                    </label>
                     <button
                         className="ms-2 btn btn-neutral"
                         onClick={() => onClickSearch?.(searchText)}
@@ -87,6 +88,7 @@ export default function ToolAreaTop(props: Props) {
                             type: ActionType.SET_SITE_PARAMS,
                             payload: {
                                 ...siteParams,
+                                page: 0,
                                 orderby,
                                 order,
                             },
@@ -113,6 +115,7 @@ export default function ToolAreaTop(props: Props) {
                             type: ActionType.SET_SITE_PARAMS,
                             payload: {
                                 ...siteParams,
+                                page: 0,
                                 perpage,
                             },
                         })
@@ -124,6 +127,28 @@ export default function ToolAreaTop(props: Props) {
                     <option value={50}>50</option>
                     <option value={100}>100</option>
                 </select>
+                {maxPage && maxPage > 0 && (
+                    <select
+                        className="select select-ghost select-md w-fit"
+                        onChange={(e) => {
+                            const page = parseInt((e.target as HTMLSelectElement).value)
+
+                            dispatch({
+                                type: ActionType.SET_SITE_PARAMS,
+                                payload: {
+                                    ...siteParams,
+                                    page,
+                                },
+                            })
+                        }}
+                        value={page}
+                    >
+                        <option disabled={true}>페이지</option>
+                        {Array(maxPage).fill(0).map((_, i) => (
+                            <option key={i} value={i + 1}>{i + 1} 페이지</option>
+                        ))}
+                    </select>
+                )}
             </section>
         </>
 

@@ -29,6 +29,9 @@ export default function Dialog(props: Props) {
         return null
     }
 
+    const headerClass = 'py-1 w-28',
+        valueClass = 'py-1 break-keep'
+
     return (
         <dialog className="modal" open={true}>
             <div className="modal-box max-w-fit max-h-11/12">
@@ -62,31 +65,31 @@ export default function Dialog(props: Props) {
                                 <table className="table" role="presentation">
                                     <tbody>
                                     <tr>
-                                        <th className="py-1" scope="row">이름</th>
-                                        <td className="py-1">{profile.name}</td>
+                                        <th className={headerClass} scope="row">이름</th>
+                                        <td className={valueClass}>{profile.name}</td>
                                     </tr>
                                     <tr>
-                                        <th className="py-1" scope="row">국적</th>
-                                        <td className="py-1">{profile.nationality}</td>
+                                        <th className={headerClass} scope="row">국적</th>
+                                        <td className={valueClass}>{profile.nationality}</td>
                                     </tr>
                                     <tr>
-                                        <th className="py-1" scope="row">세례명(축일)</th>
-                                        <td className="py-1">
+                                        <th className={headerClass} scope="row">세례명(축일)</th>
+                                        <td className={valueClass}>
                                             {profile.baptismalName}
-                                            {profile.nameDay.length > 0 && `(${profile.nameDay})`}
+                                            {profile.nameDay.length > 0 && ` (${profile.nameDay})`}
                                         </td>
                                     </tr>
                                     <tr>
-                                        <th className="py-1" scope="row">수도명</th>
-                                        <td className="py-1">{profile.monasticName}</td>
+                                        <th className={headerClass} scope="row">수도명</th>
+                                        <td className={valueClass}>{profile.monasticName}</td>
                                     </tr>
                                     <tr>
-                                        <th className="py-1" scope="row">현소임지</th>
-                                        <td className="py-1">{profile.currentAssignment}</td>
+                                        <th className={headerClass} scope="row">현소임지</th>
+                                        <td className={valueClass}>{profile.currentAssignment}</td>
                                     </tr>
                                     <tr>
-                                        <th className="py-1" scope="row">비고</th>
-                                        <td className="py-1">
+                                        <th className={headerClass} scope="row">비고</th>
+                                        <td className={valueClass}>
                                             {nl2br(profile.remarks)}
                                         </td>
                                     </tr>
@@ -97,28 +100,28 @@ export default function Dialog(props: Props) {
                                 <table className="table" role="presentation">
                                     <tbody>
                                     <tr>
-                                        <th className="py-1" scope="row">생일</th>
-                                        <td className="py-1">{profile.birthday}</td>
+                                        <th className={headerClass} scope="row">생일</th>
+                                        <td className={valueClass}>{profile.birthday}</td>
                                     </tr>
                                     <tr>
-                                        <th className="py-1" scope="row">입회일</th>
-                                        <td className="py-1">{profile.entranceDate}</td>
+                                        <th className={headerClass} scope="row">입회일</th>
+                                        <td className={valueClass}>{profile.entranceDate}</td>
                                     </tr>
                                     <tr>
-                                        <th className="py-1" scope="row">첫서원일</th>
-                                        <td className="py-1">{profile.initialProfessionDate}</td>
+                                        <th className={headerClass} scope="row">첫서원일</th>
+                                        <td className={valueClass}>{profile.initialProfessionDate}</td>
                                     </tr>
                                     <tr>
-                                        <th className="py-1" scope="row">종신서원일</th>
-                                        <td className="py-1">{profile.perpetualProfessionDate}</td>
+                                        <th className={headerClass} scope="row">종신서원일</th>
+                                        <td className={valueClass}>{profile.perpetualProfessionDate}</td>
                                     </tr>
                                     <tr>
-                                        <th className="py-1" scope="row">서품일</th>
-                                        <td className="py-1">{profile.ordinationDate}</td>
+                                        <th className={headerClass} scope="row">서품일</th>
+                                        <td className={valueClass}>{profile.ordinationDate}</td>
                                     </tr>
                                     <tr>
-                                        <th className="py-1" scope="row">선종일</th>
-                                        <td className="py-1">{profile.dateOfDeath}</td>
+                                        <th className={headerClass} scope="row">선종일</th>
+                                        <td className={valueClass}>{profile.dateOfDeath}</td>
                                     </tr>
                                     </tbody>
                                 </table>

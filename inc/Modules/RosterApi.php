@@ -31,7 +31,7 @@ class RosterApi implements Module
                             return 'desc' === strtolower($param) ? 'desc' : 'asc';
                         },
                         'validate_callback' => function ($param) {
-                            return in_array(strtolower($param), ['asc', 'desc']);
+                            return empty($param) || in_array(strtolower($param), ['asc', 'desc']);
                         },
                     ],
                     'orderby' => [
@@ -40,7 +40,7 @@ class RosterApi implements Module
                             return in_array($param, ['birthday', 'date', 'entrance', 'name']) ? $param : 'entrance';
                         },
                         'validate_callback' => function ($param) {
-                            return in_array($param, ['birthday', 'date', 'entrance', 'name']);
+                            return empty($param) || in_array($param, ['birthday', 'date', 'entrance', 'name']);
                         },
                     ],
                     'page'    => [
@@ -48,7 +48,7 @@ class RosterApi implements Module
                             return max(1, absint($param));
                         },
                         'validate_callback' => function ($param) {
-                            return is_numeric($param);
+                            return empty($param) || is_numeric($param);
                         },
                     ],
                     'perpage' => [
@@ -57,7 +57,7 @@ class RosterApi implements Module
                             return in_array($param, [25, 50, 100], true) ? $param : 50;
                         },
                         'validate_callback' => function ($param) {
-                            return is_numeric($param);
+                            return empty($param) || is_numeric($param);
                         },
                     ],
                     'search'  => [
@@ -94,11 +94,11 @@ class RosterApi implements Module
     {
         $meta = rosterGet(PostMeta::class);
 
-        $order   = $request->get_param('order');
-        $orderby = $request->get_param('orderby');
-        $page    = $request->get_param('page');
-        $perPage = $request->get_param('perpage');
-        $search  = $request->get_param('search');
+        $order   = $request->get_param('order') ?? 'asc';
+        $orderby = $request->get_param('orderby') ?? 'entrance';
+        $page    = $request->get_param('page') ?? 1;
+        $perPage = $request->get_param('perpage') ?? 50;
+        $search  = $request->get_param('search') ??  '';
 
         $args = [
             'order'          => $order,

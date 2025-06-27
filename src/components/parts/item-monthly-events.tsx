@@ -59,7 +59,7 @@ export default function ItemMonthlyEvents(props: Props) {
                         </figure>
                         <div className="list-col-grow">
                             <div
-                                className="text-md font-semibold cursor-pointer hover:text-primary dark:hover:text-accent"
+                                className="text-md font-semibold cursor-pointer hover:text-primary dark:hover:text-accent break-keep"
                                 onClick={() => onClickItem && onClickItem(item)}
                             >
                                 {item.name} {item.baptismalName}

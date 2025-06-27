@@ -55,7 +55,6 @@ export function getThemeName(dark: boolean): string {
     return dark ? 'dark' : 'light'
 }
 
-
 export function getThumbnailImage(profileImage: { [key: string]: ProfileImage }) {
     const {
         state: {
@@ -92,4 +91,11 @@ export function getThumbnailImage(profileImage: { [key: string]: ProfileImage })
             height,
         },
     }
+}
+
+export function scrollToTop() {
+    window.scrollTo({
+        top: 0,
+        behavior: 'smooth',
+    })
 }

@@ -6,13 +6,14 @@ import ToolAreaBottom from '@/components/parts/tool-area-bottom.tsx'
 import ToolAreaTop from '@/components/parts/tool-area-top.tsx'
 import useRosterContext from '@/lib/context'
 import {ActionType} from '@/lib/reducer'
+import {scrollToTop} from '@/lib/utils'
 import {useEffect, useState} from 'react'
 
 export default function Archive() {
     const {
         dispatch,
         state: {
-            siteParams
+            siteParams,
         },
     } = useRosterContext()
 
@@ -67,6 +68,7 @@ export default function Archive() {
                         type: ActionType.SET_SITE_PARAMS,
                         payload: siteParams,
                     })
+                    scrollToTop()
                 }}
             />
             <Dialog
