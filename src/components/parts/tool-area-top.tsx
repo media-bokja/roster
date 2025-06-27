@@ -123,9 +123,9 @@ export default function ToolAreaTop(props: Props) {
                     value={perpage}
                 >
                     <option disabled={true}>항목 수</option>
-                    <option value={25}>25</option>
-                    <option value={50}>50</option>
-                    <option value={100}>100</option>
+                    <option value={25}>25 항목씩</option>
+                    <option value={50}>50 항목씩</option>
+                    <option value={100}>100 항목씩</option>
                 </select>
                 {maxPage && maxPage > 0 && (
                     <select

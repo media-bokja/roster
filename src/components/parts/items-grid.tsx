@@ -27,7 +27,7 @@ export default function ItemsGrid(props: Props) {
         <section
             className={cn(
                 'mt-6 min-h-[360px]',
-                'grid auto-rows-auto gap-x-2 gap-y-2',
+                'grid auto-rows-auto gap-x-2 gap-y-4',
                 'grid-cols-2 sm:grid-cols-4 md:grid-cols-5',
             )}
         >
